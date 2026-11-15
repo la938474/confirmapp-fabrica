@@ -95,7 +95,7 @@ def render(d, n, salida, zoom):
         tmp = f'{d}/esc/tmp_{i}.mp4'
         sh('ffmpeg', '-y', '-v', 'error', '-i', f'{d}/img/{i}.jpg', '-vf',
            f"zoompan=z='1+{zoom}*on/{N}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={N}:s=1080x1920:fps=30,format=yuv420p,"
-           f"fade=in:st=0:d=0.15,fade=out:st={round(D - 0.15, 3)}:d=0.15",
+           + (f"fade=in:st=0:d=0.15," if i else "") + f"fade=out:st={round(D - 0.15, 3)}:d=0.15",  # escena 0 sin fundido: el primer cuadro es la portada
            '-frames:v', str(N), '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '23', '-pix_fmt', 'yuv420p', tmp)
         os.rename(tmp, f'{d}/esc/{i}.mp4')
         sh('ffmpeg', '-y', '-v', 'error', '-i', f'{d}/audio/{i}.wav', '-af', f'adelay=200|200,apad=whole_dur={D}', '-ar', '44100', '-ac', '2', f'{d}/esc/{i}.wav')
@@ -112,6 +112,7 @@ def render(d, n, salida, zoom):
     sh('ffmpeg', '-y', '-v', 'error', '-i', f'{d}/esc/v.mp4', '-i', f'{d}/esc/mix.wav', '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
        '-c:a', 'aac', '-b:a', '128k', '-shortest', '-movflags', '+faststart', tmp)
     os.rename(tmp, salida)
+    shutil.copy(f'{d}/img/0.jpg', salida[:-4] + '.jpg')  # portada = primera escena
 
 
 def git(*a, cwd=R):
@@ -131,7 +132,10 @@ def publicar():
     for i in ids:
         m = json.load(open(f'{S}/{i}.json'))
         shutil.copy(f'{S}/{i}.mp4', f'{C}/videos/{i}.mp4')
-        cola['videos'].append({'id': i, 'video': f'videos/{i}.mp4', 'texto': m['texto'], 'giro': m['giro'], 'gancho': m['gancho']})
+        item = {'id': i, 'video': f'videos/{i}.mp4', 'texto': m['texto'], 'giro': m['giro'], 'gancho': m['gancho'], 'historia': True}
+        if os.path.exists(f'{S}/{i}.jpg'):
+            shutil.copy(f'{S}/{i}.jpg', f'{C}/videos/{i}.jpg'); item['portada'] = f'videos/{i}.jpg'
+        cola['videos'].append(item)
         if not any(h['id'] == i for h in hist):
             hist.append({'id': i, 'fecha': hoy, 'giro': m['giro'], 'gancho': m['gancho'], 'formato': m.get('formato', ''), 'voz': m.get('voz', '')})
     json.dump(cola, open(f'{C}/cola.json', 'w'), ensure_ascii=False, indent=1)
@@ -148,7 +152,8 @@ def publicar():
         git('-c', 'user.name=Fabrica Confirmapp', '-c', 'user.email=noreply@anthropic.com', 'commit', '-qm', f'Videos {hoy}')
     git('-c', 'push.negotiate=true', 'push', 'origin', 'HEAD:main')
     for i in ids:
-        for ext in ('mp4', 'json'): os.remove(f'{S}/{i}.{ext}')
+        for ext in ('mp4', 'json', 'jpg'):
+            if os.path.exists(f'{S}/{i}.{ext}'): os.remove(f'{S}/{i}.{ext}')
     print('Publicados en la cola:', ', '.join(ids))
 
 
