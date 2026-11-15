@@ -92,7 +92,10 @@ def main():
     for g in cola[:a.max]:
         print(f'▶ guion {g["num"]} ({g["personaje"]})', flush=True)
         img = f'{R}/avatar-ia/personajes/{g["personaje"]}.jpg'
-        if not os.path.exists(img): foto(g, img)
+        if not os.path.exists(img):
+            if not (os.environ.get('CF_ACCOUNT_ID') and os.environ.get('CF_API_TOKEN')):
+                print(f'  (sin foto de {g["personaje"]} y sin Cloudflare: lo salto)'); continue
+            foto(g, img)
         tmp = f'{R}/trabajo/avatar-ia/{g["num"]}'; os.makedirs(tmp, exist_ok=True)
         marcas, total = voz(g, f'{tmp}/voz.wav')
         video(img, f'{tmp}/voz.wav', f'{a.salida}/{g["num"]}.mp4', f'{tmp}/st')
