@@ -1,0 +1,26 @@
+[
+ {
+  "id": "2026-11-15-dental-problema",
+  "fecha": "2026-11-15",
+  "giro": "dental",
+  "gancho": "Doctor, ¿sillón vacío por un plantón?",
+  "formato": "problema",
+  "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-15-medico-funcion",
+  "fecha": "2026-11-15",
+  "giro": "medico",
+  "gancho": "Tu WhatsApp agenda citas mientras consultas",
+  "formato": "funcion",
+  "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-15-salon-pov",
+  "fecha": "2026-11-15",
+  "giro": "salon",
+  "gancho": "POV: tus clientas confirman solas",
+  "formato": "pov",
+  "voz": "dora_brillante"
+ }
+]
