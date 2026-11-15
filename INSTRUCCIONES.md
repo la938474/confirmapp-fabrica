@@ -76,7 +76,8 @@ Duración ideal: 15–30 s (3 a 5 escenas). La primera escena es el gancho: cort
 
 ## Pasos de cada día
 1. `git pull` en `main`.
-2. Leer el resumen de Supabase (la liga viene en las instrucciones de la tarea programada) y `historial.json`.
+2. Leer `resumen.json` (lo guarda GitHub cada hora desde Supabase; `leido` dice cuándo) y `historial.json`.
+   Si `resumen.json` no existe o tiene más de 6 horas, se toma como "no se pudo leer".
    - Si `pendientes_por_publicar` es **9 o más**: no hagas videos hoy (ya hay 3 días en fila).
    - Si no: haz **3 videos**.
 3. Elegir giros: alternar; dar más turnos a los giros/ganchos/formatos con más vistas y compartidos en el resumen

@@ -1,0 +1,38 @@
+# Cada hora guarda el resumen de estadísticas de Supabase en resumen.json (rama main),
+# para que la fábrica diaria lo lea sin abrir ligas.
+# Necesita el secreto RESUMEN_URL (Settings → Secrets and variables → Actions).
+name: Resumen de estadísticas
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: resumen
+jobs:
+  resumen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            resumen.json
+          sparse-checkout-cone-mode: false
+      - name: Leer resumen
+        env:
+          RESUMEN_URL: ${{ secrets.RESUMEN_URL }}
+        run: |
+          if [ -z "$RESUMEN_URL" ]; then echo "Falta el secreto RESUMEN_URL"; exit 1; fi
+          curl -fsS --retry 3 --max-time 60 "$RESUMEN_URL" -o nuevo.json
+          python3 - <<'PY'
+          import json, datetime
+          d = json.load(open('nuevo.json'))
+          json.dump({'leido': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'), 'resumen': d},
+                    open('resumen.json', 'w'), ensure_ascii=False, indent=1)
+          PY
+      - name: Guardar
+        run: |
+          git config user.name "Fabrica Confirmapp"; git config user.email noreply@anthropic.com
+          git add resumen.json
+          git commit -qm "Resumen de estadísticas" || exit 0
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
