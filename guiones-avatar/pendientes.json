@@ -1,10 +1,73 @@
 [
- {"num": 1, "id": "avatar-dental-recepcionista", "giro": "dental", "gancho": "¿Todavía confirmas las citas de mañana una por una?",
-  "texto": "¿Sigues confirmando citas a mano? 🦷 Así se ve con Confirmapp.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#dentista #consultoriodental #citas #confirmapp"},
- {"num": 2, "id": "avatar-salon-estilista", "giro": "salon", "gancho": "POV: estás pintando un cabello y no puedes contestar",
-  "texto": "POV: tus clientas agendan sin llamarte 💅\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#salondebelleza #estilista #citas #confirmapp"},
- {"num": 3, "id": "avatar-psico-terapeuta", "giro": "psicologia", "gancho": "Si das terapia, sabes lo incómodo que es confirmar",
-  "texto": "Que tus pacientes confirmen solos 🧠 Funciona con Google Calendar u Outlook.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#psicologia #psicologo #terapia #confirmapp"},
- {"num": 4, "id": "avatar-medico-confirchat", "giro": "medico", "gancho": "¿Quién contesta tu WhatsApp mientras consultas?",
-  "texto": "Tu WhatsApp agenda citas mientras tú consultas 🩺\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#medico #consultorio #citasmedicas #confirmapp"}
+ {
+  "num": 1,
+  "id": "avatar-dental-recepcionista",
+  "giro": "dental",
+  "gancho": "¿Todavía confirmas las citas de mañana una por una?",
+  "texto": "¿Sigues confirmando citas a mano? 🦷 Así se ve con Confirmapp.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#dentista #consultoriodental #citas #confirmapp",
+  "capturas": [
+   {
+    "img": "k_gcal",
+    "desde": 3.2,
+    "hasta": 16.0
+   }
+  ]
+ },
+ {
+  "num": 2,
+  "id": "avatar-salon-estilista",
+  "giro": "salon",
+  "gancho": "POV: estás pintando un cabello y no puedes contestar",
+  "texto": "POV: tus clientas agendan sin llamarte 💅\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#salondebelleza #estilista #citas #confirmapp",
+  "capturas": [
+   {
+    "img": "m_pAutoMenu",
+    "desde": 4.0,
+    "hasta": 8.9
+   },
+   {
+    "img": "k_gcal",
+    "desde": 8.9,
+    "hasta": 14.4
+   }
+  ]
+ },
+ {
+  "num": 3,
+  "id": "avatar-psico-terapeuta",
+  "giro": "psicologia",
+  "gancho": "Si das terapia, sabes lo incómodo que es confirmar",
+  "texto": "Que tus pacientes confirmen solos 🧠 Funciona con Google Calendar u Outlook.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#psicologia #psicologo #terapia #confirmapp",
+  "capturas": [
+   {
+    "img": "k_gcal",
+    "desde": 5.0,
+    "hasta": 11.7
+   },
+   {
+    "img": "05_google",
+    "desde": 11.7,
+    "hasta": 15.4
+   }
+  ]
+ },
+ {
+  "num": 4,
+  "id": "avatar-medico-confirchat",
+  "giro": "medico",
+  "gancho": "¿Quién contesta tu WhatsApp mientras consultas?",
+  "texto": "Tu WhatsApp agenda citas mientras tú consultas 🩺\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#medico #consultorio #citasmedicas #confirmapp",
+  "capturas": [
+   {
+    "img": "k_chat",
+    "desde": 3.4,
+    "hasta": 9.7
+   },
+   {
+    "img": "k_gcal",
+    "desde": 9.7,
+    "hasta": 12.1
+   }
+  ]
+ }
 ]

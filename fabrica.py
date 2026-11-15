@@ -116,6 +116,25 @@ def render(d, n, salida, zoom):
     shutil.copy(f'{d}/img/0.jpg', salida[:-4] + '.jpg')  # portada = primera escena
 
 
+def telefono(cap, salida, ancho=420):
+    """Captura real de la app dentro de un celular (bisel, esquinas redondeadas y sombra), PNG con transparencia."""
+    from PIL import Image, ImageDraw, ImageFilter
+    im = Image.open(cap).convert('RGB'); b = 18
+    w = ancho - 2 * b; h = round(im.height * w / im.width)
+    im = im.resize((w, h), Image.LANCZOS)
+    W, H, pad = ancho, h + 2 * b, 40
+    lienzo = Image.new('RGBA', (W + 2 * pad, H + 2 * pad), (0, 0, 0, 0))
+    sombra = Image.new('L', lienzo.size, 0)
+    ImageDraw.Draw(sombra).rounded_rectangle((pad, pad + 12, pad + W, pad + H + 12), 64, fill=150)
+    lienzo.putalpha(sombra.filter(ImageFilter.GaussianBlur(18)))
+    cuerpo = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(cuerpo).rounded_rectangle((0, 0, W - 1, H - 1), 64, fill=(18, 18, 20, 255))
+    m = Image.new('L', (w, h), 0); ImageDraw.Draw(m).rounded_rectangle((0, 0, w - 1, h - 1), 48, fill=255)
+    cuerpo.paste(im, (b, b), m)
+    lienzo.alpha_composite(cuerpo, (pad, pad))
+    lienzo.save(salida)
+
+
 def avatares():
     """Videos de avatar IA subidos a avatar/ (nombre empieza con el número del guion en guiones-avatar/pendientes.json)."""
     P = f'{R}/guiones-avatar/pendientes.json'
@@ -129,10 +148,20 @@ def avatares():
         if not g: print('✗', f, '→ no hay guion pendiente con ese número'); continue
         hoy = datetime.date.today().isoformat()
         vid = f"{hoy}-{g['id']}"; out = f'{R}/salida/{vid}.mp4'
+        caps = g.get('capturas', [])
+        ent, filtro = [], f'[0:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2,fps=30,format=yuv420p[b0]'
+        for k, c in enumerate(caps):
+            png = f'{R}/salida/_tel{k}.png'
+            telefono(f'{A}/giros/{GIROS[g["giro"]]["capturas"]}/{c["img"]}.jpg', png); ent += ['-loop', '1', '-i', png]
+            a, z = c['desde'], c['hasta']
+            # entra deslizándose desde abajo (0.3 s) y se queda a la derecha, sobre el pecho del avatar
+            filtro += (f";[b{k}][{k + 1}:v]overlay=x=W-w+20:y='if(lt(t,{a}+0.3),H-(h+200)*(t-{a})/0.3,H-h-200)'"
+                       f":enable='between(t,{a},{z})':shortest=1[b{k + 1}]")
         etiqueta = "drawtext=text='Escena recreada con IA':font='DejaVu Sans':fontsize=34:fontcolor=white@0.9:box=1:boxcolor=black@0.45:boxborderw=12:x=(w-tw)/2:y=150"
-        sh('ffmpeg', '-y', '-v', 'error', '-i', f'{R}/avatar/{f}', '-vf',
-           f'scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2,fps=30,format=yuv420p,{etiqueta}',
+        filtro += f';[b{len(caps)}]{etiqueta}[v]'
+        sh('ffmpeg', '-y', '-v', 'error', '-i', f'{R}/avatar/{f}', *ent, '-filter_complex', filtro, '-map', '[v]', '-map', '0:a',
            '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '21', '-c:a', 'aac', '-b:a', '128k', '-ar', '44100', '-movflags', '+faststart', out)
+        for k in range(len(caps)): os.remove(f'{R}/salida/_tel{k}.png')
         sh('ffmpeg', '-y', '-v', 'error', '-ss', '0.5', '-i', out, '-frames:v', '1', '-q:v', '3', out[:-4] + '.jpg')
         json.dump({**{k: g[k] for k in ('giro', 'gancho', 'texto')}, 'formato': 'avatar', 'voz': 'avatar'},
                   open(f'{R}/salida/{vid}.json', 'w'), ensure_ascii=False)
