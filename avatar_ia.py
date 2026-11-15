@@ -64,8 +64,12 @@ def voz(g, ruta):
 
 def video(img, wav, salida, tmp):
     os.makedirs(tmp, exist_ok=True)
-    sh(PY_ST, 'inference.py', '--driven_audio', wav, '--source_image', img, '--result_dir', tmp,
-       '--still', '--preprocess', 'full', '--enhancer', 'gfpgan', '--cpu', '--batch_size', '4', cwd=ST)
+    from PIL import Image
+    chica = f'{tmp}/foto.jpg'  # 576x1024 basta para el celular y acelera mucho en CPU
+    Image.open(img).convert('RGB').resize((576, 1024), Image.LANCZOS).save(chica, quality=95)
+    mejora = ['--enhancer', 'gfpgan'] if os.environ.get('AVATAR_MEJORA') == '1' else []
+    sh(PY_ST, '-u', 'inference.py', '--driven_audio', wav, '--source_image', chica, '--result_dir', tmp,
+       '--still', '--preprocess', 'full', *mejora, '--cpu', '--batch_size', '8', cwd=ST)
     mp4 = sorted((os.path.join(dp, f) for dp, _, fs in os.walk(tmp) for f in fs if f.endswith('.mp4')), key=os.path.getmtime)[-1]
     # SadTalker devuelve audio en 16 kHz; lo volvemos a pegar en buena calidad
     sh('ffmpeg', '-y', '-v', 'error', '-i', mp4, '-c:v', 'libx264', '-crf', '20', '-pix_fmt', 'yuv420p',
