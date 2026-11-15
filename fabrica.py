@@ -1,6 +1,7 @@
 """Fábrica de videos Confirmapp.
 
   python3 fabrica.py hacer guiones/AAAA-MM-DD.json   → valida y arma los videos en salida/
+  python3 fabrica.py avatares                        → toma los .mp4 de avatar/, los prepara y los deja en salida/
   python3 fabrica.py publicar                        → sube salida/ a la rama "cola" (Supabase la importa sola)
                                                        y anota los ganchos en historial.json
 """
@@ -115,6 +116,34 @@ def render(d, n, salida, zoom):
     shutil.copy(f'{d}/img/0.jpg', salida[:-4] + '.jpg')  # portada = primera escena
 
 
+def avatares():
+    """Videos de avatar IA subidos a avatar/ (nombre empieza con el número del guion en guiones-avatar/pendientes.json)."""
+    P = f'{R}/guiones-avatar/pendientes.json'
+    pend = json.load(open(P)) if os.path.exists(P) else []
+    os.makedirs(f'{R}/salida', exist_ok=True)
+    hechos = []
+    for f in sorted(os.listdir(f'{R}/avatar')):
+        m = re.match(r'(\d+)', f)
+        if not f.lower().endswith('.mp4') or not m: continue
+        g = next((x for x in pend if x['num'] == int(m.group(1))), None)
+        if not g: print('✗', f, '→ no hay guion pendiente con ese número'); continue
+        hoy = datetime.date.today().isoformat()
+        vid = f"{hoy}-{g['id']}"; out = f'{R}/salida/{vid}.mp4'
+        etiqueta = "drawtext=text='Escena recreada con IA':font='DejaVu Sans':fontsize=34:fontcolor=white@0.9:box=1:boxcolor=black@0.45:boxborderw=12:x=(w-tw)/2:y=150"
+        sh('ffmpeg', '-y', '-v', 'error', '-i', f'{R}/avatar/{f}', '-vf',
+           f'scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2,fps=30,format=yuv420p,{etiqueta}',
+           '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '21', '-c:a', 'aac', '-b:a', '128k', '-ar', '44100', '-movflags', '+faststart', out)
+        sh('ffmpeg', '-y', '-v', 'error', '-ss', '0.5', '-i', out, '-frames:v', '1', '-q:v', '3', out[:-4] + '.jpg')
+        json.dump({**{k: g[k] for k in ('giro', 'gancho', 'texto')}, 'formato': 'avatar', 'voz': 'avatar'},
+                  open(f'{R}/salida/{vid}.json', 'w'), ensure_ascii=False)
+        git('rm', '-q', f'avatar/{f}'); pend.remove(g); hechos.append(vid)
+        print('✓', vid, round(dur(out), 1), 's', flush=True)
+    if hechos:
+        json.dump(pend, open(P, 'w'), ensure_ascii=False, indent=1); git('add', P)
+    else:
+        print('No hay videos de avatar nuevos.')
+
+
 def git(*a, cwd=R):
     return subprocess.run(['git', *a], cwd=cwd, check=True, capture_output=True, text=True).stdout
 
@@ -147,7 +176,7 @@ def publicar():
     git('push', '-f', remoto, 'cola', cwd=C)
     # Historial en main
     json.dump(hist, open(hist_f, 'w'), ensure_ascii=False, indent=1)
-    git('add', 'historial.json', 'guiones')
+    git('add', '-A', 'historial.json', 'guiones', 'guiones-avatar', 'avatar')
     if git('status', '--porcelain').strip():
         git('-c', 'user.name=Fabrica Confirmapp', '-c', 'user.email=noreply@anthropic.com', 'commit', '-qm', f'Videos {hoy}')
     git('-c', 'push.negotiate=true', 'push', 'origin', 'HEAD:main')
@@ -160,4 +189,5 @@ def publicar():
 if __name__ == '__main__':
     if len(sys.argv) >= 3 and sys.argv[1] == 'hacer': hacer(sys.argv[2])
     elif len(sys.argv) >= 2 and sys.argv[1] == 'publicar': publicar()
+    elif len(sys.argv) >= 2 and sys.argv[1] == 'avatares': avatares()
     else: print(__doc__)

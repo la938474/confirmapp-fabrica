@@ -86,6 +86,15 @@ Duración ideal: 15–30 s (3 a 5 escenas). La primera escena es el gancho: cort
 4. Escribir `guiones/AAAA-MM-DD.json` y correr `python3 fabrica.py hacer guiones/AAAA-MM-DD.json`
    (si marca errores, corregir el guion y repetir).
 5. Revisar al menos una imagen de cada video en `trabajo/<id>/img/` (que el texto no se salga ni se encime).
+5b. `python3 fabrica.py avatares` (videos de avatar IA que Luis sube a `avatar/`; se corre **todos los días**,
+    aunque hoy no toque hacer videos).
 6. `python3 fabrica.py publicar` (sube a `cola`, guarda historial y guion en `main`).
 7. Los **lunes**: mandar a Luis un resumen corto en español: top 3 videos de la semana (vistas, compartidos),
    qué estilo pegó más, cuántos videos hay en fila y cualquier error de publicación.
+
+## Videos con avatar IA
+- Guiones en `guiones-avatar/` (tabla para Luis) y `guiones-avatar/pendientes.json` (número, id, giro, gancho, caption).
+- El avatar **demuestra** la app ("mira", "te enseño", "así se ve"). Nunca dice que es cliente real, ni nombra un negocio,
+  ni promete resultados. Caption siempre con "🤖 Escena recreada con IA"; `avatares` le pone la misma leyenda en pantalla.
+- Si hay menos de 2 guiones en `pendientes.json`, escribe 4 nuevos (uno por giro principal), en tabla `guiones-avatar/AAAA-MM-DD.md`
+  y agrégalos a `pendientes.json` con números nuevos que no se repitan.
