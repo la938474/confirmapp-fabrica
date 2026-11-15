@@ -1,0 +1,29 @@
+[
+ {"id":"2026-11-15-dental-problema","giro":"dental","formato":"problema","voz":"alex_grave","velocidad":1.12,
+  "gancho":"Doctor, ¿sillón vacío por un plantón?",
+  "texto":"¿Otra vez el sillón vacío porque el paciente no llegó? 🦷\nCon Confirmapp tus pacientes confirman por WhatsApp un día antes y si cancelan, te enteras a tiempo.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n#dentista #odontologia #consultoriodental #citas #confirmapp",
+  "escenas":[
+   {"img":"HOOK","e":"🪑","t":"¿Sillón vacío por un <mark>plantón</mark>?","s":"Doctor, esto es para ti 👇","v":"Doctor, ¿otra vez el sillón vacío porque el paciente no llegó?"},
+   {"img":"k_gcal","t":"Confirman <mark>un día antes</mark> ✅","s":"✅ confirmó · 🟡 espera · ❎ canceló","v":"Con Confirm ap, tus pacientes confirman por guatsap un día antes, y en tu calendario ves quién viene."},
+   {"img":"FRASE","t":"¿Alguien cancela? <mark>Te enteras a tiempo</mark>","s":"Y le das ese horario a otro paciente","v":"Y si alguien cancela, te enteras a tiempo, para darle ese horario a otro paciente."},
+   {"img":"CTA","v":"Pruébalo siete días gratis, en confirm ap punto com punto eme equis."}
+  ]},
+ {"id":"2026-11-15-salon-pov","giro":"salon","formato":"pov","voz":"dora_brillante","velocidad":1.14,
+  "gancho":"POV: tus clientas confirman solas",
+  "texto":"POV: ya no persigues a nadie para confirmar su cita 💇‍♀️✨\nTus clientas confirman solas por WhatsApp.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n#salondebelleza #estilista #belleza #citas #confirmapp",
+  "escenas":[
+   {"img":"FRASE","t":"POV: ya no le escribes a <mark>cada clienta</mark> para confirmar 💅","v":"Imagina que ya no tienes que escribirle a cada clienta para confirmar su cita."},
+   {"img":"k_gcal","t":"Confirman <mark>solas</mark> ✅","s":"Les llega un WhatsApp un día antes","v":"Confirm ap les manda un guatsap un día antes, y ellas confirman con un toque."},
+   {"img":"m_pAutoMenu","t":"Y agendan <mark>sin llamarte</mark>","s":"Con tu link de Autoagenda","v":"Y con tu link de Autoagenda, eligen su horario sin tener que llamarte."},
+   {"img":"CTA","v":"Pruébalo siete días gratis, en confirm ap punto com punto eme equis."}
+  ]},
+ {"id":"2026-11-15-medico-funcion","giro":"medico","formato":"funcion","voz":"dora_brillante","velocidad":1.12,
+  "gancho":"Tu WhatsApp agenda citas mientras consultas",
+  "texto":"¿Te escriben para agendar mientras estás en consulta? 🩺\nConfirChat IA contesta tu WhatsApp y agenda por ti, a cualquier hora.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n#medico #consultorio #doctor #citasmedicas #confirmapp",
+  "escenas":[
+   {"img":"HOOK","e":"🤖","t":"Tu WhatsApp agenda citas <mark>mientras consultas</mark>","s":"Sí, solo","v":"Doctor, ¿y si tu guatsap agendara citas mientras tú estás en consulta?"},
+   {"img":"k_chat","t":"ConfirChat IA <mark>contesta por ti</mark>","s":"Ve tus horarios libres y agenda","v":"Confirchat i a contesta a tus pacientes, ve tus horarios libres, y les agenda la cita."},
+   {"img":"LISTA","t":"Y además…","s":"Recordatorio un día antes|Ves quién confirmó|Funciona con Google u Outlook","v":"Además les recuerda su cita un día antes, ves quién confirmó, y funciona con Gúgol o Áutluk."},
+   {"img":"CTA","v":"Pruébalo siete días gratis, en confirm ap punto com punto eme equis."}
+  ]}
+]

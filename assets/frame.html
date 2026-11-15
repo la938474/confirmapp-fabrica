@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{--c:#0ca678;--c2:#c3fae8;--c3:#087f5b;--bg:#06302c}
+*{box-sizing:border-box;margin:0}
+body{width:1080px;height:1920px;overflow:hidden;font-family:Inter,system-ui,sans-serif;color:#fff;
+background:radial-gradient(1100px 800px at 85% -5%,var(--c),transparent 65%),radial-gradient(900px 700px at -10% 105%,#7048e8aa,transparent 60%),linear-gradient(170deg,var(--bg),#0d2233 60%,#0a1420)}
+.marca{position:absolute;top:64px;left:70px;display:flex;align-items:center;gap:14px;font-size:34px;font-weight:900}.marca img{width:56px;height:56px;border-radius:14px}
+.paso{position:absolute;top:66px;right:70px;background:var(--c2);color:var(--c3);font-weight:900;font-size:30px;padding:10px 24px;border-radius:999px}
+.txt{position:absolute;top:170px;left:70px;right:70px}
+h1{font-size:76px;line-height:1.04;font-weight:900;letter-spacing:-.01em}
+p{font-size:40px;color:var(--c2);font-weight:700;margin-top:16px}
+.tel{position:absolute;left:170px;right:170px;top:520px;height:1330px;border-radius:70px;background:#0b0f19;padding:20px;box-shadow:0 40px 80px #0008,0 0 0 4px #ffffff22}
+.tel div{width:100%;height:100%;border-radius:52px;overflow:hidden;background:#fff}.tel img{width:100%;display:block}
+.cen{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 80px;gap:36px}
+.cen .e{font-size:220px;line-height:1}.cen h1{font-size:100px}.cen p{font-size:46px}
+mark{background:var(--c2);color:var(--c3);padding:0 14px;border-radius:16px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.cta img{width:200px;height:200px;border-radius:46px}.url{background:#fff;color:#13183a;font-size:62px;font-weight:900;padding:22px 44px;border-radius:28px}
+.ref{font-size:40px;font-weight:800;background:#ffffff1f;border-radius:22px;padding:16px 28px}
+.lista{position:absolute;top:150px;bottom:80px;left:80px;right:80px;display:flex;flex-direction:column;justify-content:center}.lista h1{font-size:90px;margin-bottom:60px}
+.lista li{list-style:none;display:flex;gap:30px;align-items:flex-start;font-size:56px;font-weight:800;line-height:1.15;margin-bottom:48px;background:#ffffff14;border-radius:32px;padding:34px 36px}
+.lista b{flex:none;width:84px;height:84px;border-radius:50%;background:var(--c2);color:var(--c3);display:grid;place-items:center;font-size:48px}
+.frase{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 90px;gap:40px}
+.frase h1{font-size:112px;line-height:1.05}.frase p{font-size:50px}
+</style></head><body><div id="r"></div><script>
+const q=new URLSearchParams(location.search),img=q.get("img"),t=q.get("t")||"",s=q.get("s")||"",n=q.get("n")||"",e=q.get("e")||"";
+for(const k of ["c","c2","c3","bg"]) if(q.get(k)) document.documentElement.style.setProperty("--"+k,q.get(k));
+const marca=`<div class="marca"><img src="icon-192.png">Confirmapp</div>`;
+const R=document.getElementById("r");
+if(img==="HOOK") R.innerHTML=marca+`<div class="cen"><div class="e">${e}</div><h1>${t}</h1><p>${s}</p></div>`;
+else if(img==="FRASE") R.innerHTML=marca+`<div class="frase"><h1>${t}</h1>${s?`<p>${s}</p>`:""}</div>`;
+else if(img==="LISTA") R.innerHTML=marca+`<div class="lista"><h1>${t}</h1><ul>${s.split("|").map((x,i)=>`<li><b>${i+1}</b><span>${x}</span></li>`).join("")}</ul></div>`;
+else if(img==="CTA") R.innerHTML=`<div class="cen cta"><img src="icon-192.png"><h1>7 días<br><mark>GRATIS</mark> 🎁</h1><p>${s||"Con Outlook o Google · sin tarjeta"}</p><div class="url">confirmapp.com.mx</div><div class="ref">🤝 Con código de un colega: +7 días</div></div>`;
+else R.innerHTML=marca+(n?`<span class="paso">${n}</span>`:"")+`<div class="txt"><h1>${t}</h1>${s?`<p>${s}</p>`:""}</div><div class="tel"><div><img src="cap/${img}.jpg"></div></div>`;
+</script></body></html>

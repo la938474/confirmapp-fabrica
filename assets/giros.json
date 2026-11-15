@@ -1,0 +1,290 @@
+{
+ "medico": {
+  "nombre": "Consultorio médico",
+  "emoji": "🩺",
+  "cliente": "paciente",
+  "clientes": "pacientes",
+  "ocupado": "aunque estés en consulta",
+  "servicios": [
+   "Consulta general",
+   "Revisión de estudios",
+   "Chequeo anual",
+   "Seguimiento"
+  ],
+  "color": "#1971c2",
+  "c2": "#d0ebff",
+  "c3": "#1864ab",
+  "bg": "#0b2540",
+  "capturas": "medico"
+ },
+ "psicologia": {
+  "nombre": "Psicólogos",
+  "emoji": "🧠",
+  "cliente": "paciente",
+  "clientes": "pacientes",
+  "ocupado": "aunque estés en sesión",
+  "servicios": [
+   "Terapia individual",
+   "Primera consulta",
+   "Terapia de pareja",
+   "Seguimiento"
+  ],
+  "color": "#7048e8",
+  "c2": "#e5dbff",
+  "c3": "#5f3dc4",
+  "bg": "#1c1238",
+  "capturas": "psicologia"
+ },
+ "nutricion": {
+  "nombre": "Nutriólogos",
+  "emoji": "🥗",
+  "cliente": "paciente",
+  "clientes": "pacientes",
+  "ocupado": "aunque estés en consulta",
+  "servicios": [
+   "Plan de alimentación",
+   "Primera consulta",
+   "Control de peso",
+   "Seguimiento"
+  ],
+  "color": "#5c940d",
+  "c2": "#e9fac8",
+  "c3": "#5c940d",
+  "bg": "#16260a",
+  "capturas": "nutricion"
+ },
+ "salon": {
+  "nombre": "Salón de belleza",
+  "emoji": "💇‍♀️",
+  "cliente": "clienta",
+  "clientes": "clientas",
+  "ocupado": "aunque estés atendiendo a una clienta",
+  "servicios": [
+   "Corte y tinte",
+   "Uñas en gel",
+   "Alaciado",
+   "Peinado"
+  ],
+  "color": "#c2255c",
+  "c2": "#ffdeeb",
+  "c3": "#a61e4d",
+  "bg": "#3b0d2a",
+  "capturas": "salon"
+ },
+ "unas": {
+  "nombre": "Estudio de uñas",
+  "emoji": "💅",
+  "cliente": "clienta",
+  "clientes": "clientas",
+  "ocupado": "aunque estés haciendo uñas",
+  "servicios": [
+   "Uñas acrílicas",
+   "Gelish",
+   "Retiro y aplicación",
+   "Pedicure"
+  ],
+  "color": "#e64980",
+  "c2": "#ffe3ec",
+  "c3": "#c2255c",
+  "bg": "#3a0f24",
+  "capturas": "unas"
+ },
+ "spa": {
+  "nombre": "Spa",
+  "emoji": "🧖‍♀️",
+  "cliente": "cliente",
+  "clientes": "clientes",
+  "ocupado": "aunque estés dando un masaje",
+  "servicios": [
+   "Masaje relajante",
+   "Facial",
+   "Masaje descontracturante",
+   "Paquete en pareja"
+  ],
+  "color": "#0c8599",
+  "c2": "#c5f6fa",
+  "c3": "#0b7285",
+  "bg": "#082a30",
+  "capturas": "spa"
+ },
+ "tatuaje": {
+  "nombre": "Estudio de tatuaje",
+  "emoji": "✒️",
+  "cliente": "cliente",
+  "clientes": "clientes",
+  "ocupado": "aunque estés tatuando",
+  "servicios": [
+   "Sesión de tatuaje",
+   "Cotización",
+   "Retoque",
+   "Diseño fine line"
+  ],
+  "color": "#495057",
+  "c2": "#e9ecef",
+  "c3": "#212529",
+  "bg": "#141518",
+  "capturas": "tatuaje"
+ },
+ "canina": {
+  "nombre": "Estética canina",
+  "emoji": "🐶",
+  "cliente": "cliente",
+  "clientes": "clientes",
+  "ocupado": "aunque estés bañando a un perrito",
+  "servicios": [
+   "Baño y corte (Max)",
+   "Baño (Luna)",
+   "Corte de uñas (Rocky)",
+   "Spa canino (Toby)"
+  ],
+  "color": "#e8590c",
+  "c2": "#ffe8cc",
+  "c3": "#d9480f",
+  "bg": "#2e1606",
+  "capturas": "canina"
+ },
+ "tutor": {
+  "nombre": "Tutores y clases",
+  "emoji": "📚",
+  "cliente": "alumno",
+  "clientes": "alumnos",
+  "ocupado": "aunque estés dando clase",
+  "servicios": [
+   "Clase de matemáticas",
+   "Inglés",
+   "Regularización",
+   "Preparación de examen"
+  ],
+  "color": "#f08c00",
+  "c2": "#fff3bf",
+  "c3": "#e67700",
+  "bg": "#2b1d03",
+  "capturas": "tutor"
+ },
+ "entrenador": {
+  "nombre": "Entrenadores",
+  "emoji": "🏋️",
+  "cliente": "cliente",
+  "clientes": "clientes",
+  "ocupado": "aunque estés entrenando a alguien",
+  "servicios": [
+   "Entrenamiento personal",
+   "Evaluación física",
+   "Funcional",
+   "Rutina en pareja"
+  ],
+  "color": "#e03131",
+  "c2": "#ffe3e3",
+  "c3": "#c92a2a",
+  "bg": "#2e0b0b",
+  "capturas": "entrenador"
+ },
+ "consultor": {
+  "nombre": "Consultores, abogados y contadores",
+  "emoji": "💼",
+  "cliente": "cliente",
+  "clientes": "clientes",
+  "ocupado": "aunque estés en una junta",
+  "servicios": [
+   "Asesoría fiscal",
+   "Primera reunión",
+   "Revisión de contrato",
+   "Seguimiento"
+  ],
+  "color": "#364fc7",
+  "c2": "#dbe4ff",
+  "c3": "#364fc7",
+  "bg": "#0f1636",
+  "capturas": "consultor"
+ },
+ "otro": {
+  "nombre": "Cualquier negocio con citas",
+  "emoji": "✨",
+  "cliente": "cliente",
+  "clientes": "clientes",
+  "ocupado": "aunque estés ocupado",
+  "servicios": [
+   "Cita",
+   "Primera visita",
+   "Servicio",
+   "Seguimiento"
+  ],
+  "color": "#0ca678",
+  "c2": "#c3fae8",
+  "c3": "#087f5b",
+  "bg": "#06302c",
+  "capturas": "otro"
+ },
+ "barberia": {
+  "nombre": "Barbería",
+  "emoji": "💈",
+  "cliente": "cliente",
+  "clientes": "clientes",
+  "ocupado": "aunque estés cortando el pelo",
+  "servicios": [
+   "Corte y barba",
+   "Fade",
+   "Afeitado clásico",
+   "Corte infantil"
+  ],
+  "color": "#1864ab",
+  "c2": "#ffe3e3",
+  "c3": "#c92a2a",
+  "bg": "#0d1424",
+  "capturas": "barberia"
+ },
+ "veterinaria": {
+  "nombre": "Veterinaria",
+  "emoji": "🐾",
+  "cliente": "cliente",
+  "clientes": "clientes",
+  "ocupado": "aunque estés en consulta",
+  "servicios": [
+   "Vacuna (Max)",
+   "Consulta (Luna)",
+   "Desparasitación (Rocky)",
+   "Revisión (Toby)"
+  ],
+  "color": "#2f9e44",
+  "c2": "#d3f9d8",
+  "c3": "#2b8a3e",
+  "bg": "#0b2614",
+  "capturas": "veterinaria"
+ },
+ "dental": {
+  "nombre": "Dentistas",
+  "emoji": "🦷",
+  "cliente": "paciente",
+  "clientes": "pacientes",
+  "ocupado": "aunque estés atendiendo",
+  "servicios": [
+   "Limpieza",
+   "Resina",
+   "Ortodoncia",
+   "Valoración"
+  ],
+  "color": "#0ca678",
+  "c2": "#c3fae8",
+  "c3": "#087f5b",
+  "bg": "#06302c",
+  "capturas": "dental"
+ },
+ "especialista_dental": {
+  "nombre": "Especialistas dentales (orto, endo, implantes)",
+  "emoji": "😁",
+  "cliente": "paciente",
+  "clientes": "pacientes",
+  "ocupado": "aunque estés atendiendo",
+  "servicios": [
+   "Limpieza",
+   "Resina",
+   "Ortodoncia",
+   "Valoración"
+  ],
+  "color": "#0ca678",
+  "c2": "#c3fae8",
+  "c3": "#087f5b",
+  "bg": "#06302c",
+  "capturas": "dental"
+ }
+}
