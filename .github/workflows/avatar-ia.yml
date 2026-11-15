@@ -13,6 +13,10 @@ on:
         description: 'Solo probar (no lo manda a publicar)'
         type: boolean
         default: false
+      corta:
+        description: 'Prueba corta (solo la primera frase, para medir tiempo)'
+        type: boolean
+        default: false
 permissions:
   contents: write
 concurrency: avatar-ia
@@ -74,6 +78,8 @@ jobs:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           SADTALKER: /home/runner/SadTalker
           SADTALKER_PY: /home/runner/st-venv/bin/python
+          AVATAR_CORTA: ${{ inputs.corta && '1' || '0' }}
+          AVATAR_LIMITE: ${{ inputs.corta && '20m' || '150m' }}
         run: |
           ARGS="--max 2"
           [ -n "${{ inputs.num }}" ] && ARGS="$ARGS --num ${{ inputs.num }}"

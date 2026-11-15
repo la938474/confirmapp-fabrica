@@ -47,7 +47,8 @@ def voz(g, ruta):
     sys.path.insert(0, f'{R}/tts'); sys.path.insert(0, R)
     import kok, fabrica
     partes = []
-    for i, t in enumerate(g['frases']):
+    frases = g['frases'][:1] if os.environ.get('AVATAR_CORTA') == '1' else g['frases']
+    for i, t in enumerate(frases):
         raw = f'{ruta}.{i}.raw.wav'; f = f'{ruta}.{i}.wav'
         kok.guardar(kok.decir(t, g.get('voz', 'dora_brillante'), float(g.get('velocidad', 1.08))), raw)
         sh('ffmpeg', '-y', '-v', 'error', '-i', raw, '-af', fabrica.FILTRO_VOZ + ',apad=pad_dur=0.35', '-ar', '16000', '-ac', '1', f)
@@ -68,7 +69,8 @@ def video(img, wav, salida, tmp):
     chica = f'{tmp}/foto.jpg'  # 576x1024 basta para el celular y acelera mucho en CPU
     Image.open(img).convert('RGB').resize((576, 1024), Image.LANCZOS).save(chica, quality=95)
     mejora = ['--enhancer', 'gfpgan'] if os.environ.get('AVATAR_MEJORA') == '1' else []
-    sh(PY_ST, '-u', 'inference.py', '--driven_audio', wav, '--source_image', chica, '--result_dir', tmp,
+    lim = os.environ.get('AVATAR_LIMITE', '150m')  # para que nunca se quede colgado sin dejar registro
+    sh('timeout', lim, PY_ST, '-u', 'inference.py', '--driven_audio', wav, '--source_image', chica, '--result_dir', tmp,
        '--still', '--preprocess', 'full', *mejora, '--cpu', '--batch_size', '8', cwd=ST)
     mp4 = sorted((os.path.join(dp, f) for dp, _, fs in os.walk(tmp) for f in fs if f.endswith('.mp4')), key=os.path.getmtime)[-1]
     # SadTalker devuelve audio en 16 kHz; lo volvemos a pegar en buena calidad
