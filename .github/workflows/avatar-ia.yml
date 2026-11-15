@@ -91,6 +91,11 @@ jobs:
         with:
           name: prueba-avatar
           path: prueba/
+      - name: Subir prueba a la rama "pruebas"
+        if: steps.hay.outputs.si == '1' && inputs.prueba
+        run: |
+          cd prueba && git init -q -b pruebas && git add . && git -c user.name="Fabrica Confirmapp" -c user.email=noreply@anthropic.com commit -qm "Prueba avatar IA"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" pruebas
       - name: Guardar en el repositorio
         if: steps.hay.outputs.si == '1' && !inputs.prueba
         run: |
