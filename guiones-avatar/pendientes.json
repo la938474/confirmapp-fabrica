@@ -11,6 +11,22 @@
     "desde": 3.2,
     "hasta": 16.0
    }
+  ],
+  "personaje": "recepcionista_dental",
+  "voz": "dora_brillante",
+  "foto_prompt": "Mexican woman, 32 years old, dental receptionist in light blue scrubs, dental clinic reception",
+  "frases": [
+   "¿Todavía confirmas las citas de mañana una por una?",
+   "Mira: con Confirm ap, a cada paciente le llega un guatsap un día antes, y confirma o cancela con un toque.",
+   "Y en el calendario ves quién viene: verde confirmó, amarillo esperando, y si alguien canceló, lo sabes a tiempo.",
+   "Pruébalo siete días gratis, sin tarjeta, en confirm ap punto com punto eme equis."
+  ],
+  "capturas_frase": [
+   {
+    "img": "k_gcal",
+    "frase": 1,
+    "hasta_frase": 3
+   }
   ]
  },
  {
@@ -29,6 +45,27 @@
     "img": "k_gcal",
     "desde": 8.9,
     "hasta": 14.4
+   }
+  ],
+  "personaje": "estilista",
+  "voz": "dora_brillante",
+  "foto_prompt": "Mexican woman, 27 years old, hair stylist with black apron, modern beauty salon",
+  "frases": [
+   "Imagina: estás pintando un cabello, y no puedes contestar el guatsap.",
+   "Para eso está la Autoagenda: mandas un link, y tu clienta elige su horario libre.",
+   "A ti te llega un guatsap con quién agendó. Y un día antes, a ella le llega su recordatorio.",
+   "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
+  ],
+  "capturas_frase": [
+   {
+    "img": "m_pAutoMenu",
+    "frase": 1,
+    "hasta_frase": 2
+   },
+   {
+    "img": "k_gcal",
+    "frase": 2,
+    "hasta_frase": 3
    }
   ]
  },
@@ -49,6 +86,27 @@
     "desde": 11.7,
     "hasta": 15.4
    }
+  ],
+  "personaje": "psicologa",
+  "voz": "dora_brillante",
+  "foto_prompt": "Mexican woman, 38 years old, psychologist in casual blazer, calm therapy office with plants",
+  "frases": [
+   "Si das terapia, sabes lo incómodo que es escribirle a cada paciente para confirmar.",
+   "Te enseño cómo hacerlo automático: Confirm ap les manda un guatsap un día antes, y ellos responden con un toque.",
+   "Funciona con tu Gúgol Calendar o tu Áutluk, lo que ya usas.",
+   "Siete días gratis, sin tarjeta. Confirm ap punto com punto eme equis."
+  ],
+  "capturas_frase": [
+   {
+    "img": "k_gcal",
+    "frase": 1,
+    "hasta_frase": 2
+   },
+   {
+    "img": "05_google",
+    "frase": 2,
+    "hasta_frase": 3
+   }
   ]
  },
  {
@@ -67,6 +125,27 @@
     "img": "k_gcal",
     "desde": 9.7,
     "hasta": 12.1
+   }
+  ],
+  "personaje": "medico",
+  "voz": "alex_grave",
+  "foto_prompt": "Mexican man, 43 years old, doctor in white coat with stethoscope, medical office",
+  "frases": [
+   "¿Quién contesta tu guatsap mientras estás en consulta?",
+   "Confirchat i a, de Confirm ap: responde a tus pacientes, ve tus horarios libres, y les agenda la cita.",
+   "A cualquier hora, incluso de noche.",
+   "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
+  ],
+  "capturas_frase": [
+   {
+    "img": "k_chat",
+    "frase": 1,
+    "hasta_frase": 2
+   },
+   {
+    "img": "k_gcal",
+    "frase": 2,
+    "hasta_frase": 3
    }
   ]
  }
