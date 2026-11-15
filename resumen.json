@@ -1,14 +1,14 @@
 {
- "leido": "2026-11-15T17:32:19+00:00",
+ "leido": "2026-11-15T17:48:14+00:00",
  "resumen": {
   "pendientes_por_publicar": 17,
   "comentarios_7_dias": 0,
   "errores": [],
   "publicados": [
    {
-    "id": null,
+    "id": "manual-e5275a1b",
     "giro": "dental",
-    "gancho": null,
+    "gancho": "¿Tienes consultorio dental? 🦷 Tus pacientes confirman su cita por WhatsApp y tú ves quién",
     "fecha": "2026-11-15",
     "vistas": 11,
     "likes": 0,
@@ -17,9 +17,9 @@
     "comentarios": 0
    },
    {
-    "id": null,
+    "id": "manual-632b9834",
     "giro": "psicologia",
-    "gancho": null,
+    "gancho": "¿Eres psicólogo? 🧠 Que ya no se te pierdan sesiones: tus pacientes confirman solos por Wh",
     "fecha": "2026-11-15",
     "vistas": 6,
     "likes": 0,
