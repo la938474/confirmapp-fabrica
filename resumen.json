@@ -1,0 +1,32 @@
+{
+ "leido": "2026-11-15T17:32:19+00:00",
+ "resumen": {
+  "pendientes_por_publicar": 17,
+  "comentarios_7_dias": 0,
+  "errores": [],
+  "publicados": [
+   {
+    "id": null,
+    "giro": "dental",
+    "gancho": null,
+    "fecha": "2026-11-15",
+    "vistas": 11,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
+   {
+    "id": null,
+    "giro": "psicologia",
+    "gancho": null,
+    "fecha": "2026-11-15",
+    "vistas": 6,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   }
+  ]
+ }
+}
