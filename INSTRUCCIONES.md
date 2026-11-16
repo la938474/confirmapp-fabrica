@@ -92,11 +92,30 @@ Duración ideal: 15–30 s (3 a 5 escenas). La primera escena es el gancho: cort
 7. Los **lunes**: mandar a Luis un resumen corto en español: top 3 videos de la semana (vistas, compartidos),
    qué estilo pegó más, cuántos videos hay en fila y cualquier error de publicación.
 
-## Videos con avatar IA
-- Guiones en `guiones-avatar/` (tabla para Luis) y `guiones-avatar/pendientes.json` (número, id, giro, gancho, caption).
+## Videos con avatar IA (automáticos)
+Todo corre solo cada noche:
+1. **00:23** GitHub (`avatar-ia.yml` → `avatar_ia.py`) toma hasta 2 guiones de `guiones-avatar/pendientes.json` sin video,
+   hace la foto (Cloudflare FLUX, solo si el personaje no existe en `avatar-ia/personajes/`), la voz (Kokoro) y el video
+   que habla (SadTalker), y lo deja en `avatar/<num>.mp4`.
+2. **03:17** la fábrica corre `python3 fabrica.py avatares` (celular con capturas reales, leyenda IA, portada, caption) y `publicar`.
+Luis también puede subir a mano videos de HeyGen a `avatar/` con el número del guion.
+
+Reglas de contenido:
 - El avatar **demuestra** la app ("mira", "te enseño", "así se ve"). Nunca dice que es cliente real, ni nombra un negocio,
-  ni promete resultados. Caption siempre con "🤖 Escena recreada con IA"; `avatares` le pone la misma leyenda en pantalla.
-- Si hay menos de 2 guiones en `pendientes.json`, escribe 4 nuevos (uno por giro principal), en tabla `guiones-avatar/AAAA-MM-DD.md`
-  y agrégalos a `pendientes.json` con números nuevos que no se repitan.
-- Cada guion en `pendientes.json` lleva `capturas`: [{img, desde, hasta}] (segundos del audio). `avatares` muestra esas
-  capturas reales de la app dentro de un celular junto al avatar. Usa solo capturas que existan en `assets/giros/<giro>/`.
+  ni promete resultados, ni da cifras. Caption siempre con "🤖 Escena recreada con IA".
+
+Si quedan menos de 3 guiones en `pendientes.json`, escribe 4 nuevos (rota dental, médico, psicología, salón y a veces otros giros)
+y agrégalos a `pendientes.json` con números nuevos (mayores que cualquiera usado) y estos campos:
+```json
+{"num": 5, "id": "avatar-dental-xxxx", "giro": "dental", "gancho": "...", "texto": "caption ... 🤖 Escena recreada con IA\n#hashtags #confirmapp",
+ "personaje": "recepcionista_dental", "voz": "dora_brillante",
+ "foto_prompt": "Mexican woman, 32 years old, dental receptionist in light blue scrubs, dental clinic reception",
+ "frases": ["gancho (1 frase)", "cómo funciona", "detalle", "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."],
+ "capturas_frase": [{"img": "k_gcal", "frase": 1, "hasta_frase": 3}]}
+```
+- `frases`: 3 a 5, total 15–25 s, con la pronunciación de arriba (Confirm ap, guatsap, Gúgol…). La última siempre es el CTA.
+- `personaje`: reutiliza los de `avatar-ia/personajes/` (medico, recepcionista_dental, estilista, psicologa) para que la cara
+  sea la misma; inventa uno nuevo solo si hace falta (con `foto_prompt`). `voz`: `dora_brillante` mujer, `alex_grave` hombre.
+- `capturas_frase`: qué captura real sale en el celular y en qué frases (índices de `frases`). Solo capturas que existan en
+  `assets/giros/<giro>/` (01_login … 05_google, k_chat, k_gcal, k_magic, m_pAutoMenu, m_pSusc).
+- Nunca repitas un `gancho` del historial.
