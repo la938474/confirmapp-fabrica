@@ -16,7 +16,7 @@ R = os.path.dirname(os.path.abspath(__file__))
 ST = os.environ.get('SADTALKER', f'{R}/../SadTalker')
 PY_ST = os.environ.get('SADTALKER_PY', sys.executable)
 NEG = (', looking directly at camera, mouth closed, gentle smile, face centered and well lit, only one person, '
-       'softly blurred background, no text, no signs, no logos, upper body, vertical portrait, realistic photo')
+       'softly blurred background, no text, no signs, no logos, medium shot from the waist up, subject centered with space around, realistic photo')
 
 
 def sh(*a, **k):
