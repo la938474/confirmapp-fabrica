@@ -116,7 +116,7 @@ def render(d, n, salida, zoom):
     shutil.copy(f'{d}/img/0.jpg', salida[:-4] + '.jpg')  # portada = primera escena
 
 
-def telefono(cap, salida, ancho=420):
+def telefono(cap, salida, ancho=360):
     """Captura real de la app dentro de un celular (bisel, esquinas redondeadas y sombra), PNG con transparencia."""
     from PIL import Image, ImageDraw, ImageFilter
     im = Image.open(cap).convert('RGB'); b = 18
@@ -155,7 +155,7 @@ def avatares():
             telefono(f'{A}/giros/{GIROS[g["giro"]]["capturas"]}/{c["img"]}.jpg', png); ent += ['-loop', '1', '-i', png]
             a, z = c['desde'], c['hasta']
             # entra deslizándose desde abajo (0.3 s) y se queda a la derecha, sobre el pecho del avatar
-            filtro += (f";[b{k}][{k + 1}:v]overlay=x=W-w+20:y='if(lt(t,{a}+0.3),H-(h+200)*(t-{a})/0.3,H-h-200)'"
+            filtro += (f";[b{k}][{k + 1}:v]overlay=x=W-w+20:y='if(lt(t,{a}+0.3),H-(h+30)*(t-{a})/0.3,H-h-30)'"
                        f":enable='between(t,{a},{z})':shortest=1[b{k + 1}]")
         etiqueta = "drawtext=text='Escena recreada con IA':font='DejaVu Sans':fontsize=34:fontcolor=white@0.9:box=1:boxcolor=black@0.45:boxborderw=12:x=(w-tw)/2:y=150"
         filtro += f';[b{len(caps)}]{etiqueta}[v]'
