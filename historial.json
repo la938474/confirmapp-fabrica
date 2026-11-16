@@ -22,5 +22,13 @@
   "gancho": "POV: tus clientas confirman solas",
   "formato": "pov",
   "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-16-avatar-medico-confirchat",
+  "fecha": "2026-11-16",
+  "giro": "medico",
+  "gancho": "¿Quién contesta tu WhatsApp mientras consultas?",
+  "formato": "avatar",
+  "voz": "avatar"
  }
 ]

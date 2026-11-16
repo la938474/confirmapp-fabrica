@@ -108,45 +108,5 @@
     "hasta_frase": 3
    }
   ]
- },
- {
-  "num": 4,
-  "id": "avatar-medico-confirchat",
-  "giro": "medico",
-  "gancho": "¿Quién contesta tu WhatsApp mientras consultas?",
-  "texto": "Tu WhatsApp agenda citas mientras tú consultas 🩺\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#medico #consultorio #citasmedicas #confirmapp",
-  "capturas": [
-   {
-    "img": "k_chat",
-    "desde": 3.4,
-    "hasta": 9.7
-   },
-   {
-    "img": "k_gcal",
-    "desde": 9.7,
-    "hasta": 12.1
-   }
-  ],
-  "personaje": "medico",
-  "voz": "alex_grave",
-  "foto_prompt": "Mexican man, 43 years old, doctor in white coat with stethoscope, medical office",
-  "frases": [
-   "¿Quién contesta tu guatsap mientras estás en consulta?",
-   "Confirchat i a, de Confirm ap: responde a tus pacientes, ve tus horarios libres, y les agenda la cita.",
-   "A cualquier hora, incluso de noche.",
-   "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
-  ],
-  "capturas_frase": [
-   {
-    "img": "k_chat",
-    "frase": 1,
-    "hasta_frase": 2
-   },
-   {
-    "img": "k_gcal",
-    "frase": 2,
-    "hasta_frase": 3
-   }
-  ]
  }
 ]
