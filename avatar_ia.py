@@ -10,7 +10,7 @@ Para cada guion de guiones-avatar/pendientes.json que todavía no tenga video en
 
   python3 avatar_ia.py [--max 2] [--num 4] [--salida carpeta]
 """
-import argparse, base64, json, os, subprocess, sys, urllib.request
+import argparse, base64, json, os, subprocess, sys, urllib.error, urllib.request
 
 R = os.path.dirname(os.path.abspath(__file__))
 ST = os.environ.get('SADTALKER', f'{R}/../SadTalker')
@@ -23,18 +23,34 @@ def sh(*a, **k):
     subprocess.run(a, check=True, **k)
 
 
+def _cf(cuenta, token, modelo, cuerpo):
+    url = f'https://api.cloudflare.com/client/v4/accounts/{cuenta}/ai/run/{modelo}'
+    req = urllib.request.Request(url, json.dumps(cuerpo).encode(),
+                                 {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'})
+    try:
+        r = urllib.request.urlopen(req, timeout=180)
+        return r.headers.get('Content-Type', ''), r.read()
+    except urllib.error.HTTPError as e:
+        print(f'  Cloudflare {modelo}: {e.code} {e.read()[:500]!r}', flush=True)
+        return None, None
+
+
 def foto(g, ruta):
-    """Genera la foto con Cloudflare Workers AI (FLUX schnell) y la recorta a vertical 720x1280."""
-    cuenta, token = os.environ.get('CF_ACCOUNT_ID'), os.environ.get('CF_API_TOKEN')
-    if not (cuenta and token):
-        sys.exit(f'Falta la foto {ruta} y no hay CF_ACCOUNT_ID/CF_API_TOKEN para generarla.')
-    url = f'https://api.cloudflare.com/client/v4/accounts/{cuenta}/ai/run/@cf/black-forest-labs/flux-1-schnell'
-    cuerpo = json.dumps({'prompt': g['foto_prompt'] + NEG, 'steps': 8}).encode()
-    req = urllib.request.Request(url, cuerpo, {'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'})
-    res = json.load(urllib.request.urlopen(req, timeout=180))
-    if not res.get('success'): sys.exit(f'Cloudflare no generó la foto: {res.get("errors")}')
-    tmp = ruta + '.tmp.jpg'
-    open(tmp, 'wb').write(base64.b64decode(res['result']['image']))
+    """Genera la foto con Cloudflare Workers AI (capa gratis) y la deja vertical 720x1280."""
+    cuenta, token = os.environ.get('CF_ACCOUNT_ID', '').strip(), os.environ.get('CF_API_TOKEN', '').strip()
+    prompt = g['foto_prompt'] + NEG
+    tmp = ruta + '.tmp'
+    tipo, datos = _cf(cuenta, token, '@cf/black-forest-labs/flux-1-schnell', {'prompt': prompt, 'steps': 8})
+    if datos and 'json' in tipo:
+        res = json.loads(datos)
+        datos = base64.b64decode(res['result']['image']) if res.get('success') else None
+    if not datos:  # respaldo: SDXL (devuelve PNG directo y acepta tamaño vertical)
+        tipo, datos = _cf(cuenta, token, '@cf/stabilityai/stable-diffusion-xl-base-1.0',
+                          {'prompt': prompt, 'negative_prompt': 'text, watermark, logo, deformed, extra fingers, blurry face',
+                           'width': 768, 'height': 1344, 'num_steps': 20})
+        if datos and 'json' in tipo: datos = None
+    if not datos: sys.exit('Cloudflare no generó la foto (ver mensajes arriba).')
+    open(tmp, 'wb').write(datos)
     from PIL import Image
     im = Image.open(tmp).convert('RGB'); w, h = im.size
     cw = min(w, round(h * 9 / 16)); x = (w - cw) // 2
