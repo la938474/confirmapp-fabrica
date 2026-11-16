@@ -1,16 +1,27 @@
 {
- "leido": "2026-11-16T01:41:32+00:00",
+ "leido": "2026-11-16T03:13:44+00:00",
  "resumen": {
-  "pendientes_por_publicar": 16,
+  "pendientes_por_publicar": 15,
   "comentarios_7_dias": 0,
   "errores": [],
   "publicados": [
+   {
+    "id": "manual-42faa3ea",
+    "giro": "medico",
+    "gancho": "¿Tienes consultorio médico? 🩺 Recordatorios automáticos por WhatsApp un día antes ✅",
+    "fecha": "2026-11-16",
+    "vistas": 1,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "manual-7018e33d",
     "giro": "salon",
     "gancho": "¿Tienes salón de belleza? 💇‍♀️ Tus clientas confirman solas y se acaban los plantones ✅",
     "fecha": "2026-11-15",
-    "vistas": 2,
+    "vistas": 5,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
@@ -21,7 +32,7 @@
     "giro": "dental",
     "gancho": "¿Tienes consultorio dental? 🦷 Tus pacientes confirman su cita por WhatsApp y tú ves quién",
     "fecha": "2026-11-15",
-    "vistas": 15,
+    "vistas": 19,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
@@ -32,7 +43,7 @@
     "giro": "psicologia",
     "gancho": "¿Eres psicólogo? 🧠 Que ya no se te pierdan sesiones: tus pacientes confirman solos por Wh",
     "fecha": "2026-11-15",
-    "vistas": 17,
+    "vistas": 21,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
