@@ -1,10 +1,21 @@
 {
- "leido": "2026-11-16T17:28:33+00:00",
+ "leido": "2026-11-16T19:14:51+00:00",
  "resumen": {
-  "pendientes_por_publicar": 16,
+  "pendientes_por_publicar": 15,
   "comentarios_7_dias": 1,
   "errores": [],
   "publicados": [
+   {
+    "id": "manual-e3ddbea0",
+    "giro": "barberia",
+    "gancho": "¿Tienes barbería? 💈 Tus clientes agendan y confirman solos por WhatsApp ✅",
+    "fecha": "2026-11-16",
+    "vistas": 0,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "manual-42faa3ea",
     "giro": "medico",
