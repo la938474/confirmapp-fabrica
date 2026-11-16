@@ -38,13 +38,13 @@
   "capturas": [
    {
     "img": "m_pAutoMenu",
-    "desde": 4.0,
-    "hasta": 8.9
+    "desde": 4.03,
+    "hasta": 8.94
    },
    {
     "img": "k_gcal",
-    "desde": 8.9,
-    "hasta": 14.4
+    "desde": 8.94,
+    "hasta": 14.48
    }
   ],
   "personaje": "estilista",
