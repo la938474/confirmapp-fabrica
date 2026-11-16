@@ -72,7 +72,7 @@ Duración ideal: 15–30 s (3 a 5 escenas). La primera escena es el gancho: cort
 ```
 - `id`: fecha + giro + formato (minúsculas, sin acentos, único).
 - `voz`: `dora_brillante` (mujer) o `alex_grave` (hombre). Alternar.
-- `texto` (caption): termina con "Pruébalo 7 días gratis 👉 confirmapp.com.mx" y hashtags del giro + `#confirmapp`.
+- `texto` (caption): antes de los hashtags incluye la línea "💬 Comenta PRUEBA y te mando el video y el link por mensaje 📩" (la máquina de redes contesta sola por mensaje privado), luego "Pruébalo 7 días gratis 👉 confirmapp.com.mx" y hashtags del giro + `#confirmapp`.
 
 ## Pasos de cada día
 1. `git pull` en `main`.
