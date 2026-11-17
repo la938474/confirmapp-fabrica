@@ -110,7 +110,8 @@ toca Confirmar → en el calendario pasa de 🟡 a ✅). El cierre siempre con `
 Antes de `avatares`, para cada `avatar/<num>.mp4` (salvo si su guion trae `"capturas_revisadas": true`, que ya ajustó Claude con Luis; ese no lo toques) compara su duración con la suma de su `voz.mp3`. Si difiere más de 0.5 s
 (Luis escribió el texto en HeyGen en vez de subir el audio), detecta las pausas con
 `ffmpeg -i avatar/<num>.mp4 -af silencedetect=n=-35dB:d=0.25 -f null -`, empata cada tramo hablado con las frases del guion
-(por número de sílabas) y reescribe `capturas` en `pendientes.json` con los segundos reales. Cada captura debe mostrar
+(por número de sílabas) y ajusta en `pendientes.json` solo los tiempos de `capturas` (`desde`, `hasta` y, en `autoagenda`,
+`q.p1`/`q.p2` = inicio de "elige su horario" y de "te llega un WhatsApp" medidos desde `desde`), sin cambiar qué `img`/`anim` lleva cada una. Cada captura debe mostrar
 exactamente lo que se menciona (Autoagenda → m_pAutoMenu, WhatsApp/cita agendada → k_chat, recordatorio un día antes → 04_prueba,
 quién viene/calendario → k_gcal, 7 días gratis/CTA → 01_login, Magic → k_magic, planes/invitar → m_pSusc). En el gancho no pongas celular.
 

@@ -48,8 +48,8 @@ body{width:780px;height:1688px;overflow:hidden;zoom:1;font-family:Inter,system-u
 <script>
 const q=new URLSearchParams(location.search);
 const NEG=q.get('negocio')||'Estética Bella', S=(q.get('servicios')||'Corte y tinte|Uñas en gel|Alaciado|Peinado').split('|');
-const cli=['Ana López','Sofía Mena','Laura Paz','Mariana Ruiz'], hrs=[['10 AM','10:00 – 11:30'],['12 PM','12:00 – 1:00'],['2 PM','2:00 – 4:00'],['5 PM','5:00 – 6:00']];
-document.body.innerHTML=document.body.innerHTML.replaceAll('NEGOCIO',NEG).replace('SOFIA','Sofía');
+const cli=(q.get('clientes')||'Ana López|Sofía Mena|Laura Paz|Mariana Ruiz').split('|'), hrs=[['10 AM','10:00 – 11:30'],['12 PM','12:00 – 1:00'],['2 PM','2:00 – 4:00'],['5 PM','5:00 – 6:00']];
+document.body.innerHTML=document.body.innerHTML.replaceAll('NEGOCIO',NEG).replace('SOFIA',(q.get('rcliente')||'Sofía Mena').split(' ')[0]);
 const est=['ok','esp','no','ok'], etq={ok:'✅',esp:'🟡',no:'❎'}, txt={ok:'confirmó',esp:'esperando respuesta',no:'canceló'};
 document.getElementById('filas').innerHTML=cli.map((c,i)=>`<div class="fila"><div class="hr">${hrs[i][0]}</div><div class="ev ${est[i]}" id="e${i}">${etq[est[i]]} ${c} · ${S[i%S.length]}<small>${hrs[i][1]} · ${txt[est[i]]}</small></div></div>`).join('');
 const $=id=>document.getElementById(id), cl=(x,a,b)=>Math.max(0,Math.min(1,(x-a)/(b-a)));
@@ -65,8 +65,8 @@ window.pintar=function(t,D){
   $('b1').style.background=tap>0&&tap<1?'#e7f6ff':'#fff';
   const yo=cl(u,.28,.34); $('yo').style.opacity=yo; $('yo').style.transform=`translateY(${(1-yo)*30}px)`;
   const e=$('e1'), f=cl(u,.72,.8);
-  if(f<.5){e.className='ev esp'; e.innerHTML=`🟡 Sofía Mena · ${S[1%S.length]}<small>${hrs[1][1]} · esperando respuesta</small>`;}
-  else{e.className='ev ok'; e.innerHTML=`✅ Sofía Mena · ${S[1%S.length]}<small>${hrs[1][1]} · confirmó</small>`;}
+  if(f<.5){e.className='ev esp'; e.innerHTML=`🟡 ${cli[1]} · ${S[1%S.length]}<small>${hrs[1][1]} · esperando respuesta</small>`;}
+  else{e.className='ev ok'; e.innerHTML=`✅ ${cli[1]} · ${S[1%S.length]}<small>${hrs[1][1]} · confirmó</small>`;}
   e.style.transform=`scale(${1+.08*Math.sin(Math.PI*f)})`;
 };
 pintar(0,3);

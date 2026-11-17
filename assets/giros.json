@@ -233,7 +233,8 @@
   "c2": "#ffe3e3",
   "c3": "#c92a2a",
   "bg": "#0d1424",
-  "capturas": "barberia"
+  "capturas": "barberia",
+  "negocio": "Barbería El Clásico"
  },
  "veterinaria": {
   "nombre": "Veterinaria",

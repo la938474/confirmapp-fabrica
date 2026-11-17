@@ -35,10 +35,10 @@ body{width:780px;height:1688px;overflow:hidden;font-family:Inter,system-ui,sans-
   <div class="msg yo" id="lnk">¡Claro! Escoge tu horario aquí 👇<br><span class="lk">confirmapp.com.mx/a/SLUG</span>
    <div class="card"><b>NEGOCIO · Agenda tu cita</b>Elige el horario que te quede</div><div class="h">9:42 a. m. ✓✓</div></div>
  </div></div>
-<div class="v" id="pag"><div class="pill">Ella elige su horario libre</div><div class="t">
+<div class="v" id="pag"><div class="pill">PILL2</div><div class="t">
  <div class="lg"><i>✓</i>NEGOCIO</div>
  <h2>Agenda tu cita</h2><p>Horarios disponibles</p>
- <div class="srv">💇‍♀️ SERVICIO</div>
+ <div class="srv">EMOJI SERVICIO</div>
  <div class="dias"><div>Mié<br>12</div><div class="on">Jue<br>13</div><div>Vie<br>14</div><div>Sáb<br>15</div></div>
  <div class="slots"><div class="sl">10:00 am</div><div class="sl">12:00 pm</div><div class="sl">1:00 pm</div><div class="sl" id="s5">5:00 pm</div></div>
  <div class="btn" id="ag">Agendar</div></div>
@@ -51,7 +51,7 @@ body{width:780px;height:1688px;overflow:hidden;font-family:Inter,system-ui,sans-
 <div class="dedo" id="dedo"></div>
 <script>
 const q=new URLSearchParams(location.search);
-const R={NEGOCIO:q.get('negocio')||'Estética Bella',SERVICIO:q.get('servicio')||'Corte y tinte',CLIENTA1:q.get('cliente')||'Mariana Ruiz',
+const R={PILL2:q.get('pill2')||'Ella elige su horario libre',EMOJI:q.get('emoji')||'💇‍♀️',NEGOCIO:q.get('negocio')||'Estética Bella',SERVICIO:q.get('servicio')||'Corte y tinte',CLIENTA1:q.get('cliente')||'Mariana Ruiz',
  SLUG:(q.get('negocio')||'Estética Bella').toLowerCase().normalize('NFD').replace(/[^a-z ]/g,'').trim().replace(/ +/g,'-')};
 for(const k in R) document.body.innerHTML=document.body.innerHTML.replaceAll(k,R[k]);
 const $=id=>document.getElementById(id), cl=(x,a,b)=>Math.max(0,Math.min(1,(x-a)/(b-a)));
