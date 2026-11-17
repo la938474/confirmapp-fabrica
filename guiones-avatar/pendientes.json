@@ -9,16 +9,11 @@
    {
     "anim": "recordatorio",
     "desde": 3.21,
-    "hasta": 9.76,
+    "hasta": 14.05,
     "q": {
      "clientes": "Ana López|Sofía Mena|Laura Paz|Mariana Ruiz",
      "rcliente": "Sofía Mena"
     }
-   },
-   {
-    "img": "k_gcal",
-    "desde": 9.76,
-    "hasta": 14.05
    },
    {
     "img": "m_pAutoMenu",
