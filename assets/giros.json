@@ -34,7 +34,8 @@
   "c2": "#e5dbff",
   "c3": "#5f3dc4",
   "bg": "#1c1238",
-  "capturas": "psicologia"
+  "capturas": "psicologia",
+  "negocio": "Consultorio Mente Clara"
  },
  "nutricion": {
   "nombre": "Nutriólogos",
@@ -52,7 +53,8 @@
   "c2": "#e9fac8",
   "c3": "#5c940d",
   "bg": "#16260a",
-  "capturas": "nutricion"
+  "capturas": "nutricion",
+  "negocio": "Nutrición Balance"
  },
  "salon": {
   "nombre": "Salón de belleza",
@@ -89,7 +91,8 @@
   "c2": "#ffe3ec",
   "c3": "#c2255c",
   "bg": "#3a0f24",
-  "capturas": "unas"
+  "capturas": "unas",
+  "negocio": "Nails Studio Fer"
  },
  "spa": {
   "nombre": "Spa",
@@ -107,7 +110,8 @@
   "c2": "#c5f6fa",
   "c3": "#0b7285",
   "bg": "#082a30",
-  "capturas": "spa"
+  "capturas": "spa",
+  "negocio": "Spa Serena"
  },
  "tatuaje": {
   "nombre": "Estudio de tatuaje",
@@ -125,7 +129,8 @@
   "c2": "#e9ecef",
   "c3": "#212529",
   "bg": "#141518",
-  "capturas": "tatuaje"
+  "capturas": "tatuaje",
+  "negocio": "Black Ink Tattoo"
  },
  "canina": {
   "nombre": "Estética canina",
@@ -143,7 +148,8 @@
   "c2": "#ffe8cc",
   "c3": "#d9480f",
   "bg": "#2e1606",
-  "capturas": "canina"
+  "capturas": "canina",
+  "negocio": "Peluditos Grooming"
  },
  "tutor": {
   "nombre": "Tutores y clases",
@@ -161,7 +167,8 @@
   "c2": "#fff3bf",
   "c3": "#e67700",
   "bg": "#2b1d03",
-  "capturas": "tutor"
+  "capturas": "tutor",
+  "negocio": "Tutorías Vega"
  },
  "entrenador": {
   "nombre": "Entrenadores",
@@ -179,7 +186,8 @@
   "c2": "#ffe3e3",
   "c3": "#c92a2a",
   "bg": "#2e0b0b",
-  "capturas": "entrenador"
+  "capturas": "entrenador",
+  "negocio": "León Fitness"
  },
  "consultor": {
   "nombre": "Consultores, abogados y contadores",
@@ -197,7 +205,8 @@
   "c2": "#dbe4ff",
   "c3": "#364fc7",
   "bg": "#0f1636",
-  "capturas": "consultor"
+  "capturas": "consultor",
+  "negocio": "Herrera Consultores"
  },
  "otro": {
   "nombre": "Cualquier negocio con citas",
@@ -215,7 +224,8 @@
   "c2": "#c3fae8",
   "c3": "#087f5b",
   "bg": "#06302c",
-  "capturas": "otro"
+  "capturas": "otro",
+  "negocio": "Estudio Laura"
  },
  "barberia": {
   "nombre": "Barbería",
@@ -254,7 +264,8 @@
   "c2": "#d3f9d8",
   "c3": "#2b8a3e",
   "bg": "#0b2614",
-  "capturas": "veterinaria"
+  "capturas": "veterinaria",
+  "negocio": "Veterinaria Huellitas"
  },
  "dental": {
   "nombre": "Dentistas",
@@ -291,6 +302,7 @@
   "c2": "#c3fae8",
   "c3": "#087f5b",
   "bg": "#06302c",
-  "capturas": "dental"
+  "capturas": "dental",
+  "negocio": "Clínica Dental Sonrisa"
  }
 }
