@@ -116,7 +116,7 @@ def render(d, n, salida, zoom):
     shutil.copy(f'{d}/img/0.jpg', salida[:-4] + '.jpg')  # portada = primera escena
 
 
-def telefono(cap, salida, ancho=360):
+def telefono(cap, salida, ancho=360, giro=0):
     """Captura real de la app dentro de un celular (bisel, esquinas redondeadas y sombra), PNG con transparencia."""
     from PIL import Image, ImageDraw, ImageFilter
     im = Image.open(cap).convert('RGB'); b = 18
@@ -132,6 +132,7 @@ def telefono(cap, salida, ancho=360):
     m = Image.new('L', (w, h), 0); ImageDraw.Draw(m).rounded_rectangle((0, 0, w - 1, h - 1), 48, fill=255)
     cuerpo.paste(im, (b, b), m)
     lienzo.alpha_composite(cuerpo, (pad, pad))
+    if giro: lienzo = lienzo.rotate(giro, resample=Image.BICUBIC, expand=True)
     lienzo.save(salida)
 
 
@@ -149,14 +150,20 @@ def avatares():
         hoy = datetime.date.today().isoformat()
         vid = f"{hoy}-{g['id']}"; out = f'{R}/salida/{vid}.mp4'
         caps = g.get('capturas', [])
+        # "mano" (por defecto): celular al centro, abajo, un poco inclinado, como si lo sostuviera frente a ella.
+        # "lado": a la derecha (para tomas muy cerradas de la cara).
+        mano = g.get('telefono', 'mano') == 'mano'
         ent, filtro = [], f"[0:v]crop='min(iw,ih*9/16)':'min(ih,iw*16/9)',scale=1080:1920:flags=lanczos,fps=30,format=yuv420p[b0]"
         for k, c in enumerate(caps):
             png = f'{R}/salida/_tel{k}.png'
-            telefono(f'{A}/giros/{GIROS[g["giro"]]["capturas"]}/{c["img"]}.jpg', png); ent += ['-loop', '1', '-i', png]
+            telefono(f'{A}/giros/{GIROS[g["giro"]]["capturas"]}/{c["img"]}.jpg', png,
+                     *((430, -5) if mano else (360, 0))); ent += ['-loop', '1', '-i', png]
             a, z = c['desde'], c['hasta']
-            # entra deslizándose desde abajo (0.3 s) y se queda a la derecha, sobre el pecho del avatar
-            filtro += (f";[b{k}][{k + 1}:v]overlay=x=W-w+20:y='if(lt(t,{a}+0.3),H-(h+30)*(t-{a})/0.3,H-h-30)'"
-                       f":enable='between(t,{a},{z})':shortest=1[b{k + 1}]")
+            # entra deslizándose desde abajo (0.3 s); si sigue otra captura pegada, ya no vuelve a entrar
+            pegada = k > 0 and abs(caps[k - 1]['hasta'] - a) < 0.05
+            x, yf = ("(W-w)/2+40", "H-h+150") if mano else ("W-w+20", "H-h-30")
+            y = yf if pegada else f"if(lt(t,{a}+0.3),H-(H-({yf}))*(t-{a})/0.3,{yf})"
+            filtro += f";[b{k}][{k + 1}:v]overlay=x={x}:y='{y}':enable='between(t,{a},{z})':shortest=1[b{k + 1}]"
         etiqueta = "drawtext=text='Escena recreada con IA':font='DejaVu Sans':fontsize=34:fontcolor=white@0.9:box=1:boxcolor=black@0.45:boxborderw=12:x=(w-tw)/2:y=150"
         filtro += f';[b{len(caps)}]{etiqueta}[v]'
         sh('ffmpeg', '-y', '-v', 'error', '-i', f'{R}/avatar/{f}', *ent, '-filter_complex', filtro, '-map', '[v]', '-map', '0:a',

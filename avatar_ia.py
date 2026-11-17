@@ -151,8 +151,9 @@ def main():
         # capturas: cada una arranca con la frase que indica "frase" y dura hasta la siguiente indicada (o el CTA)
         caps = g.get('capturas_frase')
         if caps:
-            g['capturas'] = [{'img': c['img'], 'desde': marcas[c['frase']],
-                              'hasta': marcas[c['hasta_frase']] if c.get('hasta_frase') is not None else marcas[-1]} for c in caps]
+            fin = marcas + [total]  # hasta_frase = len(frases) significa "hasta el final"
+            g['capturas'] = [{'img': c['img'], 'desde': fin[c['frase']],
+                              'hasta': fin[c['hasta_frase']] if c.get('hasta_frase') is not None else fin[-1]} for c in caps]
             cambio = True
         print('✓', g['num'], total, 's', flush=True)
     if cambio: json.dump(pend, open(P, 'w'), ensure_ascii=False, indent=1)

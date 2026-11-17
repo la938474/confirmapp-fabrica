@@ -37,14 +37,29 @@
   "texto": "POV: tus clientas agendan sin llamarte 💅\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#salondebelleza #estilista #citas #confirmapp",
   "capturas": [
    {
+    "img": "k_chat",
+    "desde": 4.8,
+    "hasta": 6.6
+   },
+   {
     "img": "m_pAutoMenu",
-    "desde": 4.03,
-    "hasta": 8.94
+    "desde": 6.6,
+    "hasta": 12.2
    },
    {
     "img": "k_gcal",
-    "desde": 8.94,
-    "hasta": 14.48
+    "desde": 12.2,
+    "hasta": 15.2
+   },
+   {
+    "img": "04_prueba",
+    "desde": 15.2,
+    "hasta": 17.6
+   },
+   {
+    "img": "01_login",
+    "desde": 17.6,
+    "hasta": 20.0
    }
   ],
   "personaje": "estilista",
@@ -67,7 +82,8 @@
     "frase": 2,
     "hasta_frase": 3
    }
-  ]
+  ],
+  "telefono": "mano"
  },
  {
   "num": 3,
@@ -106,6 +122,40 @@
     "img": "05_google",
     "frase": 2,
     "hasta_frase": 3
+   }
+  ]
+ },
+ {
+  "num": 5,
+  "id": "avatar-barberia-barbero",
+  "giro": "barberia",
+  "gancho": "¿Otro cliente que apartó su lugar y nunca llegó?",
+  "texto": "¿Otro cliente que apartó su lugar y nunca llegó? 💈\nCon Confirmapp confirman por WhatsApp un día antes y agendan solos con tu link.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#barberia #barbero #barbershop #citas #confirmapp",
+  "personaje": "barbero",
+  "voz": "alex_grave",
+  "telefono": "mano",
+  "foto_prompt": "Handsome Mexican barber, 32 years old, well-groomed full dark beard, short skin fade haircut, black t-shirt with black barber apron, modern barbershop with leather barber chairs and mirrors",
+  "frases": [
+   "¿Otro cliente que apartó su lugar y nunca llegó?",
+   "Mira: con Confirm ap, un día antes le llega un guatsap, y confirma o cancela con un toque.",
+   "Y con tu link de Autoagenda, tus clientes eligen su hora sin interrumpir tu corte.",
+   "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
+  ],
+  "capturas_frase": [
+   {
+    "img": "04_prueba",
+    "frase": 1,
+    "hasta_frase": 2
+   },
+   {
+    "img": "m_pAutoMenu",
+    "frase": 2,
+    "hasta_frase": 3
+   },
+   {
+    "img": "01_login",
+    "frase": 3,
+    "hasta_frase": 4
    }
   ]
  }
