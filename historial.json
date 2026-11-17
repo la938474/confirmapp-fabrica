@@ -30,5 +30,37 @@
   "gancho": "¿Quién contesta tu WhatsApp mientras consultas?",
   "formato": "avatar",
   "voz": "avatar"
+ },
+ {
+  "id": "2026-11-17-avatar-barberia-barbero",
+  "fecha": "2026-11-17",
+  "giro": "barberia",
+  "gancho": "Imagina: estás en tu barbería haciendo un fade y no puedes contestar",
+  "formato": "avatar",
+  "voz": "avatar"
+ },
+ {
+  "id": "2026-11-17-avatar-dental-recepcionista",
+  "fecha": "2026-11-17",
+  "giro": "dental",
+  "gancho": "¿Todavía confirmas las citas de mañana una por una?",
+  "formato": "avatar",
+  "voz": "avatar"
+ },
+ {
+  "id": "2026-11-17-avatar-psico-terapeuta",
+  "fecha": "2026-11-17",
+  "giro": "psicologia",
+  "gancho": "Si das terapia, sabes lo incómodo que es confirmar",
+  "formato": "avatar",
+  "voz": "avatar"
+ },
+ {
+  "id": "2026-11-17-avatar-salon-estilista",
+  "fecha": "2026-11-17",
+  "giro": "salon",
+  "gancho": "POV: estás pintando un cabello y no puedes contestar",
+  "formato": "avatar",
+  "voz": "avatar"
  }
 ]
