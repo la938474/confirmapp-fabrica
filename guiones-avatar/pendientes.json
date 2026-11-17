@@ -7,9 +7,28 @@
   "texto": "¿Sigues confirmando citas a mano? 🦷 Así se ve con Confirmapp.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#dentista #consultoriodental #citas #confirmapp",
   "capturas": [
    {
-    "img": "k_gcal",
+    "anim": "recordatorio",
     "desde": 3.21,
-    "hasta": 16.07
+    "hasta": 9.76,
+    "q": {
+     "clientes": "Ana López|Sofía Mena|Laura Paz|Mariana Ruiz",
+     "rcliente": "Sofía Mena"
+    }
+   },
+   {
+    "img": "k_gcal",
+    "desde": 9.76,
+    "hasta": 14.05
+   },
+   {
+    "img": "m_pAutoMenu",
+    "desde": 14.05,
+    "hasta": 17.6
+   },
+   {
+    "img": "01_login",
+    "desde": 17.6,
+    "hasta": 22.67
    }
   ],
   "personaje": "recepcionista_dental",
@@ -31,7 +50,13 @@
    "m_pAutoMenu",
    "cta"
   ],
-  "estilo": "grande"
+  "estilo": "grande",
+  "cara": [
+   552,
+   341,
+   305
+  ],
+  "capturas_revisadas": true
  },
  {
   "num": 2,
