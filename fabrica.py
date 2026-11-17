@@ -149,7 +149,7 @@ def avatares():
         hoy = datetime.date.today().isoformat()
         vid = f"{hoy}-{g['id']}"; out = f'{R}/salida/{vid}.mp4'
         caps = g.get('capturas', [])
-        ent, filtro = [], f'[0:v]scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2,fps=30,format=yuv420p[b0]'
+        ent, filtro = [], f"[0:v]crop='min(iw,ih*9/16)':'min(ih,iw*16/9)',scale=1080:1920:flags=lanczos,fps=30,format=yuv420p[b0]"
         for k, c in enumerate(caps):
             png = f'{R}/salida/_tel{k}.png'
             telefono(f'{A}/giros/{GIROS[g["giro"]]["capturas"]}/{c["img"]}.jpg', png); ent += ['-loop', '1', '-i', png]
