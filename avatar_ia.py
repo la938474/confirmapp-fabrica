@@ -141,6 +141,8 @@ def heygen(g, img, wav, salida):
     jpg = wav[:-4] + '_foto.jpg'
     from PIL import Image
     Image.open(img).convert('RGB').save(jpg, quality=95)
+    vid = os.environ.get('HEYGEN_VIDEO_ID', '').strip()  # para volver a bajar un video ya pagado
+    if vid: return _bajar(vid, salida)
     foto_id = _hg('POST', '/v3/assets', archivo=jpg)['data']['asset_id']
     audio_id = _hg('POST', '/v3/assets', archivo=mp3)['data']['asset_id']
     r = _hg('POST', '/v3/videos', {
@@ -149,18 +151,30 @@ def heygen(g, img, wav, salida):
         'motion_prompt': 'Natural, friendly hand gestures while explaining, small head nods, relaxed shoulders, keeps looking at the camera.',
         'expressiveness': 'medium'})
     vid = r['data']['video_id']; print('  HeyGen video', vid, flush=True)
+    _bajar(vid, salida)
+
+
+def _bajar(vid, salida):
+    import time
     for _ in range(120):  # hasta 40 min
-        time.sleep(20)
         d = _hg('GET', f'/v3/videos/{vid}').get('data', {})
         st = d.get('status')
         if st in ('completed', 'success'):
             urllib.request.urlretrieve(d['video_url'], salida); return
         if st in ('failed', 'error'): sys.exit(f'HeyGen falló: {json.dumps(d)[:800]}')
+        time.sleep(20)
     sys.exit('HeyGen tardó demasiado')
 
 
 def cara(video):
     """Centro y radio de la cara (en el cuadro 1080x1920) para el círculo del estilo grande."""
+    try:
+        return _cara(video)
+    except Exception as e:
+        print('  (no pude detectar la cara, uso la posición normal):', e); return [540, 520, 250]
+
+
+def _cara(video):
     import cv2
     c = cv2.VideoCapture(video); c.set(cv2.CAP_PROP_POS_MSEC, 800); ok, f = c.read()
     if not ok: return [540, 520, 250]

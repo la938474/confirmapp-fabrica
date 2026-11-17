@@ -20,6 +20,9 @@ on:
         description: 'Solo preparar kit para HeyGen (foto + voz), sin video'
         type: boolean
         default: true
+      heygen_id:
+        description: 'ID de un video de HeyGen ya hecho (solo bajarlo, sin volver a pagar)'
+        required: false
       rehacer_fotos:
         description: 'Volver a hacer las fotos de los personajes (menos el médico)'
         type: boolean
@@ -64,7 +67,7 @@ jobs:
         if: steps.hay.outputs.si == '1'
         run: |
           which ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
-          pip install -q numpy onnxruntime pillow opencv-python-headless
+          pip install -q numpy onnxruntime pillow 'opencv-python-headless<5'
           if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.kit }}" = "true" ]; then exit 0; fi
           if [ ! -d ~/SadTalker/checkpoints ]; then
             git clone -q --depth 1 https://github.com/OpenTalker/SadTalker.git ~/SadTalker
@@ -89,6 +92,7 @@ jobs:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
+          HEYGEN_VIDEO_ID: ${{ inputs.heygen_id }}
           HEYGEN_MAX_MES: ${{ vars.HEYGEN_MAX_MES || '12' }}
           SADTALKER: /home/runner/SadTalker
           SADTALKER_PY: /home/runner/st-venv/bin/python
