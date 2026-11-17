@@ -2,9 +2,7 @@
 # Deja los videos en avatar/ y la fábrica diaria los publica. Secretos: CF_ACCOUNT_ID y CF_API_TOKEN (solo para fotos nuevas).
 name: Avatares IA
 on:
-  schedule:
-    - cron: '23 6 * * *'   # 00:23 hora de México, antes de la fábrica (03:17)
-    - cron: '41 18 * * *'  # 12:41 hora de México, respaldo por si GitHub se salta la de la noche
+  # Apagado por decisión de Luis (no le gustó la calidad de SadTalker). Solo se corre a mano.
   workflow_dispatch:
     inputs:
       num:
