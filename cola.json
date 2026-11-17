@@ -1,0 +1,45 @@
+{
+ "creada": "2026-11-17T09:22:22+00:00",
+ "videos": [
+  {
+   "id": "2026-11-17-avatar-barberia-barbero",
+   "video": "videos/2026-11-17-avatar-barberia-barbero.mp4",
+   "texto": "Estás cortando y no puedes contestar el WhatsApp 💈\nCon la Autoagenda de Confirmapp tus clientes eligen su hora solos y un día antes les llega su recordatorio.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#barberia #barbero #barbershop #citas #confirmapp",
+   "giro": "barberia",
+   "gancho": "Imagina: estás en tu barbería haciendo un fade y no puedes contestar",
+   "historia": true,
+   "tipo": "avatar",
+   "portada": "videos/2026-11-17-avatar-barberia-barbero.jpg"
+  },
+  {
+   "id": "2026-11-17-avatar-dental-recepcionista",
+   "video": "videos/2026-11-17-avatar-dental-recepcionista.mp4",
+   "texto": "¿Sigues confirmando citas a mano? 🦷 Así se ve con Confirmapp.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#dentista #consultoriodental #citas #confirmapp",
+   "giro": "dental",
+   "gancho": "¿Todavía confirmas las citas de mañana una por una?",
+   "historia": true,
+   "tipo": "avatar",
+   "portada": "videos/2026-11-17-avatar-dental-recepcionista.jpg"
+  },
+  {
+   "id": "2026-11-17-avatar-psico-terapeuta",
+   "video": "videos/2026-11-17-avatar-psico-terapeuta.mp4",
+   "texto": "Que tus pacientes confirmen solos 🧠 Funciona con Google Calendar u Outlook.\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#psicologia #psicologo #terapia #confirmapp",
+   "giro": "psicologia",
+   "gancho": "Si das terapia, sabes lo incómodo que es confirmar",
+   "historia": true,
+   "tipo": "avatar",
+   "portada": "videos/2026-11-17-avatar-psico-terapeuta.jpg"
+  },
+  {
+   "id": "2026-11-17-avatar-salon-estilista",
+   "video": "videos/2026-11-17-avatar-salon-estilista.mp4",
+   "texto": "POV: tus clientas agendan sin llamarte 💅\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#salondebelleza #estilista #citas #confirmapp",
+   "giro": "salon",
+   "gancho": "POV: estás pintando un cabello y no puedes contestar",
+   "historia": true,
+   "tipo": "avatar",
+   "portada": "videos/2026-11-17-avatar-salon-estilista.jpg"
+  }
+ ]
+}
