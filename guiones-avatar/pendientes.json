@@ -16,9 +16,16 @@
     }
    },
    {
-    "img": "m_pAutoMenu",
+    "anim": "autoagenda",
     "desde": 14.05,
-    "hasta": 17.6
+    "hasta": 17.6,
+    "q": {
+     "p1": 1.1,
+     "p2": 2.4,
+     "cliente": "Mariana Ruiz",
+     "pill2": "Tu paciente elige su horario libre",
+     "emoji": "🦷"
+    }
    },
    {
     "img": "01_login",
