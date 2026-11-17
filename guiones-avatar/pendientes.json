@@ -37,28 +37,23 @@
   "texto": "POV: tus clientas agendan sin llamarte 💅\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#salondebelleza #estilista #citas #confirmapp",
   "capturas": [
    {
-    "img": "k_chat",
-    "desde": 4.8,
-    "hasta": 6.6
-   },
-   {
     "img": "m_pAutoMenu",
-    "desde": 6.6,
-    "hasta": 12.2
+    "desde": 4.7,
+    "hasta": 9.6
    },
    {
-    "img": "k_gcal",
-    "desde": 12.2,
-    "hasta": 15.2
+    "img": "k_chat",
+    "desde": 9.6,
+    "hasta": 12.1
    },
    {
     "img": "04_prueba",
-    "desde": 15.2,
-    "hasta": 17.6
+    "desde": 12.1,
+    "hasta": 15.1
    },
    {
     "img": "01_login",
-    "desde": 17.6,
+    "desde": 15.1,
     "hasta": 20.0
    }
   ],
