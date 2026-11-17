@@ -3,7 +3,7 @@
 Este repositorio arma videos verticales (Reels) para promocionar **Confirmapp** y los deja en la rama `cola`.
 Supabase revisa la cola cada hora, guarda los videos y los publica solo en Instagram (@confirmapp.mx) y
 Facebook (página Confirmapp) a las **9:00, 14:00 y 20:00** (hora de México), uno detrás de otro.
-Cada video en `cola.json` trae `portada` (jpg de la primera escena, para usarla como portada del Reel) y
+Cada video en `cola.json` trae `tipo` (`avatar` o `plantilla`; van intercalados), `portada` (jpg de la primera escena, para usarla como portada del Reel) y
 `historia: true` (también se sube a Historias). La primera escena no lleva fundido a negro: su primer cuadro es la portada.
 
 ## Qué es Confirmapp (lo único que se puede decir)

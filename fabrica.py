@@ -251,6 +251,9 @@ def git(*a, cwd=R):
 def publicar():
     S = f'{R}/salida'
     ids = sorted(f[:-5] for f in os.listdir(S) if f.endswith('.json') and os.path.exists(f'{S}/{f[:-5]}.mp4')) if os.path.isdir(S) else []
+    # intercala: plantilla, avatar, plantilla, avatar… (los de avatar llevan "avatar" en el id)
+    av = [i for i in ids if '-avatar-' in i]; pl = [i for i in ids if '-avatar-' not in i]
+    ids = [x for par in __import__('itertools').zip_longest(pl, av) for x in par if x]
     if not ids: sys.exit('No hay videos en salida/')
     hoy = datetime.date.today().isoformat()
     cola = {'creada': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'), 'videos': []}
@@ -261,7 +264,8 @@ def publicar():
     for i in ids:
         m = json.load(open(f'{S}/{i}.json'))
         shutil.copy(f'{S}/{i}.mp4', f'{C}/videos/{i}.mp4')
-        item = {'id': i, 'video': f'videos/{i}.mp4', 'texto': m['texto'], 'giro': m['giro'], 'gancho': m['gancho'], 'historia': True}
+        item = {'id': i, 'video': f'videos/{i}.mp4', 'texto': m['texto'], 'giro': m['giro'], 'gancho': m['gancho'], 'historia': True,
+                'tipo': 'avatar' if '-avatar-' in i else 'plantilla'}
         if os.path.exists(f'{S}/{i}.jpg'):
             shutil.copy(f'{S}/{i}.jpg', f'{C}/videos/{i}.jpg'); item['portada'] = f'videos/{i}.jpg'
         cola['videos'].append(item)
