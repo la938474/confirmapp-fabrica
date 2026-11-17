@@ -5,7 +5,7 @@
   python3 fabrica.py publicar                        → sube salida/ a la rama "cola" (Supabase la importa sola)
                                                        y anota los ganchos en historial.json
 """
-import json, os, re, shutil, subprocess, sys, datetime
+import glob, json, os, re, shutil, subprocess, sys, datetime
 
 R = os.path.dirname(os.path.abspath(__file__))
 A = f'{R}/assets'
@@ -166,6 +166,7 @@ def avatares():
         json.dump({**{k: g[k] for k in ('giro', 'gancho', 'texto')}, 'formato': 'avatar', 'voz': 'avatar'},
                   open(f'{R}/salida/{vid}.json', 'w'), ensure_ascii=False)
         git('rm', '-q', f'avatar/{f}'); pend.remove(g); hechos.append(vid)
+        for k in glob.glob(f'{R}/kit-heygen/{g["num"]}-*'): git('rm', '-rq', '--ignore-unmatch', os.path.relpath(k, R)); shutil.rmtree(k, ignore_errors=True)
         print('✓', vid, round(dur(out), 1), 's', flush=True)
     if hechos:
         json.dump(pend, open(P, 'w'), ensure_ascii=False, indent=1); git('add', P)

@@ -92,13 +92,14 @@ Duración ideal: 15–30 s (3 a 5 escenas). La primera escena es el gancho: cort
 7. Los **lunes**: mandar a Luis un resumen corto en español: top 3 videos de la semana (vistas, compartidos),
    qué estilo pegó más, cuántos videos hay en fila y cualquier error de publicación.
 
-## Videos con avatar IA (automáticos)
-Todo corre solo cada noche:
-1. **00:23** GitHub (`avatar-ia.yml` → `avatar_ia.py`) toma hasta 2 guiones de `guiones-avatar/pendientes.json` sin video,
-   hace la foto (Cloudflare FLUX, solo si el personaje no existe en `avatar-ia/personajes/`), la voz (Kokoro) y el video
-   que habla (SadTalker), y lo deja en `avatar/<num>.mp4`.
-2. **03:17** la fábrica corre `python3 fabrica.py avatares` (celular con capturas reales, leyenda IA, portada, caption) y `publicar`.
-Luis también puede subir a mano videos de HeyGen a `avatar/` con el número del guion.
+## Videos con avatar IA (HeyGen a mano + todo lo demás automático)
+Luis prefiere la calidad de HeyGen (plan gratis, a mano). El flujo:
+1. Cada lunes GitHub (`avatar-ia.yml` → `avatar_ia.py --kit`) prepara en `kit-heygen/<num>-<personaje>/` la foto
+   (Cloudflare, solo si el personaje no existe), la voz `voz.mp3` (Kokoro) y un `LEEME.txt`.
+2. Luis hace el video en HeyGen con esa foto y ese audio, y lo sube a `avatar/<num>.mp4`.
+3. La fábrica (`python3 fabrica.py avatares`) le pone celular con capturas reales, leyenda IA, portada y caption,
+   lo manda a la fila y borra su kit.
+SadTalker (gratis pero de menor calidad) quedó apagado; solo si Luis lo pide.
 
 Reglas de contenido:
 - El avatar **demuestra** la app ("mira", "te enseño", "así se ve"). Nunca dice que es cliente real, ni nombra un negocio,

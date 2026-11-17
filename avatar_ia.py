@@ -98,11 +98,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--max', type=int, default=2); ap.add_argument('--num', type=int)
     ap.add_argument('--salida', default=f'{R}/avatar')
+    ap.add_argument('--kit', action='store_true', help='solo foto + voz para hacerlo a mano en HeyGen (kit-heygen/)')
     a = ap.parse_args()
     P = f'{R}/guiones-avatar/pendientes.json'
     pend = json.load(open(P))
     hechos = {int(f.split('.')[0].split(' ')[0]) for f in os.listdir(f'{R}/avatar') if f[:1].isdigit()}
-    cola = [g for g in pend if g.get('frases') and g.get('personaje') and (a.num == g['num'] if a.num else g['num'] not in hechos)]
+    kits = {int(d.split('-')[0]) for d in os.listdir(f'{R}/kit-heygen') if d[:1].isdigit()} if os.path.isdir(f'{R}/kit-heygen') else set()
+    cola = [g for g in pend if g.get('frases') and g.get('personaje') and
+            (a.num == g['num'] if a.num else g['num'] not in hechos and not (a.kit and g['num'] in kits))]
     os.makedirs(f'{R}/avatar-ia/personajes', exist_ok=True); os.makedirs(a.salida, exist_ok=True)
     cambio = False
     for g in cola[:a.max]:
@@ -114,7 +117,17 @@ def main():
             foto(g, img)
         tmp = f'{R}/trabajo/avatar-ia/{g["num"]}'; os.makedirs(tmp, exist_ok=True)
         marcas, total = voz(g, f'{tmp}/voz.wav')
-        video(img, f'{tmp}/voz.wav', f'{a.salida}/{g["num"]}.mp4', f'{tmp}/st')
+        if a.kit:
+            k = f'{R}/kit-heygen/{g["num"]}-{g["personaje"]}'; os.makedirs(k, exist_ok=True)
+            from PIL import Image
+            Image.open(img).convert('RGB').resize((1080, 1920), Image.LANCZOS).save(f'{k}/foto.jpg', quality=95)
+            sh('ffmpeg', '-y', '-v', 'error', '-i', f'{tmp}/voz.wav', '-ar', '44100', '-b:a', '192k', f'{k}/voz.mp3')
+            open(f'{k}/LEEME.txt', 'w').write(
+                f'Guion {g["num"]} · {g["personaje"]} · {total} s\n\nEn HeyGen: avatar con foto.jpg, video vertical 9:16, '
+                f'pestaña Audio → sube voz.mp3, genera en 720p.\nDescárgalo, nómbralo {g["num"]}.mp4 y súbelo a la carpeta avatar/.\n\n'
+                'Lo que dice:\n' + '\n'.join(g['frases']) + '\n')
+        else:
+            video(img, f'{tmp}/voz.wav', f'{a.salida}/{g["num"]}.mp4', f'{tmp}/st')
         # capturas: cada una arranca con la frase que indica "frase" y dura hasta la siguiente indicada (o el CTA)
         caps = g.get('capturas_frase')
         if caps:
