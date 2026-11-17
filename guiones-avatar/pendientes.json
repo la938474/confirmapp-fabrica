@@ -172,6 +172,40 @@
    "recordatorio",
    "cta"
   ],
-  "foto_de_luis": true
+  "foto_de_luis": true,
+  "cara": [
+   556,
+   305,
+   312
+  ],
+  "capturas": [
+   {
+    "anim": "autoagenda",
+    "desde": 5.07,
+    "hasta": 12.98,
+    "q": {
+     "p1": 3.0,
+     "p2": 5.37,
+     "cliente": "Andrés Ruiz",
+     "pill2": "Tu cliente elige su horario libre",
+     "emoji": "💈"
+    }
+   },
+   {
+    "anim": "recordatorio",
+    "desde": 12.98,
+    "hasta": 15.86,
+    "q": {
+     "clientes": "Carlos Méndez|Jorge Ríos|Luis Paz|Andrés Ruiz",
+     "rcliente": "Jorge Ríos"
+    }
+   },
+   {
+    "img": "01_login",
+    "desde": 15.86,
+    "hasta": 20.26
+   }
+  ],
+  "capturas_revisadas": true
  }
 ]
