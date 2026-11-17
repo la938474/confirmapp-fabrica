@@ -1,0 +1,77 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0}
+body{width:780px;height:1688px;overflow:hidden;font-family:Inter,system-ui,sans-serif;background:#fff}
+.v{position:absolute;inset:0}
+.wa{background:#efeae2}
+.wh{height:150px;background:#075e54;color:#fff;display:flex;align-items:center;gap:22px;padding:40px 30px 0}
+.av{width:72px;height:72px;border-radius:50%;background:#ffffff33;display:grid;place-items:center;font-size:38px}
+.wh b{font-size:34px;display:block}.wh small{font-size:24px;opacity:.85}
+.chat{zoom:1.22;padding:40px 22px;display:flex;flex-direction:column;gap:22px}
+.msg{background:#fff;border-radius:0 22px 22px 22px;padding:24px 26px 16px;max-width:620px;font-size:32px;line-height:1.35;color:#111b21;box-shadow:0 2px 3px #0001}
+.yo{align-self:flex-end;background:#d9fdd3;border-radius:22px 0 22px 22px}
+.lk{color:#027eb5;text-decoration:underline}
+.card{margin-top:14px;border-radius:14px;background:#f0f2f5;padding:18px;font-size:26px;color:#54656f}
+.card b{display:block;color:#111b21;font-size:28px}
+.h{font-size:20px;color:#667781;text-align:right;margin-top:6px}
+/* página de autoagenda (vista del cliente) */
+#pag{background:linear-gradient(170deg,#0d1424,#13183a);color:#fff;padding:90px 40px}
+#pag .t{zoom:1.15}
+.lg{display:flex;align-items:center;gap:16px;font-size:30px;font-weight:800;opacity:.9}.lg i{width:48px;height:48px;border-radius:12px;background:#1971c2;display:grid;place-items:center;font-style:normal}
+#pag h2{font-size:52px;margin:34px 0 8px}#pag p{font-size:28px;color:#c5cbe0}
+.srv{margin:30px 0;background:#ffffff14;border-radius:22px;padding:22px 26px;font-size:30px;font-weight:700}
+.dias{display:flex;gap:14px;margin-bottom:28px}.dias div{flex:1;text-align:center;border-radius:18px;background:#ffffff10;padding:16px 0;font-size:24px;color:#c5cbe0}.dias .on{background:#1971c2;color:#fff;font-weight:800}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:18px}.sl{border:3px solid #ffffff30;border-radius:20px;text-align:center;padding:26px 0;font-size:34px;font-weight:800}
+.sl.sel{background:#40c057;border-color:#40c057}
+.btn{margin-top:36px;background:#1971c2;border-radius:22px;text-align:center;padding:30px;font-size:36px;font-weight:900}
+.listo{position:absolute;left:40px;right:40px;top:560px;background:#fff;color:#13183a;border-radius:30px;padding:50px 36px;text-align:center;box-shadow:0 30px 60px #0008;opacity:0}
+.listo .e{font-size:110px}.listo b{display:block;font-size:46px;margin:16px 0 10px}.listo span{font-size:30px;color:#495057}
+.dedo{position:absolute;width:110px;height:110px;border-radius:50%;background:#ffffff55;border:6px solid #fff;box-shadow:0 6px 20px #0005;opacity:0;z-index:9}
+.pill{position:absolute;bottom:70px;top:auto;z-index:5;font-size:34px;padding:16px 32px;left:50%;transform:translateX(-50%);background:#000c;color:#fff;border-radius:999px;white-space:nowrap}
+</style></head><body>
+<div class="v wa" id="w1"><div class="pill">Tú le mandas tu link</div>
+ <div class="wh"><div class="av">👤</div><div><b>CLIENTA1</b><small>en línea</small></div></div>
+ <div class="chat">
+  <div class="msg">Hola, ¿tienes lugar esta semana? 🙏<div class="h">9:41 a. m.</div></div>
+  <div class="msg yo" id="lnk">¡Claro! Escoge tu horario aquí 👇<br><span class="lk">confirmapp.com.mx/a/SLUG</span>
+   <div class="card"><b>NEGOCIO · Agenda tu cita</b>Elige el horario que te quede</div><div class="h">9:42 a. m. ✓✓</div></div>
+ </div></div>
+<div class="v" id="pag"><div class="pill">Ella elige su horario libre</div><div class="t">
+ <div class="lg"><i>✓</i>NEGOCIO</div>
+ <h2>Agenda tu cita</h2><p>Horarios disponibles</p>
+ <div class="srv">💇‍♀️ SERVICIO</div>
+ <div class="dias"><div>Mié<br>12</div><div class="on">Jue<br>13</div><div>Vie<br>14</div><div>Sáb<br>15</div></div>
+ <div class="slots"><div class="sl">10:00 am</div><div class="sl">12:00 pm</div><div class="sl">1:00 pm</div><div class="sl" id="s5">5:00 pm</div></div>
+ <div class="btn" id="ag">Agendar</div></div>
+ <div class="listo" id="ok"><div class="e">🎉</div><b>¡Cita agendada!</b><span>Jueves 13 · 5:00 pm<br>Te llega tu recordatorio un día antes</span></div>
+</div>
+<div class="v wa" id="w2"><div class="pill">Y a ti te avisa por WhatsApp</div>
+ <div class="wh"><div class="av">✓</div><div><b>Confirmapp</b><small>aviso de tu negocio</small></div></div>
+ <div class="chat"><div class="msg" id="aviso">📅 <b>Nueva cita</b><br><b>CLIENTA1</b> agendó <b>SERVICIO</b><br>Jueves 13 · 5:00 pm<div class="h">9:43 a. m.</div></div></div>
+</div>
+<div class="dedo" id="dedo"></div>
+<script>
+const q=new URLSearchParams(location.search);
+const R={NEGOCIO:q.get('negocio')||'Estética Bella',SERVICIO:q.get('servicio')||'Corte y tinte',CLIENTA1:q.get('cliente')||'Mariana Ruiz',
+ SLUG:(q.get('negocio')||'Estética Bella').toLowerCase().normalize('NFD').replace(/[^a-z ]/g,'').trim().replace(/ +/g,'-')};
+for(const k in R) document.body.innerHTML=document.body.innerHTML.replaceAll(k,R[k]);
+const $=id=>document.getElementById(id), cl=(x,a,b)=>Math.max(0,Math.min(1,(x-a)/(b-a)));
+// p1 = segundo en que pasa a la página del cliente; p2 = segundo en que llega el aviso al negocio
+const P1=parseFloat(q.get('p1')||2), P2=parseFloat(q.get('p2')||5);
+function dedo(el,a,t,t0,t1){const r=$(el).getBoundingClientRect(),d=$('dedo'),ap=cl(t,t0,t0+.35),sal=cl(t,t1,t1+.3),tap=cl(t,t0+.4,t0+.6);
+ d.style.opacity=ap*(1-sal);d.style.left=(r.left+r.width/2-55+(1-ap)*140)+'px';d.style.top=(r.top+r.height/2-55+(1-ap)*240)+'px';
+ d.style.transform=`scale(${1-.25*Math.sin(Math.PI*tap)})`;return tap;}
+window.pintar=function(t,D){
+  const a=cl(t,P1-.25,P1+.05), b=cl(t,P2-.25,P2+.05);
+  $('w1').style.transform=`translateX(${-a*100}%)`;
+  $('pag').style.transform=`translateX(${(1-a)*100-b*100}%)`;
+  $('w2').style.transform=`translateX(${(1-b)*100}%)`;
+  $('lnk').style.opacity=cl(t,.15,.45); $('lnk').style.transform=`translateY(${(1-cl(t,.15,.45))*30}px)`;
+  $('dedo').style.opacity=0;
+  if(t>P1&&t<P2){const L=P2-P1;
+    const t1=dedo('s5',0,t,P1+L*.15,P1+L*.45); $('s5').className='sl'+(t1>.5||t>P1+L*.45?' sel':'');
+    if(t>P1+L*.5) dedo('ag',0,t,P1+L*.5,P1+L*.72);
+    const o=cl(t,P1+L*.72,P1+L*.8); $('ok').style.opacity=o; $('ok').style.transform=`scale(${.85+.15*o})`;}
+  const n=cl(t,P2+.25,P2+.6); $('aviso').style.opacity=n; $('aviso').style.transform=`translateY(${(1-n)*40}px)`;
+};
+pintar(0,6);
+</script></body></html>

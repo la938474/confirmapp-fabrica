@@ -15,7 +15,8 @@
   "c2": "#d0ebff",
   "c3": "#1864ab",
   "bg": "#0b2540",
-  "capturas": "medico"
+  "capturas": "medico",
+  "negocio": "Consultorio Médico Ramírez"
  },
  "psicologia": {
   "nombre": "Psicólogos",
@@ -69,7 +70,8 @@
   "c2": "#ffdeeb",
   "c3": "#a61e4d",
   "bg": "#3b0d2a",
-  "capturas": "salon"
+  "capturas": "salon",
+  "negocio": "Estética Bella"
  },
  "unas": {
   "nombre": "Estudio de uñas",
@@ -267,7 +269,8 @@
   "c2": "#c3fae8",
   "c3": "#087f5b",
   "bg": "#06302c",
-  "capturas": "dental"
+  "capturas": "dental",
+  "negocio": "Clínica Dental Sonrisa"
  },
  "especialista_dental": {
   "nombre": "Especialistas dentales (orto, endo, implantes)",

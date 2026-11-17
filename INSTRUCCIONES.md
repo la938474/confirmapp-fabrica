@@ -100,6 +100,12 @@ Luis prefiere la calidad de HeyGen (plan gratis, a mano). El flujo:
 3. La fábrica (`python3 fabrica.py avatares`) le pone celular con capturas reales, leyenda IA, portada y caption,
    lo manda a la fila y borra su kit.
 SadTalker (gratis pero de menor calidad) quedó apagado; solo si Luis lo pide.
+**Estilo "grande" (el que le gusta a Luis):** en `pendientes.json` pon `"estilo": "grande"` y `"cara": [cx, cy, r]`
+(centro y radio de la cara en el cuadro 1080x1920). En el gancho se ve el avatar completo; en las explicaciones el celular
+ocupa casi toda la pantalla y la cara habla en un círculo arriba. En `capturas` se puede usar `"img"` (captura fija) o
+`"anim"` (animación de la app en `assets/anim/`): `autoagenda` (mandas el link → la clienta escoge horario → te llega el
+WhatsApp; `q.p1`/`q.p2` = segundos dentro del tramo en que cambia de pantalla) y `recordatorio` (WhatsApp de recordatorio →
+toca Confirmar → en el calendario pasa de 🟡 a ✅). El cierre siempre con `01_login` (prueba gratis 7 días).
 **Sincronía celular ↔ voz (importante):** lo que sale en el celular debe corresponder a lo que dice en ese momento.
 Antes de `avatares`, para cada `avatar/<num>.mp4` compara su duración con la suma de su `voz.mp3`. Si difiere más de 0.5 s
 (Luis escribió el texto en HeyGen en vez de subir el audio), detecta las pausas con

@@ -5,7 +5,7 @@
   python3 fabrica.py publicar                        → sube salida/ a la rama "cola" (Supabase la importa sola)
                                                        y anota los ganchos en historial.json
 """
-import glob, json, os, re, shutil, subprocess, sys, datetime
+import glob, json, os, re, shutil, subprocess, sys, datetime, urllib.parse
 
 R = os.path.dirname(os.path.abspath(__file__))
 A = f'{R}/assets'
@@ -136,6 +136,87 @@ def telefono(cap, salida, ancho=360, giro=0):
     lienzo.save(salida)
 
 
+def marco_telefono(salida, W=680, H=1425, b=20):
+    """Bisel de celular con la pantalla transparente (para poner encima de un video)."""
+    from PIL import Image, ImageDraw
+    im = Image.new('RGBA', (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.rounded_rectangle((0, 0, W - 1, H - 1), 70, fill=(14, 14, 18, 255))
+    hueco = Image.new('L', (W, H), 0); ImageDraw.Draw(hueco).rounded_rectangle((b, b, W - b - 1, H - b - 1), 52, fill=255)
+    im.putalpha(Image.composite(Image.new('L', (W, H), 0), im.getchannel('A'), hueco))  # pantalla transparente
+    ImageDraw.Draw(im).rounded_rectangle((W // 2 - 70, b + 14, W // 2 + 70, b + 44), 15, fill=(0, 0, 0, 255))  # bocina/cámara
+    im.save(salida)
+
+
+def circulo(salida, d=330, borde=10):
+    """Máscara circular (L) y aro blanco (RGBA) para la cara pequeña."""
+    from PIL import Image, ImageDraw
+    m = Image.new('L', (d, d), 0); ImageDraw.Draw(m).ellipse((0, 0, d - 1, d - 1), fill=255); m.save(salida + '_m.png')
+    a = Image.new('RGBA', (d + 2 * borde, d + 2 * borde), (0, 0, 0, 0))
+    ImageDraw.Draw(a).ellipse((0, 0, d + 2 * borde - 1, d + 2 * borde - 1), outline=(255, 255, 255, 255), width=borde)
+    a.save(salida + '_a.png')
+
+
+def avatar_grande(g, src, out, tmp):
+    """Estilo "grande": en las explicaciones el celular ocupa casi toda la pantalla (con la app en movimiento)
+    y la cara del avatar habla en un círculo chico; en el gancho se ve el avatar completo."""
+    os.makedirs(tmp, exist_ok=True)
+    D = dur(src); caps = g.get('capturas', [])
+    cx, cy, r = g.get('cara', [540, 520, 250])          # cara en el cuadro 1080x1920
+    SW, SH, PX, PY = 600, 1298, 220, 490                 # pantalla y posición del celular
+    FD, FX, FY = 360, 40, 90                             # círculo de la cara
+    marco_telefono(f'{tmp}/marco.png', SW + 40, SH + 40); circulo(f'{tmp}/c', FD)
+    giro = GIROS[g['giro']]
+    ent = ['-loop', '1', '-t', str(D), '-i', f'{tmp}/marco.png', '-loop', '1', '-t', str(D), '-i', f'{tmp}/c_m.png',
+           '-loop', '1', '-t', str(D), '-i', f'{tmp}/c_a.png']
+    fg = (f"[0:v]crop='min(iw,ih*9/16)':'min(ih,iw*16/9)',scale=1080:1920:flags=lanczos,fps=30,format=yuv420p,split=3[full][b][f];"
+          f"[b]boxblur=40:3,eq=brightness=-0.2:saturation=0.8[s0];"
+          f"[f]crop={2*r}:{2*r}:{cx - r}:{cy - r},scale={FD}:{FD},format=rgba[fr];[2:v]format=gray[mk];[fr][mk]alphamerge[cara]")
+    for k, c in enumerate(caps):
+        a, z = c['desde'], c['hasta']; i = 4 + k
+        if c.get('anim'):
+            mp4 = f'{tmp}/anim{k}.mp4'
+            q = urllib.parse.urlencode({'negocio': c.get('negocio', giro.get('negocio', 'Tu negocio')),
+                                        'servicio': giro['servicios'][0], 'servicios': '|'.join(giro['servicios']), **c.get('q', {})})
+            sh('node', f'{A}/anim/grabar.js', f'{A}/anim/{c["anim"]}.html', q, str(round(z - a, 2)), mp4)
+            ent += ['-i', mp4]
+            fg += f";[{i}:v]scale={SW}:{SH},setpts=PTS-STARTPTS+{a}/TB[p{k}]"
+        else:
+            ent += ['-loop', '1', '-t', str(D), '-i', f'{A}/giros/{giro["capturas"]}/{c["img"]}.jpg']
+            fg += f";[{i}:v]scale={SW}:-1,crop={SW}:'min(ih,{SH})':0:0,pad={SW}:{SH}:0:0:white[p{k}]"
+        fg += f";[s{k}][p{k}]overlay={PX + 20}:{PY + 20}:enable='between(t,{a},{z})'[s{k + 1}]"
+    n = len(caps); ventanas = '+'.join(f"between(t,{c['desde']},{c['hasta']})" for c in caps) or '0'
+    fg += (f";[s{n}][1:v]overlay={PX}:{PY}[t1];[t1][cara]overlay={FX + 10}:{FY + 10}[t2];[t2][3:v]overlay={FX}:{FY}[demo];"
+           f"[full][demo]overlay=0:0:enable='{ventanas}'[v0];"
+           "[v0]drawtext=text='Escena recreada con IA':font='DejaVu Sans':fontsize=30:fontcolor=white@0.9:box=1:boxcolor=black@0.45:"
+           "boxborderw=10:x=w-tw-40:y=60[v]")
+    sh('ffmpeg', '-y', '-v', 'error', '-i', src, *ent, '-filter_complex', fg, '-map', '[v]', '-map', '0:a', '-t', str(D),
+       '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-c:a', 'aac', '-b:a', '128k', '-ar', '44100', '-movflags', '+faststart', out)
+
+
+def avatar_mano(g, src, out):
+    """Estilo normal: avatar completo y el celular con capturas aparece en sus manos."""
+    caps = g.get('capturas', [])
+    # "mano" (por defecto): celular al centro, abajo, un poco inclinado, como si lo sostuviera frente a ella.
+    # "lado": a la derecha (para tomas muy cerradas de la cara).
+    mano = g.get('telefono', 'mano') == 'mano'
+    ent, filtro = [], f"[0:v]crop='min(iw,ih*9/16)':'min(ih,iw*16/9)',scale=1080:1920:flags=lanczos,fps=30,format=yuv420p[b0]"
+    for k, c in enumerate(caps):
+        png = f'{R}/salida/_tel{k}.png'
+        telefono(f'{A}/giros/{GIROS[g["giro"]]["capturas"]}/{c["img"]}.jpg', png,
+                 *((430, -5) if mano else (360, 0))); ent += ['-loop', '1', '-i', png]
+        a, z = c['desde'], c['hasta']
+        # entra deslizándose desde abajo (0.3 s); si sigue otra captura pegada, ya no vuelve a entrar
+        pegada = k > 0 and abs(caps[k - 1]['hasta'] - a) < 0.05
+        x, yf = ("(W-w)/2+40", "H-h+150") if mano else ("W-w+20", "H-h-30")
+        y = yf if pegada else f"if(lt(t,{a}+0.3),H-(H-({yf}))*(t-{a})/0.3,{yf})"
+        filtro += f";[b{k}][{k + 1}:v]overlay=x={x}:y='{y}':enable='between(t,{a},{z})':shortest=1[b{k + 1}]"
+    etiqueta = "drawtext=text='Escena recreada con IA':font='DejaVu Sans':fontsize=34:fontcolor=white@0.9:box=1:boxcolor=black@0.45:boxborderw=12:x=(w-tw)/2:y=150"
+    filtro += f';[b{len(caps)}]{etiqueta}[v]'
+    sh('ffmpeg', '-y', '-v', 'error', '-i', src, *ent, '-filter_complex', filtro, '-map', '[v]', '-map', '0:a',
+       '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '21', '-c:a', 'aac', '-b:a', '128k', '-ar', '44100', '-movflags', '+faststart', out)
+    for k in range(len(caps)): os.remove(f'{R}/salida/_tel{k}.png')
+
+
 def avatares():
     """Videos de avatar IA subidos a avatar/ (nombre empieza con el número del guion en guiones-avatar/pendientes.json)."""
     P = f'{R}/guiones-avatar/pendientes.json'
@@ -149,26 +230,8 @@ def avatares():
         if not g: print('✗', f, '→ no hay guion pendiente con ese número'); continue
         hoy = datetime.date.today().isoformat()
         vid = f"{hoy}-{g['id']}"; out = f'{R}/salida/{vid}.mp4'
-        caps = g.get('capturas', [])
-        # "mano" (por defecto): celular al centro, abajo, un poco inclinado, como si lo sostuviera frente a ella.
-        # "lado": a la derecha (para tomas muy cerradas de la cara).
-        mano = g.get('telefono', 'mano') == 'mano'
-        ent, filtro = [], f"[0:v]crop='min(iw,ih*9/16)':'min(ih,iw*16/9)',scale=1080:1920:flags=lanczos,fps=30,format=yuv420p[b0]"
-        for k, c in enumerate(caps):
-            png = f'{R}/salida/_tel{k}.png'
-            telefono(f'{A}/giros/{GIROS[g["giro"]]["capturas"]}/{c["img"]}.jpg', png,
-                     *((430, -5) if mano else (360, 0))); ent += ['-loop', '1', '-i', png]
-            a, z = c['desde'], c['hasta']
-            # entra deslizándose desde abajo (0.3 s); si sigue otra captura pegada, ya no vuelve a entrar
-            pegada = k > 0 and abs(caps[k - 1]['hasta'] - a) < 0.05
-            x, yf = ("(W-w)/2+40", "H-h+150") if mano else ("W-w+20", "H-h-30")
-            y = yf if pegada else f"if(lt(t,{a}+0.3),H-(H-({yf}))*(t-{a})/0.3,{yf})"
-            filtro += f";[b{k}][{k + 1}:v]overlay=x={x}:y='{y}':enable='between(t,{a},{z})':shortest=1[b{k + 1}]"
-        etiqueta = "drawtext=text='Escena recreada con IA':font='DejaVu Sans':fontsize=34:fontcolor=white@0.9:box=1:boxcolor=black@0.45:boxborderw=12:x=(w-tw)/2:y=150"
-        filtro += f';[b{len(caps)}]{etiqueta}[v]'
-        sh('ffmpeg', '-y', '-v', 'error', '-i', f'{R}/avatar/{f}', *ent, '-filter_complex', filtro, '-map', '[v]', '-map', '0:a',
-           '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '21', '-c:a', 'aac', '-b:a', '128k', '-ar', '44100', '-movflags', '+faststart', out)
-        for k in range(len(caps)): os.remove(f'{R}/salida/_tel{k}.png')
+        if g.get('estilo') == 'grande': avatar_grande(g, f'{R}/avatar/{f}', out, f'{R}/trabajo/grande/{g["num"]}')
+        else: avatar_mano(g, f'{R}/avatar/{f}', out)
         sh('ffmpeg', '-y', '-v', 'error', '-ss', '0.5', '-i', out, '-frames:v', '1', '-q:v', '3', out[:-4] + '.jpg')
         json.dump({**{k: g[k] for k in ('giro', 'gancho', 'texto')}, 'formato': 'avatar', 'voz': 'avatar'},
                   open(f'{R}/salida/{vid}.json', 'w'), ensure_ascii=False)

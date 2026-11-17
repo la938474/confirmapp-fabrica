@@ -37,24 +37,24 @@
   "texto": "POV: tus clientas agendan sin llamarte 💅\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#salondebelleza #estilista #citas #confirmapp",
   "capturas": [
    {
-    "img": "m_pAutoMenu",
+    "anim": "autoagenda",
     "desde": 4.7,
-    "hasta": 9.6
+    "hasta": 12.1,
+    "q": {
+     "p1": 2.0,
+     "p2": 4.9,
+     "cliente": "Mariana Ruiz"
+    }
    },
    {
-    "img": "k_chat",
-    "desde": 9.6,
-    "hasta": 12.1
-   },
-   {
-    "img": "04_prueba",
+    "anim": "recordatorio",
     "desde": 12.1,
     "hasta": 15.1
    },
    {
     "img": "01_login",
     "desde": 15.1,
-    "hasta": 20.0
+    "hasta": 20.04
    }
   ],
   "personaje": "estilista",
@@ -78,7 +78,13 @@
     "hasta_frase": 3
    }
   ],
-  "telefono": "mano"
+  "telefono": "mano",
+  "estilo": "grande",
+  "cara": [
+   540,
+   520,
+   250
+  ]
  },
  {
   "num": 3,

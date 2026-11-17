@@ -1,0 +1,73 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0}
+body{width:780px;height:1688px;overflow:hidden;zoom:1;font-family:Inter,system-ui,sans-serif;background:#fff}
+.v{position:absolute;inset:0;transition:none}
+/* WhatsApp */
+#wa{background:#efeae2}
+.wh{height:150px;background:#075e54;color:#fff;display:flex;align-items:center;gap:22px;padding:40px 30px 0}
+.av{width:72px;height:72px;border-radius:50%;background:#25d366;display:grid;place-items:center;font-size:40px}
+.wh b{font-size:34px;display:block}.wh small{font-size:24px;opacity:.85}
+.chat{zoom:1.22;padding:40px 22px;display:flex;flex-direction:column;gap:22px}
+.dia{align-self:center;background:#ffffffcc;border-radius:14px;padding:8px 18px;font-size:22px;color:#54656f}
+.msg{background:#fff;border-radius:0 22px 22px 22px;padding:26px 28px 18px;max-width:640px;font-size:33px;line-height:1.35;color:#111b21;box-shadow:0 2px 3px #0001}
+.msg .h{font-size:20px;color:#667781;text-align:right;margin-top:6px}
+.bts{display:flex;flex-direction:column;gap:0;max-width:640px;margin-top:-14px}
+.bt{background:#fff;border-top:1px solid #e9edef;text-align:center;color:#027eb5;font-size:32px;font-weight:600;padding:22px}
+.bt:last-child{border-radius:0 0 22px 22px}
+.yo{align-self:flex-end;background:#d9fdd3;border-radius:22px 0 22px 22px;padding:20px 26px;font-size:33px;color:#111b21;opacity:0}
+.dedo{position:absolute;width:110px;height:110px;border-radius:50%;background:#ffffff55;border:6px solid #fff;box-shadow:0 6px 20px #0005;opacity:0}
+/* Calendario */
+#cal{background:#fff;padding:60px 26px;zoom:1.12}
+.ch{display:flex;justify-content:space-between;align-items:center;font-size:44px;color:#202124;margin-bottom:34px}
+.ch i{width:60px;height:60px;border-radius:50%;background:#e8590c;color:#fff;font-style:normal;display:grid;place-items:center;font-size:30px;font-weight:700}
+.neg{display:flex;align-items:center;gap:22px;margin-bottom:34px}.neg span{width:76px;height:76px;border-radius:50%;background:#1a73e8;color:#fff;display:grid;place-items:center;font-size:34px;font-weight:700}
+.neg b{font-size:34px;color:#202124;display:block}.neg small{font-size:26px;color:#5f6368}
+.fila{display:flex;gap:18px;margin-bottom:26px;align-items:stretch}.fila .hr{width:86px;font-size:22px;color:#70757a;padding-top:6px}
+.ev{flex:1;border-radius:16px;padding:22px 24px;color:#fff;font-size:29px;font-weight:700;transition:none}
+.ev small{display:block;font-size:24px;font-weight:500;opacity:.92;margin-top:6px}
+.ok{background:#33b679}.esp{background:#f6bf26;color:#3c3c3c}.no{background:#d50000}
+.ley{border:2px solid #e0e0e0;border-radius:18px;padding:18px;text-align:center;font-size:24px;color:#3c4043;margin-top:20px}
+.pop{animation:none}
+</style></head><body>
+<div class="v" id="wa">
+ <div class="wh"><div class="av">✓</div><div><b>Confirmapp</b><small>mensaje automático</small></div></div>
+ <div class="chat">
+  <div class="dia">HOY</div>
+  <div class="msg" id="m">Hola <b>SOFIA</b> 👋, te recordamos tu cita en <b>NEGOCIO</b> mañana a las <b>12:00 pm</b>. ¿Nos confirmas?<div class="h">10:00 a. m.</div></div>
+  <div class="bts"><div class="bt" id="b1">✅ Confirmar</div><div class="bt">❎ Cancelar</div></div>
+  <div class="yo" id="yo">✅ Confirmar</div>
+ </div>
+ <div class="dedo" id="dedo"></div>
+</div>
+<div class="v" id="cal">
+ <div class="ch">Viernes <i>K</i></div>
+ <div class="neg"><span>14</span><div><b>NEGOCIO</b><small>4 citas</small></div></div>
+ <div id="filas"></div>
+ <div class="ley">✅ confirmó · 🟡 esperando · ❎ canceló</div>
+</div>
+<script>
+const q=new URLSearchParams(location.search);
+const NEG=q.get('negocio')||'Estética Bella', S=(q.get('servicios')||'Corte y tinte|Uñas en gel|Alaciado|Peinado').split('|');
+const cli=['Ana López','Sofía Mena','Laura Paz','Mariana Ruiz'], hrs=[['10 AM','10:00 – 11:30'],['12 PM','12:00 – 1:00'],['2 PM','2:00 – 4:00'],['5 PM','5:00 – 6:00']];
+document.body.innerHTML=document.body.innerHTML.replaceAll('NEGOCIO',NEG).replace('SOFIA','Sofía');
+const est=['ok','esp','no','ok'], etq={ok:'✅',esp:'🟡',no:'❎'}, txt={ok:'confirmó',esp:'esperando respuesta',no:'canceló'};
+document.getElementById('filas').innerHTML=cli.map((c,i)=>`<div class="fila"><div class="hr">${hrs[i][0]}</div><div class="ev ${est[i]}" id="e${i}">${etq[est[i]]} ${c} · ${S[i%S.length]}<small>${hrs[i][1]} · ${txt[est[i]]}</small></div></div>`).join('');
+const $=id=>document.getElementById(id), cl=(x,a,b)=>Math.max(0,Math.min(1,(x-a)/(b-a)));
+window.pintar=function(t,D){
+  const u=t/D; // 0..1
+  // 0-0.45 WhatsApp, 0.45-0.55 transición, 0.55-1 calendario
+  const tr=cl(u,.45,.55);
+  $('wa').style.transform=`translateX(${-tr*100}%)`; $('cal').style.transform=`translateX(${(1-tr)*100}%)`;
+  const b=$('b1').getBoundingClientRect(), d=$('dedo');
+  const ap=cl(u,.08,.2), tap=cl(u,.24,.28), sal=cl(u,.33,.4);
+  d.style.opacity=ap*(1-sal); d.style.left=(b.left+b.width/2-55+(1-ap)*160)+'px'; d.style.top=(b.top+b.height/2-55+(1-ap)*260)+'px';
+  d.style.transform=`scale(${1-.25*Math.sin(Math.PI*tap)})`;
+  $('b1').style.background=tap>0&&tap<1?'#e7f6ff':'#fff';
+  const yo=cl(u,.28,.34); $('yo').style.opacity=yo; $('yo').style.transform=`translateY(${(1-yo)*30}px)`;
+  const e=$('e1'), f=cl(u,.72,.8);
+  if(f<.5){e.className='ev esp'; e.innerHTML=`🟡 Sofía Mena · ${S[1%S.length]}<small>${hrs[1][1]} · esperando respuesta</small>`;}
+  else{e.className='ev ok'; e.innerHTML=`✅ Sofía Mena · ${S[1%S.length]}<small>${hrs[1][1]} · confirmó</small>`;}
+  e.style.transform=`scale(${1+.08*Math.sin(Math.PI*f)})`;
+};
+pintar(0,3);
+</script></body></html>
