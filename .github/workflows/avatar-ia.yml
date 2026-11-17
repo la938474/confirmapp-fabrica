@@ -19,6 +19,10 @@ on:
         description: 'Solo preparar kit para HeyGen (foto + voz), sin video'
         type: boolean
         default: true
+      rehacer_fotos:
+        description: 'Volver a hacer las fotos de los personajes (menos el médico)'
+        type: boolean
+        default: false
       corta:
         description: 'Prueba corta (solo la primera frase, para medir tiempo)'
         type: boolean
@@ -91,6 +95,8 @@ jobs:
           ARGS="--max 2"
           if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.kit }}" = "true" ]; then ARGS="--kit --max 4"; fi
           [ -n "${{ inputs.num }}" ] && ARGS="$ARGS --num ${{ inputs.num }}"
+          [ "${{ inputs.rehacer_fotos }}" = "true" ] && ARGS="$ARGS --rehacer-fotos"
+          [ "${{ inputs.rehacer_fotos }}" = "true" ] && rm -rf kit-heygen/[0-9]*
           [ "${{ inputs.prueba }}" = "true" ] && ARGS="$ARGS --salida prueba"
           python3 avatar_ia.py $ARGS
       - name: Guardar prueba

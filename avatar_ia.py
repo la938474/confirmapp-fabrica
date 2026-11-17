@@ -15,8 +15,9 @@ import argparse, base64, json, os, subprocess, sys, urllib.error, urllib.request
 R = os.path.dirname(os.path.abspath(__file__))
 ST = os.environ.get('SADTALKER', f'{R}/../SadTalker')
 PY_ST = os.environ.get('SADTALKER_PY', sys.executable)
-NEG = (', looking directly at camera, mouth closed, gentle smile, face centered and well lit, only one person, '
-       'softly blurred background, no text, no signs, no logos, medium shot from the waist up, subject centered with space around, realistic photo')
+NEG = (', waist-up shot, standing, both hands visible in front of the body at waist level, natural relaxed pose, '
+       'looking directly at camera, gentle friendly smile, face well lit, only one person, softly blurred background, '
+       'no text, no signs, no logos, photorealistic, natural skin texture, shot on 50mm lens')
 
 
 def sh(*a, **k):
@@ -35,27 +36,43 @@ def _cf(cuenta, token, modelo, cuerpo):
         return None, None
 
 
+def _imagen(tipo, datos):
+    """Saca los bytes de la imagen de la respuesta de Cloudflare (JSON con base64 o imagen directa)."""
+    if not datos: return None
+    if 'json' in (tipo or ''):
+        res = json.loads(datos).get('result') or {}
+        b64 = res.get('image') if isinstance(res, dict) else None
+        return base64.b64decode(b64) if b64 else None
+    return datos
+
+
 def foto(g, ruta):
-    """Genera la foto con Cloudflare Workers AI (capa gratis) y la deja vertical 720x1280."""
+    """Foto vertical de medio cuerpo (manos visibles, para que HeyGen anime el cuerpo) con Cloudflare Workers AI."""
     cuenta, token = os.environ.get('CF_ACCOUNT_ID', '').strip(), os.environ.get('CF_API_TOKEN', '').strip()
     prompt = g['foto_prompt'] + NEG
-    tmp = ruta + '.tmp'
-    tipo, datos = _cf(cuenta, token, '@cf/black-forest-labs/flux-1-schnell', {'prompt': prompt, 'steps': 8})
-    if datos and 'json' in tipo:
-        res = json.loads(datos)
-        datos = base64.b64decode(res['result']['image']) if res.get('success') else None
-    if not datos:  # respaldo: SDXL (devuelve PNG directo y acepta tamaño vertical)
-        tipo, datos = _cf(cuenta, token, '@cf/stabilityai/stable-diffusion-xl-base-1.0',
-                          {'prompt': prompt, 'negative_prompt': 'text, watermark, logo, deformed, extra fingers, blurry face',
-                           'width': 768, 'height': 1344, 'num_steps': 20})
-        if datos and 'json' in tipo: datos = None
+    malo = 'text, watermark, logo, deformed hands, extra fingers, cropped head, close-up, blurry face, cartoon'
+    intentos = [  # primero modelos que aceptan tamaño vertical; al final FLUX (cuadrado) y SDXL
+        ('@cf/leonardo/lucid-origin', {'prompt': prompt, 'width': 832, 'height': 1472}),
+        ('@cf/leonardo/phoenix-1.0', {'prompt': prompt, 'negative_prompt': malo, 'width': 832, 'height': 1472}),
+        ('@cf/black-forest-labs/flux-1-schnell', {'prompt': prompt, 'steps': 8}),
+        ('@cf/stabilityai/stable-diffusion-xl-base-1.0', {'prompt': prompt, 'negative_prompt': malo, 'width': 768, 'height': 1344, 'num_steps': 20}),
+    ]
+    datos = None
+    for modelo, cuerpo in intentos:
+        datos = _imagen(*_cf(cuenta, token, modelo, cuerpo))
+        if datos: print('  foto con', modelo, flush=True); break
     if not datos: sys.exit('Cloudflare no generó la foto (ver mensajes arriba).')
-    open(tmp, 'wb').write(datos)
-    from PIL import Image
+    tmp = ruta + '.tmp'; open(tmp, 'wb').write(datos)
+    from PIL import Image, ImageFilter
     im = Image.open(tmp).convert('RGB'); w, h = im.size
-    cw = min(w, round(h * 9 / 16)); x = (w - cw) // 2
-    im.crop((x, 0, x + cw, h)).resize((720, 1280), Image.LANCZOS).save(ruta, quality=95)
-    os.remove(tmp)
+    if h / w >= 1.6:   # ya es vertical
+        cw = min(w, round(h * 9 / 16)); x = (w - cw) // 2
+        im = im.crop((x, 0, x + cw, h)).resize((1080, 1920), Image.LANCZOS)
+    else:              # cuadrada: la pongo abajo sobre un fondo extendido (no recorto el cuerpo)
+        lado = im.resize((1080, round(h * 1080 / w)), Image.LANCZOS)
+        fondo = im.resize((1080, 1920), Image.LANCZOS).filter(ImageFilter.GaussianBlur(40))
+        fondo.paste(lado, (0, 1920 - lado.height)); im = fondo
+    im.save(ruta, quality=95); os.remove(tmp)
     print('  foto generada:', ruta, flush=True)
 
 
@@ -98,6 +115,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--max', type=int, default=2); ap.add_argument('--num', type=int)
     ap.add_argument('--salida', default=f'{R}/avatar')
+    ap.add_argument('--rehacer-fotos', action='store_true', help='vuelve a generar la foto aunque exista (menos medico)')
     ap.add_argument('--kit', action='store_true', help='solo foto + voz para hacerlo a mano en HeyGen (kit-heygen/)')
     a = ap.parse_args()
     P = f'{R}/guiones-avatar/pendientes.json'
@@ -107,10 +125,12 @@ def main():
     cola = [g for g in pend if g.get('frases') and g.get('personaje') and
             (a.num == g['num'] if a.num else g['num'] not in hechos and not (a.kit and g['num'] in kits))]
     os.makedirs(f'{R}/avatar-ia/personajes', exist_ok=True); os.makedirs(a.salida, exist_ok=True)
-    cambio = False
+    cambio, rehechas = False, set()
     for g in cola[:a.max]:
         print(f'▶ guion {g["num"]} ({g["personaje"]})', flush=True)
         img = f'{R}/avatar-ia/personajes/{g["personaje"]}.jpg'
+        if a.rehacer_fotos and g['personaje'] != 'medico' and os.path.exists(img) and img not in rehechas:
+            os.remove(img); rehechas.add(img)
         if not os.path.exists(img):
             if not (os.environ.get('CF_ACCOUNT_ID') and os.environ.get('CF_API_TOKEN')):
                 print(f'  (sin foto de {g["personaje"]} y sin Cloudflare: lo salto)'); continue
