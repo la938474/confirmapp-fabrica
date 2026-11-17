@@ -107,7 +107,7 @@ ocupa casi toda la pantalla y la cara habla en un círculo arriba. En `capturas`
 WhatsApp; `q.p1`/`q.p2` = segundos dentro del tramo en que cambia de pantalla) y `recordatorio` (WhatsApp de recordatorio →
 toca Confirmar → en el calendario pasa de 🟡 a ✅). El cierre siempre con `01_login` (prueba gratis 7 días).
 **Sincronía celular ↔ voz (importante):** lo que sale en el celular debe corresponder a lo que dice en ese momento.
-Antes de `avatares`, para cada `avatar/<num>.mp4` compara su duración con la suma de su `voz.mp3`. Si difiere más de 0.5 s
+Antes de `avatares`, para cada `avatar/<num>.mp4` (salvo si su guion trae `"capturas_revisadas": true`, que ya ajustó Claude con Luis; ese no lo toques) compara su duración con la suma de su `voz.mp3`. Si difiere más de 0.5 s
 (Luis escribió el texto en HeyGen en vez de subir el audio), detecta las pausas con
 `ffmpeg -i avatar/<num>.mp4 -af silencedetect=n=-35dB:d=0.25 -f null -`, empata cada tramo hablado con las frases del guion
 (por número de sílabas) y reescribe `capturas` en `pendientes.json` con los segundos reales. Cada captura debe mostrar
