@@ -126,11 +126,19 @@ y agrégalos a `pendientes.json` con números nuevos (mayores que cualquiera usa
  "personaje": "recepcionista_dental", "voz": "dora_brillante",
  "foto_prompt": "Mexican woman, 32 years old, dental receptionist in light blue scrubs, dental clinic reception",
  "frases": ["gancho (1 frase)", "cómo funciona", "detalle", "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."],
- "capturas_frase": [{"img": "k_gcal", "frase": 1, "hasta_frase": 3}]}
+ "estilo": "grande",
+ "pantallas": [null, "autoagenda:link", "autoagenda:elige", "autoagenda:aviso", "recordatorio", "cta"]}
 ```
 - `frases`: 3 a 5, total 15–25 s, con la pronunciación de arriba (Confirm ap, guatsap, Gúgol…). La última siempre es el CTA.
 - `personaje`: reutiliza los de `avatar-ia/personajes/` (medico, recepcionista_dental, estilista, psicologa) para que la cara
   sea la misma; inventa uno nuevo solo si hace falta (con `foto_prompt`). `voz`: `dora_brillante` mujer, `alex_grave` hombre.
-- `capturas_frase`: qué captura real sale en el celular y en qué frases (índices de `frases`). Solo capturas que existan en
-  `assets/giros/<giro>/` (01_login … 05_google, k_chat, k_gcal, k_magic, m_pAutoMenu, m_pSusc).
+- `pantallas`: una por frase, lo que se ve en el celular grande mientras dice esa frase (lo que dice = lo que se ve):
+  `null` (gancho, sin celular), `"autoagenda:link"` (mandas tu link), `"autoagenda:elige"` (el cliente escoge horario),
+  `"autoagenda:aviso"` (te llega el WhatsApp de quién agendó), `"recordatorio"` (recordatorio → Confirmar → 🟡 pasa a ✅),
+  `"cta"` (prueba gratis 7 días; siempre la última), o una captura real: `k_gcal` (calendario), `k_chat` (ConfirChat IA),
+  `k_magic` (Magic), `m_pSusc` (planes / invita a un colega), `05_google` (conectar Google/Outlook).
+  Divide las frases para que cada una hable de UNA sola cosa (así cambia la pantalla justo a tiempo).
+- Con `HEYGEN_API_KEY`, GitHub hace el video solo con la API de HeyGen (Avatar IV) cada noche, máximo 2 por noche y el tope
+  mensual de `HEYGEN_MAX_MES` (12 por defecto ≈ $10 USD). Si el personaje lo hizo Luis (`"foto_de_luis": true`), su foto va en
+  `avatar-ia/personajes/<personaje>.jpg`.
 - Nunca repitas un `gancho` del historial.

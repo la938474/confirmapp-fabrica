@@ -10,7 +10,7 @@ Para cada guion de guiones-avatar/pendientes.json que todavía no tenga video en
 
   python3 avatar_ia.py [--max 2] [--num 4] [--salida carpeta]
 """
-import argparse, base64, json, os, subprocess, sys, urllib.error, urllib.request
+import argparse, base64, datetime, json, os, subprocess, sys, urllib.error, urllib.request
 
 R = os.path.dirname(os.path.abspath(__file__))
 ST = os.environ.get('SADTALKER', f'{R}/../SadTalker')
@@ -111,11 +111,116 @@ def video(img, wav, salida, tmp):
        '-c:a', 'aac', '-b:a', '128k', '-ar', '44100', '-movflags', '+faststart', salida)
 
 
+# ---------- HeyGen (API, pago por uso) ----------
+HG = 'https://api.heygen.com'
+
+
+def _hg(metodo, ruta, cuerpo=None, archivo=None):
+    llave = os.environ['HEYGEN_API_KEY'].strip()
+    h = {'X-Api-Key': llave, 'Accept': 'application/json'}
+    datos = None
+    if archivo:
+        frontera = 'confirmapp' + os.urandom(8).hex()
+        tipo = 'image/jpeg' if archivo.endswith('.jpg') else 'audio/mpeg'
+        datos = (f'--{frontera}\r\nContent-Disposition: form-data; name="file"; filename="{os.path.basename(archivo)}"\r\n'
+                 f'Content-Type: {tipo}\r\n\r\n').encode() + open(archivo, 'rb').read() + f'\r\n--{frontera}--\r\n'.encode()
+        h['Content-Type'] = f'multipart/form-data; boundary={frontera}'
+    elif cuerpo is not None:
+        datos = json.dumps(cuerpo).encode(); h['Content-Type'] = 'application/json'
+    try:
+        return json.load(urllib.request.urlopen(urllib.request.Request(HG + ruta, datos, h, method=metodo), timeout=300))
+    except urllib.error.HTTPError as e:
+        sys.exit(f'HeyGen {metodo} {ruta}: {e.code} {e.read()[:800]!r}')
+
+
+def heygen(g, img, wav, salida):
+    """Video Avatar IV (foto + nuestro audio, vertical 9:16) con la API de HeyGen."""
+    import time
+    mp3 = wav[:-4] + '.mp3'
+    sh('ffmpeg', '-y', '-v', 'error', '-i', wav, '-ar', '44100', '-b:a', '192k', mp3)
+    jpg = wav[:-4] + '_foto.jpg'
+    from PIL import Image
+    Image.open(img).convert('RGB').save(jpg, quality=95)
+    foto_id = _hg('POST', '/v3/assets', archivo=jpg)['data']['asset_id']
+    audio_id = _hg('POST', '/v3/assets', archivo=mp3)['data']['asset_id']
+    r = _hg('POST', '/v3/videos', {
+        'type': 'image', 'image': {'type': 'asset_id', 'asset_id': foto_id}, 'audio_asset_id': audio_id,
+        'aspect_ratio': '9:16', 'resolution': '720p', 'title': f'Confirmapp {g["id"]}',
+        'motion_prompt': 'Natural, friendly hand gestures while explaining, small head nods, relaxed shoulders, keeps looking at the camera.',
+        'expressiveness': 'medium'})
+    vid = r['data']['video_id']; print('  HeyGen video', vid, flush=True)
+    for _ in range(120):  # hasta 40 min
+        time.sleep(20)
+        d = _hg('GET', f'/v3/videos/{vid}').get('data', {})
+        st = d.get('status')
+        if st in ('completed', 'success'):
+            urllib.request.urlretrieve(d['video_url'], salida); return
+        if st in ('failed', 'error'): sys.exit(f'HeyGen falló: {json.dumps(d)[:800]}')
+    sys.exit('HeyGen tardó demasiado')
+
+
+def cara(video):
+    """Centro y radio de la cara (en el cuadro 1080x1920) para el círculo del estilo grande."""
+    import cv2
+    c = cv2.VideoCapture(video); c.set(cv2.CAP_PROP_POS_MSEC, 800); ok, f = c.read()
+    if not ok: return [540, 520, 250]
+    h, w = f.shape[:2]; cw = min(w, round(h * 9 / 16)); x0 = (w - cw) // 2
+    f = cv2.resize(f[:, x0:x0 + cw], (1080, 1920))
+    det = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    caras = det.detectMultiScale(cv2.cvtColor(f, cv2.COLOR_BGR2GRAY), 1.1, 6, minSize=(100, 100))
+    if not len(caras): return [540, 520, 250]
+    x, y, a, b = max(caras, key=lambda r: r[2] * r[3])
+    return [int(x + a / 2), int(y + b / 2 - b * 0.08), int(max(a, b) * 0.95)]
+
+
+def pantallas_a_capturas(pantallas, marcas, total, giro):
+    """Convierte lo que debe verse en cada frase en capturas con tiempos reales.
+    Valores: null (sin celular), "autoagenda:link" / "autoagenda:elige" / "autoagenda:aviso", "recordatorio",
+    "cta" (prueba gratis) o el nombre de una captura (k_gcal, k_chat, k_magic, m_pSusc, m_pAutoMenu…)."""
+    fin = marcas + [total]; caps = []; i = 0
+    G = json.load(open(f'{R}/assets/giros.json')).get(giro, {})
+    nombres = G.get('nombres', 'Ana López|Sofía Mena|Laura Paz|Mariana Ruiz').split('|')
+    while i < len(pantallas):
+        p = pantallas[i]
+        if p and p.startswith('autoagenda'):
+            j = i
+            while j + 1 < len(pantallas) and (pantallas[j + 1] or '').startswith('autoagenda'): j += 1
+            a = fin[i]; tramo = pantallas[i:j + 1]
+            p1 = next((fin[i + k] for k, x in enumerate(tramo) if x == 'autoagenda:elige'), a + (fin[j + 1] - a) * .3) - a
+            p2 = next((fin[i + k] for k, x in enumerate(tramo) if x == 'autoagenda:aviso'), a + (fin[j + 1] - a) * .7) - a
+            q = {'p1': round(p1, 2), 'p2': round(p2, 2), 'cliente': nombres[3]}
+            q['pill2'] = G.get('pill2') or f"Tu {G.get('cliente', 'cliente')} elige su horario libre"
+            if G.get('emoji'): q['emoji'] = G['emoji']
+            caps.append({'anim': 'autoagenda', 'desde': round(a, 2), 'hasta': round(fin[j + 1], 2), 'q': q}); i = j + 1; continue
+        j = i
+        while j + 1 < len(pantallas) and pantallas[j + 1] == p: j += 1  # frases seguidas con la misma pantalla
+        if p == 'recordatorio':
+            caps.append({'anim': 'recordatorio', 'desde': round(fin[i], 2), 'hasta': round(fin[j + 1], 2), 'q': {'clientes': '|'.join(nombres), 'rcliente': nombres[1]}})
+        elif p == 'cta':
+            caps.append({'img': '01_login', 'desde': round(fin[i], 2), 'hasta': round(fin[j + 1], 2)})
+        elif p:
+            caps.append({'img': p, 'desde': round(fin[i], 2), 'hasta': round(fin[j + 1], 2)})
+        i = j + 1
+    # une tramos seguidos de la misma imagen
+    out = []
+    for c in caps:
+        if out and c.get('img') and out[-1].get('img') == c['img'] and abs(out[-1]['hasta'] - c['desde']) < .05: out[-1]['hasta'] = c['hasta']
+        else: out.append(c)
+    return out
+
+
+def mes_heygen():
+    f = f'{R}/avatar-ia/heygen_mes.json'
+    d = json.load(open(f)) if os.path.exists(f) else {}
+    return f, d, datetime.date.today().strftime('%Y-%m')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--max', type=int, default=2); ap.add_argument('--num', type=int)
     ap.add_argument('--salida', default=f'{R}/avatar')
     ap.add_argument('--rehacer-fotos', action='store_true', help='vuelve a generar la foto aunque exista (menos medico)')
+    ap.add_argument('--heygen', action='store_true', help='video con la API de HeyGen (Avatar IV)')
     ap.add_argument('--kit', action='store_true', help='solo foto + voz para hacerlo a mano en HeyGen (kit-heygen/)')
     a = ap.parse_args()
     P = f'{R}/guiones-avatar/pendientes.json'
@@ -131,6 +236,8 @@ def main():
         img = f'{R}/avatar-ia/personajes/{g["personaje"]}.jpg'
         if a.rehacer_fotos and g['personaje'] != 'medico' and os.path.exists(img) and img not in rehechas:
             os.remove(img); rehechas.add(img)
+        if not os.path.exists(img) and g.get('foto_de_luis'):
+            print(f'  (falta la foto de {g["personaje"]} que hizo Luis: lo salto)'); continue
         if not os.path.exists(img):
             if not (os.environ.get('CF_ACCOUNT_ID') and os.environ.get('CF_API_TOKEN')):
                 print(f'  (sin foto de {g["personaje"]} y sin Cloudflare: lo salto)'); continue
@@ -146,11 +253,19 @@ def main():
                 f'Guion {g["num"]} · {g["personaje"]} · {total} s\n\nEn HeyGen: avatar con foto.jpg, video vertical 9:16, '
                 f'pestaña Audio → sube voz.mp3, genera en 720p.\nDescárgalo, nómbralo {g["num"]}.mp4 y súbelo a la carpeta avatar/.\n\n'
                 'Lo que dice:\n' + '\n'.join(g['frases']) + '\n')
+        elif a.heygen:
+            fm, dm, mes = mes_heygen(); tope = int(os.environ.get('HEYGEN_MAX_MES', '12'))
+            if dm.get(mes, 0) >= tope: print(f'  tope del mes alcanzado ({tope} videos); lo dejo para el próximo mes'); break
+            heygen(g, img, f'{tmp}/voz.wav', f'{a.salida}/{g["num"]}.mp4')
+            dm[mes] = dm.get(mes, 0) + 1; json.dump(dm, open(fm, 'w'), indent=1)
+            g['estilo'] = g.get('estilo', 'grande'); g['cara'] = cara(f'{a.salida}/{g["num"]}.mp4'); cambio = True
         else:
             video(img, f'{tmp}/voz.wav', f'{a.salida}/{g["num"]}.mp4', f'{tmp}/st')
         # capturas: cada una arranca con la frase que indica "frase" y dura hasta la siguiente indicada (o el CTA)
+        if g.get('pantallas'):
+            g['capturas'] = pantallas_a_capturas(g['pantallas'], marcas, total, g['giro']); g['capturas_revisadas'] = True; cambio = True
         caps = g.get('capturas_frase')
-        if caps:
+        if caps and not g.get('pantallas'):
             fin = marcas + [total]  # hasta_frase = len(frases) significa "hasta el final"
             g['capturas'] = [{'img': c['img'], 'desde': fin[c['frase']],
                               'hasta': fin[c['hasta_frase']] if c.get('hasta_frase') is not None else fin[-1]} for c in caps]

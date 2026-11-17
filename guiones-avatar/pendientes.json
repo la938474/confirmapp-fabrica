@@ -17,17 +17,21 @@
   "foto_prompt": "Mexican woman, 32 years old, dental receptionist in light blue scrubs, dental clinic reception",
   "frases": [
    "¿Todavía confirmas las citas de mañana una por una?",
-   "Mira: con Confirm ap, a cada paciente le llega un guatsap un día antes, y confirma o cancela con un toque.",
-   "Y en el calendario ves quién viene: verde confirmó, amarillo esperando, y si alguien canceló, lo sabes a tiempo.",
+   "Mira: con Confirm ap, a cada paciente le llega un guatsap un día antes,",
+   "y confirma o cancela con un toque.",
+   "Y en tu calendario ves quién viene: verde confirmó, amarillo esperando.",
+   "Y con tu link de Autoagenda, tus pacientes agendan solos.",
    "Pruébalo siete días gratis, sin tarjeta, en confirm ap punto com punto eme equis."
   ],
-  "capturas_frase": [
-   {
-    "img": "k_gcal",
-    "frase": 1,
-    "hasta_frase": 3
-   }
-  ]
+  "pantallas": [
+   null,
+   "recordatorio",
+   "recordatorio",
+   "k_gcal",
+   "m_pAutoMenu",
+   "cta"
+  ],
+  "estilo": "grande"
  },
  {
   "num": 2,
@@ -114,18 +118,13 @@
    "Funciona con tu Gúgol Calendar o tu Áutluk, lo que ya usas.",
    "Siete días gratis, sin tarjeta. Confirm ap punto com punto eme equis."
   ],
-  "capturas_frase": [
-   {
-    "img": "k_gcal",
-    "frase": 1,
-    "hasta_frase": 2
-   },
-   {
-    "img": "05_google",
-    "frase": 2,
-    "hasta_frase": 3
-   }
-  ]
+  "pantallas": [
+   null,
+   "recordatorio",
+   "05_google",
+   "cta"
+  ],
+  "estilo": "grande"
  },
  {
   "num": 5,
@@ -145,37 +144,14 @@
    "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
   ],
   "estilo": "grande",
-  "cara": [
-   540,
-   520,
-   250
+  "pantallas": [
+   null,
+   "autoagenda:link",
+   "autoagenda:elige",
+   "autoagenda:aviso",
+   "recordatorio",
+   "cta"
   ],
-  "capturas": [
-   {
-    "anim": "autoagenda",
-    "desde": 5.07,
-    "hasta": 12.97,
-    "q": {
-     "p1": 3.0,
-     "p2": 5.37,
-     "cliente": "Carlos Méndez",
-     "pill2": "Él elige su horario libre",
-     "emoji": "💈"
-    }
-   },
-   {
-    "anim": "recordatorio",
-    "desde": 12.97,
-    "hasta": 15.86,
-    "q": {
-     "clientes": "Carlos Méndez|Jorge Ríos|Luis Paz|Andrés Ruiz"
-    }
-   },
-   {
-    "img": "01_login",
-    "desde": 15.86,
-    "hasta": 20.26
-   }
-  ]
+  "foto_de_luis": true
  }
 ]

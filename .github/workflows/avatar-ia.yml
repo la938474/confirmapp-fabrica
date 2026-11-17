@@ -2,10 +2,11 @@
 # Deja los videos en avatar/ y la fábrica diaria los publica. Secretos: CF_ACCOUNT_ID y CF_API_TOKEN (solo para fotos nuevas).
 name: Avatares IA
 on:
-  # Luis hace los videos a mano en HeyGen (mejor calidad). Cada lunes se preparan solos los "kits" (foto + voz)
-  # de los guiones nuevos en kit-heygen/. SadTalker solo se usa si se corre a mano con kit = false.
+  # Con HEYGEN_API_KEY: cada noche hace hasta 2 videos con la API de HeyGen (Avatar IV, foto + nuestra voz) y los deja en avatar/.
+  # Sin la llave: solo prepara "kits" (foto + voz) para hacerlos a mano. SadTalker solo si se corre a mano con kit = false.
   schedule:
-    - cron: '41 13 * * 1'   # lunes 7:41 a. m. hora de México
+    - cron: '23 6 * * *'    # 00:23 hora de México (antes de la fábrica de las 03:17)
+    - cron: '41 18 * * *'   # 12:41 hora de México, respaldo
   workflow_dispatch:
     inputs:
       num:
@@ -63,7 +64,7 @@ jobs:
         if: steps.hay.outputs.si == '1'
         run: |
           which ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
-          pip install -q numpy onnxruntime pillow
+          pip install -q numpy onnxruntime pillow opencv-python-headless
           if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.kit }}" = "true" ]; then exit 0; fi
           if [ ! -d ~/SadTalker/checkpoints ]; then
             git clone -q --depth 1 https://github.com/OpenTalker/SadTalker.git ~/SadTalker
@@ -87,13 +88,17 @@ jobs:
         env:
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
+          HEYGEN_MAX_MES: ${{ vars.HEYGEN_MAX_MES || '12' }}
           SADTALKER: /home/runner/SadTalker
           SADTALKER_PY: /home/runner/st-venv/bin/python
           AVATAR_CORTA: ${{ inputs.corta && '1' || '0' }}
           AVATAR_LIMITE: ${{ inputs.corta && '20m' || '150m' }}
         run: |
           ARGS="--max 2"
-          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.kit }}" = "true" ]; then ARGS="--kit --max 4"; fi
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.kit }}" = "true" ]; then
+            if [ -n "$HEYGEN_API_KEY" ]; then ARGS="--heygen --max 2"; else ARGS="--kit --max 4"; fi
+          fi
           [ -n "${{ inputs.num }}" ] && ARGS="$ARGS --num ${{ inputs.num }}"
           [ "${{ inputs.rehacer_fotos }}" = "true" ] && ARGS="$ARGS --rehacer-fotos"
           [ "${{ inputs.rehacer_fotos }}" = "true" ] && rm -rf kit-heygen/[0-9]*

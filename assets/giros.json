@@ -234,7 +234,9 @@
   "c3": "#c92a2a",
   "bg": "#0d1424",
   "capturas": "barberia",
-  "negocio": "Barbería El Clásico"
+  "negocio": "Barbería El Clásico",
+  "nombres": "Carlos Méndez|Jorge Ríos|Luis Paz|Andrés Ruiz",
+  "pill2": "Tu cliente elige su horario libre"
  },
  "veterinaria": {
   "nombre": "Veterinaria",
