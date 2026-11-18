@@ -1,10 +1,21 @@
 {
- "leido": "2026-11-18T01:34:05+00:00",
+ "leido": "2026-11-18T03:05:15+00:00",
  "resumen": {
-  "pendientes_por_publicar": 17,
+  "pendientes_por_publicar": 16,
   "comentarios_7_dias": 2,
   "errores": [],
   "publicados": [
+   {
+    "id": "manual-e333782c",
+    "giro": "veterinaria",
+    "gancho": "¿Tienes veterinaria? 🐾 Recordatorios automáticos para cada consulta y vacuna ✅",
+    "fecha": "2026-11-18",
+    "vistas": 0,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "manual-f4521f4b",
     "giro": "unas",
