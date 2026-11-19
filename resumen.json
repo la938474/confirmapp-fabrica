@@ -1,10 +1,21 @@
 {
- "leido": "2026-11-19T01:30:30+00:00",
+ "leido": "2026-11-19T03:06:05+00:00",
  "resumen": {
-  "pendientes_por_publicar": 15,
+  "pendientes_por_publicar": 14,
   "comentarios_7_dias": 2,
   "errores": [],
   "publicados": [
+   {
+    "id": "manual-03e9327e",
+    "giro": "dental",
+    "gancho": "¿Eres especialista dental? 🦷 Ortodoncia, endodoncia, implantes: tus pacientes confirman s",
+    "fecha": "2026-11-19",
+    "vistas": 0,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "manual-2bd82001",
     "giro": "spa",
