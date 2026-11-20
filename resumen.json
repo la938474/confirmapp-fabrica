@@ -1,10 +1,21 @@
 {
- "leido": "2026-11-20T18:14:13+00:00",
+ "leido": "2026-11-20T19:24:17+00:00",
  "resumen": {
-  "pendientes_por_publicar": 12,
+  "pendientes_por_publicar": 11,
   "comentarios_7_dias": 2,
   "errores": [],
   "publicados": [
+   {
+    "id": "manual-8f368e44",
+    "giro": "tatuaje",
+    "gancho": "¿Tienes estudio de tatuaje? ✒️ Tus clientes confirman su sesión y no pierdes horas ✅",
+    "fecha": "2026-11-20",
+    "vistas": 0,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "manual-a9064376",
     "giro": "canina",
