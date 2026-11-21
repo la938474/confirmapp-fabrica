@@ -1,16 +1,27 @@
 {
- "leido": "2026-11-21T01:29:52+00:00",
+ "leido": "2026-11-21T03:00:06+00:00",
  "resumen": {
-  "pendientes_por_publicar": 11,
+  "pendientes_por_publicar": 10,
   "comentarios_7_dias": 2,
   "errores": [],
   "publicados": [
+   {
+    "id": "manual-9ff48124",
+    "giro": "tutor",
+    "gancho": "¿Das clases o tutorías? 📚 Tus alumnos confirman su clase por WhatsApp solos ✅",
+    "fecha": "2026-11-21",
+    "vistas": 0,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "manual-8f368e44",
     "giro": "tatuaje",
     "gancho": "¿Tienes estudio de tatuaje? ✒️ Tus clientes confirman su sesión y no pierdes horas ✅",
     "fecha": "2026-11-20",
-    "vistas": 32,
+    "vistas": 38,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
