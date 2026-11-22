@@ -41,6 +41,7 @@ def validar(v):
     for i, e in enumerate(E):
         img = e.get('img')
         if img not in CAPS | ESPECIALES: err.append(f'escena {i}: img "{img}" no existe')
+        if str(e.get('e', '')).startswith('ilus:') and not os.path.exists(f"{A}/ilus/{e['e'][5:]}.svg"): err.append(f'escena {i}: no existe assets/ilus/{e["e"][5:]}.svg')
         if not e.get('v'): err.append(f'escena {i}: falta "v" (lo que dice la voz)')
         if len(e.get('v', '')) > 260: err.append(f'escena {i}: voz muy larga')
         if img == 'LISTA' and not 2 <= len(e.get('s', '').split('|')) <= 4: err.append(f'escena {i}: LISTA lleva 2-4 puntos en "s" separados por |')
@@ -64,6 +65,7 @@ def hacer(ruta):
         shutil.rmtree(d, ignore_errors=True)
         for s in ('img', 'esc', 'audio'): os.makedirs(f'{d}/{s}')
         os.symlink(f'{A}/giros/{g["capturas"]}', f'{d}/cap')
+        os.symlink(f'{A}/ilus', f'{d}/ilus')
         shutil.copy(f'{A}/frame.html', d); shutil.copy(f'{A}/icon-192.png', d)
         E = v['escenas']
         json.dump(E, open(f'{d}/guion.json', 'w'), ensure_ascii=False)
