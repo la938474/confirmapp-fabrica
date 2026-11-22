@@ -244,7 +244,7 @@ def main():
     cola = [g for g in pend if g.get('frases') and g.get('personaje') and
             (a.num == g['num'] if a.num else g['num'] not in hechos and not (a.kit and g['num'] in kits))]
     os.makedirs(f'{R}/avatar-ia/personajes', exist_ok=True); os.makedirs(a.salida, exist_ok=True)
-    cambio, rehechas = False, set()
+    cambio, rehechas, sin_credito = False, set(), False
     for g in cola[:a.max]:
         print(f'▶ guion {g["num"]} ({g["personaje"]})', flush=True)
         img = f'{R}/avatar-ia/personajes/{g["personaje"]}.jpg'
@@ -258,7 +258,21 @@ def main():
             foto(g, img)
         tmp = f'{R}/trabajo/avatar-ia/{g["num"]}'; os.makedirs(tmp, exist_ok=True)
         marcas, total = voz(g, f'{tmp}/voz.wav')
-        if a.kit:
+        usar_kit = a.kit or sin_credito
+        if a.heygen and not usar_kit:
+            fm, dm, mes = mes_heygen(); tope = int(os.environ.get('HEYGEN_MAX_MES', '12'))
+            if dm.get(mes, 0) >= tope: print(f'  tope del mes alcanzado ({tope} videos); lo dejo para el próximo mes'); break
+            try:
+                heygen(g, img, f'{tmp}/voz.wav', f'{a.salida}/{g["num"]}.mp4')
+            except SystemExit as e:
+                if 'INSUFFICIENT_CREDIT' not in str(e): raise
+                # Sin créditos de API en HeyGen: en vez de fallar, dejo el kit (foto + voz) para hacerlo a mano
+                print('  HeyGen sin créditos de API: dejo el kit para hacerlo a mano', flush=True)
+                sin_credito = True; usar_kit = True
+            else:
+                dm[mes] = dm.get(mes, 0) + 1; json.dump(dm, open(fm, 'w'), indent=1)
+                g['estilo'] = g.get('estilo', 'grande'); g['cara'] = cara(f'{a.salida}/{g["num"]}.mp4'); cambio = True
+        if usar_kit:
             k = f'{R}/kit-heygen/{g["num"]}-{g["personaje"]}'; os.makedirs(k, exist_ok=True)
             from PIL import Image
             Image.open(img).convert('RGB').resize((1080, 1920), Image.LANCZOS).save(f'{k}/foto.jpg', quality=95)
@@ -268,11 +282,7 @@ def main():
                 f'pestaña Audio → sube voz.mp3, genera en 720p.\nDescárgalo, nómbralo {g["num"]}.mp4 y súbelo a la carpeta avatar/.\n\n'
                 'Lo que dice:\n' + '\n'.join(g['frases']) + '\n')
         elif a.heygen:
-            fm, dm, mes = mes_heygen(); tope = int(os.environ.get('HEYGEN_MAX_MES', '12'))
-            if dm.get(mes, 0) >= tope: print(f'  tope del mes alcanzado ({tope} videos); lo dejo para el próximo mes'); break
-            heygen(g, img, f'{tmp}/voz.wav', f'{a.salida}/{g["num"]}.mp4')
-            dm[mes] = dm.get(mes, 0) + 1; json.dump(dm, open(fm, 'w'), indent=1)
-            g['estilo'] = g.get('estilo', 'grande'); g['cara'] = cara(f'{a.salida}/{g["num"]}.mp4'); cambio = True
+            pass
         else:
             video(img, f'{tmp}/voz.wav', f'{a.salida}/{g["num"]}.mp4', f'{tmp}/st')
         # capturas: cada una arranca con la frase que indica "frase" y dura hasta la siguiente indicada (o el CTA)
