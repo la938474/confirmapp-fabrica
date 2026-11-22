@@ -1,0 +1,10 @@
+Guion 6 · medico · 15.29 s
+
+En HeyGen: avatar con foto.jpg, video vertical 9:16, pestaña Audio → sube voz.mp3, genera en 720p.
+Descárgalo, nómbralo 6.mp4 y súbelo a la carpeta avatar/.
+
+Lo que dice:
+¿Te gusta tu agenda de papel? Mira esto.
+Con Máyic escribes la cita con el dedo, como en papel, y se agenda sola.
+Un día antes, tu paciente recibe un guatsap y confirma con un toque.
+Pruébalo siete días gratis, en confirm ap punto com punto eme equis.

@@ -1,0 +1,10 @@
+Guion 7 · recepcionista_dental · 16.67 s
+
+En HeyGen: avatar con foto.jpg, video vertical 9:16, pestaña Audio → sube voz.mp3, genera en 720p.
+Descárgalo, nómbralo 7.mp4 y súbelo a la carpeta avatar/.
+
+Lo que dice:
+Te enseño cómo se ve una agenda que se confirma sola.
+Un día antes, a cada paciente le llega un guatsap, y confirma o cancela con un toque.
+En tu calendario ves quién viene: verde confirmó, amarillo esperando.
+Pruébalo siete días gratis, en confirm ap punto com punto eme equis.

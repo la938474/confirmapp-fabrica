@@ -25,7 +25,29 @@
    "k_magic",
    "recordatorio",
    "cta"
-  ]
+  ],
+  "capturas": [
+   {
+    "img": "k_magic",
+    "desde": 2.53,
+    "hasta": 6.91
+   },
+   {
+    "anim": "recordatorio",
+    "desde": 6.91,
+    "hasta": 10.89,
+    "q": {
+     "clientes": "Ana López|Sofía Mena|Laura Paz|Mariana Ruiz",
+     "rcliente": "Sofía Mena"
+    }
+   },
+   {
+    "img": "01_login",
+    "desde": 10.89,
+    "hasta": 15.29
+   }
+  ],
+  "capturas_revisadas": true
  },
  {
   "num": 7,
@@ -53,7 +75,29 @@
    "recordatorio",
    "k_gcal",
    "cta"
-  ]
+  ],
+  "capturas": [
+   {
+    "anim": "recordatorio",
+    "desde": 3.25,
+    "hasta": 8.37,
+    "q": {
+     "clientes": "Ana López|Sofía Mena|Laura Paz|Mariana Ruiz",
+     "rcliente": "Sofía Mena"
+    }
+   },
+   {
+    "img": "k_gcal",
+    "desde": 8.37,
+    "hasta": 12.6
+   },
+   {
+    "img": "01_login",
+    "desde": 12.6,
+    "hasta": 16.67
+   }
+  ],
+  "capturas_revisadas": true
  },
  {
   "num": 8,
