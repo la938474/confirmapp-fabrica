@@ -1,10 +1,10 @@
-Guion 11 · natalia · 31.82 s
+Guion 11 · natalia · 32.36 s
 
 En HeyGen: avatar con foto.jpg, video vertical 9:16, pestaña Audio → sube voz.mp3, genera en 720p.
 Descárgalo, nómbralo 11.mp4 y súbelo a la carpeta avatar/.
 
 Lo que dice:
-¡Hey, hola! Soy Natalia. ¿Ya usaste la agenda inteligente?
+¡Hey, hola! Soy Natalia. ¿Ya tienes la agenda inteligente de Confirm ap?
 Mira: un día antes, a tu clienta le llega un guatsap, y confirma con un toque.
 Le mandas tu link de Autoagenda,
 ella elige su horario libre,
