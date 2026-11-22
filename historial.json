@@ -62,5 +62,13 @@
   "gancho": "POV: estás pintando un cabello y no puedes contestar",
   "formato": "avatar",
   "voz": "avatar"
+ },
+ {
+  "id": "2026-11-22-bodas-pasos",
+  "fecha": "2026-11-22",
+  "giro": "bodas",
+  "gancho": "¿Sigues persiguiendo a tus invitados para que confirmen?",
+  "formato": "tutorial",
+  "voz": "dora_brillante"
  }
 ]
