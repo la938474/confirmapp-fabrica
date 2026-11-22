@@ -94,5 +94,13 @@
   "gancho": "¿Te casas? Así se usa Confirmapp Bodas en 4 pasos",
   "formato": "tutorial",
   "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-22-dental-sinvscon-pro",
+  "fecha": "2026-11-22",
+  "giro": "dental",
+  "gancho": "¿Cuál consultorio eres tú? Sin vs con Confirmapp",
+  "formato": "antes-despues",
+  "voz": "alex_grave"
  }
 ]
