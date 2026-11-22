@@ -1,10 +1,21 @@
 {
- "leido": "2026-11-22T01:26:56+00:00",
+ "leido": "2026-11-22T03:03:31+00:00",
  "resumen": {
-  "pendientes_por_publicar": 9,
+  "pendientes_por_publicar": 8,
   "comentarios_7_dias": 2,
   "errores": [],
   "publicados": [
+   {
+    "id": "manual-1ac72e49",
+    "giro": "otro",
+    "gancho": "¿Tu negocio trabaja con citas? ✨ Confirmaciones automáticas por WhatsApp ✅",
+    "fecha": "2026-11-22",
+    "vistas": 0,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "manual-dc43ae4c",
     "giro": "consultor",
