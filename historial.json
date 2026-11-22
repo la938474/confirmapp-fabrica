@@ -86,5 +86,13 @@
   "gancho": "Misma boda. Mismos invitados. Sin vs con Confirmapp",
   "formato": "antes-despues",
   "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-22-tutorial-bodas",
+  "fecha": "2026-11-22",
+  "giro": "bodas",
+  "gancho": "¿Te casas? Así se usa Confirmapp Bodas en 4 pasos",
+  "formato": "tutorial",
+  "voz": "dora_brillante"
  }
 ]
