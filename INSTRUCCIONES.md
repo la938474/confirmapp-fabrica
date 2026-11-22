@@ -56,12 +56,35 @@ Las capturas cambian solas según el giro (nombres y servicios del giro).
 
 Duración ideal: 15–30 s (3 a 5 escenas). La primera escena es el gancho: corto, que detenga el dedo.
 
+## Variedad y viralidad (Luis lo pidió: nada monótono)
+Antes de escribir, lee los últimos ~10 ganchos del historial y del resumen. **Prohibido** repetir la fórmula
+"¿Tienes X? 🦷 Tus clientes confirman solos ✅" (ya se usó demasiado). En los 3 videos del día (y en los 4 de avatar):
+- **3 tipos de gancho distintos** entre sí y distintos a los del día anterior. Banco para rotar:
+  curiosidad ("Nadie te dice esto de tu agenda…"), POV / situación reconocible ("POV: son las 11 de la noche y te
+  escriben para agendar"), error común ("Deja de confirmar citas así"), reto/pregunta directa ("¿Cuántas citas
+  confirmaste a mano esta semana?"), mini-historia ficticia y obvia ("Lunes, 9 am, silla vacía…", sin decir que es real),
+  contraste antes/después, "truco que pocos usan", humor ligero de la vida del negocio (nunca de los clientes),
+  pregunta para comentar ("¿Tú confirmas por llamada o por guatsap? Te leo").
+- **Funciones distintas**: no los 3 sobre confirmar; rota recordatorio, calendario, Autoagenda, Magic, ConfirChat IA,
+  Google/Outlook e invita-a-un-colega.
+- **Voces, formatos y giros distintos** (rotar también giros secundarios de `assets/giros.json`).
+- Gancho en los primeros 2 s, frases cortas, y un cierre que invite a comentar, guardar o compartir
+  ("mándaselo a tu socio que sigue confirmando a mano").
+- Da más turnos al estilo que más vistas y compartidos tenga en el resumen, pero sin copiarlo igual.
+
+**Hashtags: exactamente 5** (Instagram ya no permite más): 1 amplio de negocio (#emprendedores, #negociosmexico,
+#pymesmexico, #emprenderenmexico, #tipsdenegocio), 2 del giro y que la gente sí busque (ej. #dentista #odontologia,
+#barberia #barbershop, #psicologia #terapia, #salondebelleza #estilista, #medico #consultorio), 1 local o de tema
+(#mexico, #cdmx, #monterrey, #guadalajara, #agendadigital, #citasporwhatsapp) y siempre #confirmapp.
+Varía cuáles usas; no pongas siempre los mismos. La primera línea del caption también lleva palabras que se buscan
+(ej. "agenda de citas por WhatsApp para dentistas"), porque Instagram también busca por texto.
+
 ## Formato del guion (`guiones/AAAA-MM-DD.json`)
 ```json
 [
  {"id": "2026-11-16-psico-lista", "giro": "psicologia", "formato": "lista", "voz": "dora_brillante", "velocidad": 1.12,
   "gancho": "3 señales de que pierdes sesiones",
-  "texto": "Caption para IG/FB con 1–2 líneas + CTA + 4–6 hashtags",
+  "texto": "Caption para IG/FB con 1–2 líneas + CTA + 5 hashtags",
   "escenas": [
    {"img": "FRASE", "t": "3 señales de que <mark>pierdes sesiones</mark>", "v": "Tres señales de que estás perdiendo sesiones."},
    {"img": "LISTA", "t": "¿Te pasa?", "s": "Huecos en tu agenda|Pacientes que \"se olvidaron\"|Confirmas a mano", "v": "..."},
@@ -119,7 +142,8 @@ Reglas de contenido:
 - El avatar **demuestra** la app ("mira", "te enseño", "así se ve"). Nunca dice que es cliente real, ni nombra un negocio,
   ni promete resultados, ni da cifras. Caption siempre con "🤖 Escena recreada con IA".
 
-Si quedan menos de 3 guiones en `pendientes.json`, escribe 4 nuevos (rota dental, médico, psicología, salón y a veces otros giros)
+Si quedan menos de 3 guiones en `pendientes.json`, escribe 4 nuevos (rota dental, médico, psicología, salón y a veces otros giros;
+aplica también "Variedad y viralidad": 4 tipos de gancho y 4 funciones distintas, 5 hashtags)
 y agrégalos a `pendientes.json` con números nuevos (mayores que cualquiera usado) y estos campos:
 ```json
 {"num": 5, "id": "avatar-dental-xxxx", "giro": "dental", "gancho": "...", "texto": "caption ... 🤖 Escena recreada con IA\n#hashtags #confirmapp",
