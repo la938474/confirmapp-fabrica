@@ -148,8 +148,8 @@
   "capturas": [
    {
     "anim": "recordatorio",
-    "desde": 3.37,
-    "hasta": 7.94,
+    "desde": 4.0,
+    "hasta": 8.58,
     "q": {
      "clientes": "Ana López|Sofía Mena|Laura Paz|Mariana Ruiz",
      "rcliente": "Sofía Mena"
@@ -157,11 +157,11 @@
    },
    {
     "anim": "autoagenda",
-    "desde": 7.94,
-    "hasta": 14.78,
+    "desde": 8.58,
+    "hasta": 15.42,
     "q": {
      "p1": 2.35,
-     "p2": 4.25,
+     "p2": 4.24,
      "cliente": "Mariana Ruiz",
      "pill2": "Tu paciente elige su horario libre",
      "emoji": "🦷"
@@ -169,23 +169,23 @@
    },
    {
     "img": "l_tarjeta",
-    "desde": 14.78,
-    "hasta": 19.98
+    "desde": 15.42,
+    "hasta": 20.62
    },
    {
     "img": "l_sello",
-    "desde": 19.98,
-    "hasta": 23.64
+    "desde": 20.62,
+    "hasta": 24.28
    },
    {
     "img": "k_chat",
-    "desde": 23.64,
-    "hasta": 28.89
+    "desde": 24.28,
+    "hasta": 29.53
    },
    {
     "img": "01_login",
-    "desde": 28.89,
-    "hasta": 33.29
+    "desde": 29.53,
+    "hasta": 33.93
    }
   ],
   "capturas_revisadas": true
