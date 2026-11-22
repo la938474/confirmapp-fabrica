@@ -71,6 +71,12 @@ Antes de escribir, lee los últimos ~10 ganchos del historial y del resumen. **P
 - Gancho en los primeros 2 s, frases cortas, y un cierre que invite a comentar, guardar o compartir
   ("mándaselo a tu socio que sigue confirmando a mano").
 - Da más turnos al estilo que más vistas y compartidos tenga en el resumen, pero sin copiarlo igual.
+- **Lo que se ve tiene que ser lo que se dice, y del giro correcto** (Luis lo pidió): si la voz dice "sillón vacío" de un
+  dentista, se ve un sillón dental, no una silla; un barbero, su silla de barbería; una psicóloga, su consultorio. Antes de
+  elegir emoji o imagen, pregúntate "¿un dueño de ese negocio lo reconocería como suyo?". Si no hay emoji exacto, usa una
+  ilustración propia: en `HOOK`, `"e": "ilus:<nombre>"` toma `assets/ilus/<nombre>.svg` (ya existe `sillon_dental`). Si hace
+  falta otra (silla de barbería, sofá de terapia, camilla, tocador de salón), dibújala como SVG sencillo y plano con los colores
+  del giro, revísala con Read y guárdala ahí para reusarla.
 
 **Hashtags: exactamente 5** (Instagram ya no permite más): 1 amplio de negocio (#emprendedores, #negociosmexico,
 #pymesmexico, #emprenderenmexico, #tipsdenegocio), 2 del giro y que la gente sí busque (ej. #dentista #odontologia,
@@ -137,6 +143,9 @@ Luis prefiere la calidad de HeyGen (plan gratis, a mano). El flujo:
 3. La fábrica (`python3 fabrica.py avatares`) le pone celular con capturas reales, leyenda IA, portada y caption,
    lo manda a la fila y borra su kit.
 SadTalker (gratis pero de menor calidad) quedó apagado; solo si Luis lo pide.
+**Subtítulos en los de avatar:** `avatares` les pone solos subtítulos palabra por palabra (de `frases`, repartidos en los tramos
+hablados del video): en el gancho van abajo; mientras sale el celular, en estilo "grande" van arriba a la derecha junto a la
+carita y en estilo "mano" arriba del celular. Revisa la portada y un cuadro con celular para confirmar que no tapen la app.
 **Estilo "grande" (el que le gusta a Luis):** en `pendientes.json` pon `"estilo": "grande"` y `"cara": [cx, cy, r]`
 (centro y radio de la cara en el cuadro 1080x1920). En el gancho se ve el avatar completo; en las explicaciones el celular
 ocupa casi toda la pantalla y la cara habla en un círculo arriba. En `capturas` se puede usar `"img"` (captura fija) o

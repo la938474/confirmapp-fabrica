@@ -181,6 +181,11 @@ def subtitulos(d, ini, voces, ass):
                 palabras.append((w, base + x, base + x + dd, g, t_esc + D)); x += dd; n += 1
                 if n == 3: g += 1; n = 0
             if n: g += 1
+    escribir_ass(palabras, ass)
+
+
+def escribir_ass(palabras, ass, posicion=None):
+    """palabras: [(texto, t0, t1, grupo, fin_max)]. posicion(t) → None (abajo) o (x, y, tamaño) para mover el subtítulo."""
     def ts(t):
         t = max(0, t); return f'{int(t // 3600)}:{int(t % 3600 // 60):02d}:{t % 60:05.2f}'
     ev = []
@@ -195,6 +200,8 @@ def subtitulos(d, ini, voces, ass):
             txt = ' '.join((r'{\c&H6AC4E9&\fscx112\fscy112}' + x[0].rstrip(',.:;') + r'{\c&HFFFFFF&\fscx100\fscy100}') if j == k
                            else x[0].rstrip(',.:;') for j, x in enumerate(ws))
             pop = r'{\fscx80\fscy80\t(0,130,\fscx100\fscy100)}' if k == 0 else ''
+            ps = posicion(ws[0][1]) if posicion else None
+            if ps: pop = f'{{\\an5\\pos({ps[0]},{ps[1]})\\fs{ps[2]}}}' + pop
             ev.append(f'Dialogue: 0,{ts(t0)},{ts(t1)},Cap,,0,0,0,,{pop}{txt}')
     open(ass, 'w').write('[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\nWrapStyle: 0\n\n[V4+ Styles]\n'
         'Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, '
@@ -204,6 +211,59 @@ def subtitulos(d, ini, voces, ass):
 
 
 SUB_MARGEN = 300  # distancia del subtítulo al borde de abajo (fuera de la zona que tapa Instagram)
+
+
+def subtitulos_avatar(g, video, ass, posicion):
+    """Reparte las frases del guion de avatar en los tramos hablados del video de HeyGen (por pausas y sílabas)."""
+    D = dur(video)
+    r = subprocess.run(['ffmpeg', '-i', video, '-vn', '-af', 'silencedetect=n=-35dB:d=0.2', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    st = [float(x) for x in re.findall(r'silence_start: ([\d.]+)', r)]; en = [float(x) for x in re.findall(r'silence_end: ([\d.]+)', r)]
+    hab, x = [], 0.0
+    for a, b in zip(st, en + [D]):
+        if a - x > 0.08: hab.append((x, a))
+        x = b
+    if D - x > 0.08: hab.append((x, D))
+    if not hab: return False
+    frases = [mostrar(f) for f in g.get('frases', [])]
+    if not frases: return False
+    sil_f = [sum(silabas(w) for w in f.split()) for f in frases]
+    if len(hab) == len(frases): tr = hab
+    else:  # junta o parte tramos: cada frase termina en la pausa más cercana a su parte proporcional de sílabas
+        t0, t1 = hab[0][0], hab[-1][1]; hablado = sum(b - a for a, b in hab); tot = sum(sil_f)
+        def en_t(h):  # segundo de habla h → tiempo real
+            for a, b in hab:
+                if h <= b - a: return a + h
+                h -= b - a
+            return t1
+        cortes = [0.0]; acc = 0
+        for sf in sil_f[:-1]:
+            acc += sf; t = en_t(hablado * acc / tot)
+            pausas = [(b0 + a1) / 2 for (_, b0), (a1, _) in zip(hab, hab[1:])]
+            cerca = min(pausas, key=lambda p: abs(p - t)) if pausas else t
+            cortes.append(cerca if abs(cerca - t) < 0.6 else t)
+        tr = []
+        for i in range(len(frases)):
+            a = t0 if i == 0 else cortes[i]; b = t1 if i == len(frases) - 1 else cortes[i + 1]
+            ab = [h for h in hab if h[1] > a and h[0] < b]
+            tr.append((max(a, ab[0][0]) if ab else a, min(b, ab[-1][1]) if ab else b))
+    palabras, gr = [], 0
+    for (a, b), f in zip(tr, frases):
+        ws = f.split(); pes = [silabas(w) for w in ws]; T = sum(pes); x = a; n = 0
+        for w, p in zip(ws, pes):
+            d = (b - a) * p / T; palabras.append((w, x, x + d, gr, D)); x += d; n += 1
+            if n == 3 or w[-1] in ',.:;?!': gr += 1; n = 0
+        if n: gr += 1
+    escribir_ass(palabras, ass, posicion); return True
+
+
+def con_subtitulos(g, out, posicion):
+    """Quema los subtítulos en el video de avatar ya armado."""
+    ass = out[:-4] + '.ass'
+    if not subtitulos_avatar(g, out, ass, posicion): return
+    tmp = out[:-4] + '.sub.mp4'
+    sh('ffmpeg', '-y', '-v', 'error', '-i', out, '-vf', f'ass={ass}', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20',
+       '-c:a', 'copy', '-movflags', '+faststart', tmp)
+    os.replace(tmp, out); os.remove(ass)
 
 
 def brillo(out):
@@ -354,6 +414,12 @@ def avatares():
         vid = f"{hoy}-{g['id']}"; out = f'{R}/salida/{vid}.mp4'
         if g.get('estilo') == 'grande': avatar_grande(g, f'{R}/avatar/{f}', out, f'{R}/trabajo/grande/{g["num"]}')
         else: avatar_mano(g, f'{R}/avatar/{f}', out)
+        ven = [(c['desde'], c['hasta']) for c in g.get('capturas', [])]
+        if g.get('estilo') == 'grande':  # con celular grande: arriba a la derecha, junto a la carita
+            pos = lambda t: (735, 270, 58) if any(x <= t + 0.05 < y for x, y in ven) else None
+        else:  # celular en mano: arriba del celular
+            pos = lambda t: (540, 1060, 66) if any(x <= t + 0.05 < y for x, y in ven) else None
+        con_subtitulos(g, out, pos)
         sh('ffmpeg', '-y', '-v', 'error', '-ss', '0.5', '-i', out, '-frames:v', '1', '-q:v', '3', out[:-4] + '.jpg')
         json.dump({**{k: g[k] for k in ('giro', 'gancho', 'texto')}, 'formato': 'avatar', 'voz': 'avatar'},
                   open(f'{R}/salida/{vid}.json', 'w'), ensure_ascii=False)
