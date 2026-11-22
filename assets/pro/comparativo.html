@@ -1,0 +1,174 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1080px;height:1920px;overflow:hidden;font-family:Inter,system-ui,sans-serif;background:radial-gradient(ellipse at 50% 25%,#135a49 0%,#0b3a30 55%,#08291f 100%);color:#fff;position:relative}
+.abs{position:absolute}
+#bg{position:absolute;inset:0;overflow:hidden}
+#bg i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+#b1g{width:900px;height:900px;background:#1f8a6c}
+#b2g{width:800px;height:800px;background:#e9c46a;opacity:.16!important}
+#luz{width:260px;height:2600px;top:-300px;background:linear-gradient(90deg,transparent,#ffffff14,transparent);border-radius:0!important;filter:blur(20px)!important;opacity:1!important}
+#stage{position:absolute;inset:0;transform-origin:50% 45%}
+#cap{position:absolute;left:50%;top:1565px;white-space:nowrap;background:#0009;border-radius:28px;padding:10px 26px 14px;text-align:center;font-weight:900;font-size:66px;line-height:1.12;letter-spacing:-1px;text-shadow:0 4px 0 #0007,0 0 24px #000a}
+#cap span{display:inline-block;margin:0 9px;transition:none}
+#cap span.on{color:#e9c46a}
+#tit{left:60px;right:60px;top:110px;text-align:center;font-weight:800;font-size:76px;line-height:1.08;letter-spacing:-1px}
+#tit em,.cta em{font-family:'Noto Serif','DejaVu Serif',Georgia,serif;font-style:italic;font-weight:700;color:#e9c46a}
+.ph{width:560px;height:1140px;top:385px;border-radius:70px;background:#0d0d0d;padding:16px;box-shadow:0 30px 80px #0008;transform-origin:50% 0}
+.scr{width:100%;height:100%;border-radius:56px;overflow:hidden;position:relative}
+.notch{position:absolute;top:18px;left:50%;width:150px;height:40px;margin-left:-75px;background:#000;border-radius:24px;z-index:5}
+.tag{position:absolute;top:-120px;left:50%;transform:translateX(-50%);white-space:nowrap;font-weight:800;font-size:44px;padding:14px 30px;border-radius:20px;box-shadow:0 8px 20px #0005}
+.tag.r{background:#fff;color:#c92a2a}.tag.g{background:#fff;color:#087f5b}
+.tag b{display:inline-block;width:52px;height:52px;border-radius:50%;color:#fff;text-align:center;line-height:52px;font-size:32px;margin-right:12px;vertical-align:middle}
+.tag.r b{background:#e03131}.tag.g b{background:#12b886}
+/* whatsapp */
+.wh{height:150px;display:flex;align-items:flex-end;gap:18px;padding:0 26px 20px}
+.av{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;font-size:34px;font-weight:800;flex:none}
+.wh b{font-size:30px;display:block}.wh small{font-size:22px;opacity:.75}
+.chat{padding:26px 22px;display:flex;flex-direction:column;gap:18px}
+.dia{align-self:center;border-radius:12px;padding:6px 16px;font-size:20px}
+.b{border-radius:22px;padding:18px 22px 12px;font-size:28px;line-height:1.32;max-width:440px;opacity:0}
+.b .h{font-size:18px;text-align:right;margin-top:4px;opacity:.7}
+.out{align-self:flex-end;border-top-right-radius:4px}
+.in{align-self:flex-start;border-top-left-radius:4px}
+/* sin */
+#L .scr{background:#0b141a}
+#L .wh{background:#1f2c34;color:#e9edef}
+#L .av{background:#6b7c85;color:#fff}
+#L .dia{background:#1f2c34;color:#8696a0}
+#L .out{background:#005c4b;color:#e9edef}
+#vacia{position:absolute;inset:0;background:#0b141aee;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;padding:40px}
+.cal{background:#fff;border-radius:26px;width:100%;padding:28px;color:#202124}
+.cal .d{font-size:24px;color:#5f6368;margin-bottom:16px;font-weight:600}
+.ev{border-radius:16px;padding:18px 20px;font-size:27px;font-weight:700;margin-bottom:14px;color:#fff}
+.ev small{display:block;font-size:21px;font-weight:500;opacity:.92;margin-top:4px}
+.ok{background:#33b679}.esp{background:#f6bf26;color:#3c3c3c}.no{background:#d50000}.gris{background:#9aa0a6}
+.badge{border-radius:24px;padding:22px 34px;font-weight:800;font-size:40px;text-align:center;box-shadow:0 10px 30px #0006}
+.badge small{display:block;font-size:26px;font-weight:600;opacity:.9}
+#sinresp{position:absolute;left:50%;top:640px;transform:translateX(-50%);background:#e03131;white-space:nowrap;opacity:0}
+/* con */
+#R .scr{background:#efeae2}
+#R .wh{background:#075e54;color:#fff}
+#R .av{background:#25d366;color:#fff}
+#R .dia{background:#ffffffcc;color:#54656f}
+#R .in{background:#fff;color:#111b21;box-shadow:0 2px 3px #0001}
+#R .out{background:#d9fdd3;color:#111b21}
+.bts{margin-top:-18px;max-width:440px;opacity:0}
+.bt{background:#fff;border-top:1px solid #e9edef;text-align:center;color:#027eb5;font-size:28px;font-weight:700;padding:18px}
+.bt:last-child{border-radius:0 0 22px 22px}
+#dedo{position:absolute;width:100px;height:100px;border-radius:50%;background:#ffffff66;border:6px solid #fff;box-shadow:0 6px 20px #0005;opacity:0}
+#conf{position:absolute;left:50%;top:700px;transform:translateX(-50%);background:#12b886;white-space:nowrap;opacity:0}
+#calR{position:absolute;left:22px;right:22px;bottom:30px;opacity:0}
+/* estres */
+.st{position:absolute;left:40px;right:40px;top:1170px}
+.st span{font-size:30px;font-weight:700;display:flex;justify-content:space-between}
+.bar{height:26px;border-radius:13px;background:#ffffff26;margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:13px}
+#L .bar i{background:linear-gradient(90deg,#f59f00,#e03131)}#R .bar i{background:#12b886}
+/* resumen */
+.res{position:absolute;left:10px;right:10px;top:640px;border-radius:30px;padding:30px 30px;opacity:0;box-shadow:0 14px 40px #0007}
+.res div{font-size:34px;font-weight:700;margin:12px 0}
+#resL{background:#fff;color:#c92a2a}#resR{background:#fff;color:#087f5b}
+.res .e{font-size:90px;text-align:center;margin:0}
+/* cta */
+.cta{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;opacity:0;text-align:center}
+.cta img{width:200px;height:200px;border-radius:44px;box-shadow:0 14px 40px #0006}
+.cta h1{font-size:110px;font-weight:800;letter-spacing:-2px}
+.cta p{font-size:46px;font-weight:600;line-height:1.3;opacity:.95}
+.pill{background:#e9c46a;color:#1b1b1b;font-weight:800;font-size:54px;padding:22px 46px;border-radius:60px}
+.url{font-size:58px;font-weight:800}
+</style></head><body>
+<div id="bg"><i id="b1g"></i><i id="b2g"></i><i id="luz"></i></div><div id="stage">
+<div id="tit" class="abs"></div>
+
+<div class="ph abs" id="L"><div class="tag r"><b>✕</b>Sin Confirmapp</div><div class="scr"><div class="notch"></div>
+ <div class="wh"><div class="av">A</div><div><b>Ana · paciente</b><small id="hL">últ. vez hoy a las 7:40 p. m.</small></div></div>
+ <div class="chat">
+  <div class="dia">HOY</div>
+  <div class="b out" id="l1">Hola Ana, ¿me confirmas tu cita de mañana a las 10? 🙏<div class="h">7:40 p. m. ✓✓</div></div>
+  <div class="b out" id="l2">¿Sigues ahí? 😅<div class="h">9:15 p. m. ✓✓</div></div>
+  <div class="b out" id="l3">Ana, ¿sí vienes? 🥲<div class="h">10:02 p. m. ✓✓</div></div>
+ </div>
+ <div class="badge" id="sinresp">Sin respuesta 😶</div>
+ <div id="vacia"><div class="cal"><div class="d">Mañana · Clínica Dental Sonrisa</div>
+   <div class="ev gris" id="evL">10:00 · Ana — Limpieza<small>¿vendrá? 🤷</small></div></div>
+   <div class="badge" style="background:#e03131;font-size:46px">Silla vacía 🪑<small>No llegó y no avisó</small></div></div>
+</div><div class="st"><span>Estrés <em id="eL">😐</em></span><div class="bar"><i id="sL"></i></div></div></div>
+
+<div class="ph abs" id="R"><div class="tag g"><b>✓</b>Con Confirmapp</div><div class="scr"><div class="notch"></div>
+ <div class="wh"><div class="av">🦷</div><div><b>Clínica Dental Sonrisa</b><small>mensaje automático</small></div></div>
+ <div class="chat">
+  <div class="dia">UN DÍA ANTES</div>
+  <div class="b in" id="r1">Hola <b>Ana</b> 👋, te recordamos tu cita en <b>Clínica Dental Sonrisa</b> mañana a las <b>10:00 a. m.</b> ¿Nos confirmas?<div class="h">10:00 a. m.</div></div>
+  <div class="bts" id="bts"><div class="bt" id="b1">✅ Confirmar</div><div class="bt">❎ Cancelar</div></div>
+  <div class="b out" id="r2">✅ Confirmar<div class="h">10:01 a. m. ✓✓</div></div>
+ </div>
+ <div id="dedo"></div>
+ <div class="badge" id="conf">¡Confirmó! ✅<small>con un toque</small></div>
+ <div id="calR"><div class="cal"><div class="d">Mañana · tu calendario</div>
+  <div class="ev ok" id="evR">✅ 10:00 · Ana — Limpieza<small>confirmó</small></div>
+  <div class="ev ok">✅ 12:00 · Luis — Resina<small>confirmó</small></div>
+  <div class="ev esp">🟡 1:00 · Sofía — Valoración<small>esperando respuesta</small></div></div></div>
+</div><div class="st"><span>Estrés <em id="eR">😐</em></span><div class="bar"><i id="sR"></i></div></div></div>
+
+<div class="res" id="resL" style="left:30px;width:480px;top:1080px"><div>✕ Confirmas a mano</div><div>✕ Huecos en tu agenda</div><div>✕ Persigues a cada uno</div></div>
+<div class="res" id="resR" style="left:570px;width:480px;top:1080px;right:auto"><div>✓ Confirman solos</div><div>✓ Ves quién viene</div><div>✓ Te enfocas en atender</div></div>
+
+</div><div id="cap"></div>
+<div class="cta" id="cta"><img src="ICON"><h1>Confirmapp</h1>
+ <p>Tus pacientes confirman por WhatsApp.<br>Tú, <em>sin estrés</em>.</p>
+ <div class="pill">7 días GRATIS</div><p style="font-size:36px;opacity:.8">sin tarjeta · con Google Calendar u Outlook</p><div class="url">confirmapp.com.mx</div></div>
+
+<script>
+const $=id=>document.getElementById(id), cl=(x,a,b)=>Math.max(0,Math.min(1,(x-a)/(b-a)));
+const ezb=x=>{const c1=1.1,c3=c1+1;return x<.5?ez(x):1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const ez=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2, L=(a,b,u)=>a+(b-a)*u;
+// estados de los teléfonos: [cx, escala, opacidad]
+const S={A:{L:[285,.78,1],R:[795,.78,1]},B:{L:[540,.93,1],R:[1230,.74,.35]},C:{L:[-150,.74,.35],R:[540,.93,1]},D:{L:[275,.74,1],R:[805,.74,1]},E:{L:[275,.74,0],R:[805,.74,0]}};
+const K=[[0,'A'],[3.7,'A'],[4.3,'B'],[10.2,'B'],[10.8,'C'],[18.3,'C'],[18.9,'D'],[22.5,'D'],[23.0,'E']];
+function estado(t){for(let i=0;i<K.length-1;i++){const[a,sa]=K[i],[b,sb]=K[i+1];if(t<=b){const u=ezb(cl(t,a,b));const r={};for(const p of['L','R'])r[p]=S[sa][p].map((v,j)=>L(v,S[sb][p][j],u));return r}}return S.E}
+const fade=(id,t,a,d=.3)=>{const e=$(id),u=cl(t,a,a+d);e.style.opacity=u;return u};
+const pop=(id,t,a,base='')=>{const u=cl(t,a,a+.25),s=u<1?.6+.5*Math.sin(u*Math.PI/2)*1.0:1;const e=$(id);e.style.opacity=u;e.style.transform=base+` scale(${u<1?L(.6,1.08,u):1})`};
+const TIT=[[0,'Mismo paciente.<br><em>Misma cita.</em>'],[3.9,'Confirmar <em>a mano</em>'],[10.4,'Que confirmen <em>solos</em>'],[18.5,'Más <em>confirmaciones</em>,<br>menos <em>estrés</em>'],[22.6,'']];
+let tAnt=null;
+const W=[{"w": "Mismo", "t0": 0.43, "t1": 0.775, "c": 0}, {"w": "paciente.", "t0": 0.775, "t1": 1.396, "c": 0}, {"w": "Misma", "t0": 1.396, "t1": 1.741, "c": 1}, {"w": "cita.", "t0": 1.741, "t1": 2.189, "c": 1}, {"w": "Mira", "t0": 2.189, "t1": 2.534, "c": 2}, {"w": "la", "t0": 2.534, "t1": 2.707, "c": 2}, {"w": "diferencia.", "t0": 2.707, "t1": 3.5, "c": 2}, {"w": "Sin", "t0": 4.108, "t1": 4.295, "c": 3}, {"w": "Confirmapp:", "t0": 4.295, "t1": 4.969, "c": 3}, {"w": "le", "t0": 5.233, "t1": 5.38, "c": 4}, {"w": "escribes", "t0": 5.38, "t1": 5.82, "c": 4}, {"w": "uno", "t0": 5.82, "t1": 6.114, "c": 4}, {"w": "por", "t0": 6.114, "t1": 6.261, "c": 5}, {"w": "uno,", "t0": 6.261, "t1": 6.643, "c": 5}, {"w": "esperas,", "t0": 6.643, "t1": 7.171, "c": 6}, {"w": "y", "t0": 7.171, "t1": 7.318, "c": 7}, {"w": "nada.", "t0": 7.318, "t1": 7.7, "c": 7}, {"w": "Al", "t0": 8.108, "t1": 8.298, "c": 8}, {"w": "otro", "t0": 8.298, "t1": 8.679, "c": 8}, {"w": "día,", "t0": 8.679, "t1": 8.984, "c": 8}, {"w": "la", "t0": 8.984, "t1": 9.174, "c": 9}, {"w": "silla", "t0": 9.174, "t1": 9.555, "c": 9}, {"w": "vacía.", "t0": 9.555, "t1": 10.05, "c": 9}, {"w": "Con", "t0": 10.717, "t1": 10.908, "c": 10}, {"w": "Confirmapp:", "t0": 10.908, "t1": 11.594, "c": 10}, {"w": "un", "t0": 11.855, "t1": 12.018, "c": 11}, {"w": "día", "t0": 12.018, "t1": 12.181, "c": 11}, {"w": "antes", "t0": 12.181, "t1": 12.508, "c": 11}, {"w": "le", "t0": 12.508, "t1": 12.671, "c": 12}, {"w": "llega", "t0": 12.671, "t1": 12.997, "c": 12}, {"w": "un", "t0": 12.997, "t1": 13.16, "c": 12}, {"w": "WhatsApp", "t0": 13.16, "t1": 13.486, "c": 13}, {"w": "automático.", "t0": 13.486, "t1": 14.4, "c": 13}, {"w": "Confirma", "t0": 14.812, "t1": 15.239, "c": 14}, {"w": "con", "t0": 15.239, "t1": 15.381, "c": 14}, {"w": "un", "t0": 15.381, "t1": 15.524, "c": 14}, {"w": "toque,", "t0": 15.524, "t1": 15.894, "c": 15}, {"w": "y", "t0": 16.118, "t1": 16.297, "c": 16}, {"w": "en", "t0": 16.297, "t1": 16.477, "c": 16}, {"w": "tu", "t0": 16.477, "t1": 16.656, "c": 16}, {"w": "calendario", "t0": 16.656, "t1": 17.374, "c": 17}, {"w": "ves", "t0": 17.374, "t1": 17.554, "c": 17}, {"w": "quién", "t0": 17.554, "t1": 17.733, "c": 17}, {"w": "viene.", "t0": 17.733, "t1": 18.2, "c": 18}, {"w": "Más", "t0": 18.827, "t1": 18.992, "c": 19}, {"w": "chance", "t0": 18.992, "t1": 19.322, "c": 19}, {"w": "de", "t0": 19.322, "t1": 19.487, "c": 19}, {"w": "que", "t0": 19.487, "t1": 19.653, "c": 20}, {"w": "confirmen,", "t0": 19.653, "t1": 20.247, "c": 20}, {"w": "y", "t0": 20.407, "t1": 20.589, "c": 21}, {"w": "menos", "t0": 20.589, "t1": 20.954, "c": 21}, {"w": "estrés", "t0": 20.954, "t1": 21.319, "c": 21}, {"w": "para", "t0": 21.319, "t1": 21.683, "c": 22}, {"w": "ti.", "t0": 21.683, "t1": 21.975, "c": 22}, {"w": "Pruébalo", "t0": 23.013, "t1": 23.517, "c": 23}, {"w": "7", "t0": 23.517, "t1": 23.854, "c": 23}, {"w": "días", "t0": 23.854, "t1": 24.022, "c": 23}, {"w": "gratis,", "t0": 24.022, "t1": 24.459, "c": 24}, {"w": "en", "t0": 24.668, "t1": 24.843, "c": 25}, {"w": "Confirmapp", "t0": 24.843, "t1": 25.37, "c": 25}, {"w": "punto", "t0": 25.529, "t1": 25.928, "c": 26}, {"w": "com", "t0": 25.928, "t1": 26.128, "c": 26}, {"w": "punto", "t0": 26.128, "t1": 26.527, "c": 26}, {"w": "mx", "t0": 26.527, "t1": 27.125, "c": 27}];let cAnt=-1;
+function subs(t){const c=$('cap');let cur=W.find(w=>t>=w.t0-.05&&t<w.t1+.35);if(!cur||t>22.75){c.innerHTML='';cAnt=-1;return}
+  if(cur.c!==cAnt){c.innerHTML=W.filter(w=>w.c===cur.c).map((w,i)=>`<span id="w${W.indexOf(w)}">${w.w.replace(/[.,:]$/,'')}</span>`).join(' ');cAnt=cur.c}
+  const ws=W.filter(w=>w.c===cur.c),c0=ws[0].t0,u=cl(t,c0-.05,c0+.12);c.style.transform=`translateX(-50%) translateY(${(1-u)*30}px) scale(${L(.85,1,ezb(u))})`;c.style.opacity=u;
+  for(const w of ws){const s=$('w'+W.indexOf(w));const on=t>=w.t0&&t<w.t1+.05;s.className=on?'on':'';const k=cl(t,w.t0,w.t0+.12);s.style.transform=on?`scale(${L(1,1.12,k)})`:'scale(1)'}}
+function fondo(t){$('b1g').style.left=(-200+160*Math.sin(t*.25))+'px';$('b1g').style.top=(150+120*Math.cos(t*.2))+'px';
+  $('b2g').style.left=(500+140*Math.cos(t*.22))+'px';$('b2g').style.top=(1100+160*Math.sin(t*.18))+'px';
+  $('luz').style.left=(-400+((t*260)%2200))+'px';$('luz').style.transform='rotate(18deg)';
+  $('stage').style.transform=`scale(${1+.018*Math.sin(t*.45)})`}
+window.pintar=function(t){
+  const e=estado(t);
+  const e2=estado(t+1/30);for(const p of['L','R']){const[cx,s,o]=e[p];const v=Math.abs(e2[p][0]-cx);const el=$(p);el.style.left=(cx-280)+'px';el.style.transform=`scale(${s})`;el.style.opacity=o;const bl=(o<.9?(1-o)*6:0)+Math.min(5,v*.12);el.style.filter=bl>.3?`blur(${bl}px)`:'none'}
+  fondo(t);subs(t);
+  // título con fundido
+  let k=0;for(let i=0;i<TIT.length;i++)if(t>=TIT[i][0])k=i;
+  const ti=$('tit');if(tAnt!==k){ti.innerHTML=TIT[k][1];tAnt=k}
+  ti.style.opacity=k==0?1:cl(t,TIT[k][0],TIT[k][0]+.3);
+  // SIN
+  const l1=fade('l1',t,-1),l2=fade('l2',t,5.5),l3=fade('l3',t,6.4);
+  $('hL').textContent=t<5.5?'últ. vez hoy a las 7:40 p. m.':t<6.4?'últ. vez hoy a las 9:15 p. m.':'últ. vez hoy a las 10:02 p. m.';
+  pop('sinresp',t,7.0,'translateX(-50%)'); if(t>7.9)$('sinresp').style.opacity=1-cl(t,7.9,8.1);
+  fade('vacia',t,8.0,.35);
+  if(t>9.0){$('evL').className='ev no';$('evL').innerHTML='❌ 10:00 · Ana — Limpieza<small>no llegó</small>'}
+  else{$('evL').className='ev gris';$('evL').innerHTML='10:00 · Ana — Limpieza<small>¿vendrá? 🤷</small>'}
+  const sl=L(.15,.92,ez(cl(t,4.4,9.6)));$('sL').style.width=(sl*100)+'%';$('eL').textContent=sl<.4?'😐':sl<.7?'😟':'😩';
+  // CON
+  fade('r1',t,-1);fade('bts',t,-1);
+  const dd=$('dedo');const du=cl(t,14.4,14.9);dd.style.opacity=t<13.9?0:t<14.4?cl(t,13.9,14.2):t<15.3?1:1-cl(t,15.3,15.6);
+  dd.style.left=L(400,214,ez(du))+'px';dd.style.top=L(800,422,ez(du))+'px';
+  dd.style.transform=`scale(${t>14.9&&t<15.15?.8:1})`;
+  $('b1').style.background=t>14.95&&t<15.4?'#d0ebff':'#fff';
+  fade('r2',t,15.1,.25);
+  pop('conf',t,15.4,'translateX(-50%)'); if(t>16.4)$('conf').style.opacity=1-cl(t,16.4,16.6);
+  const cu=cl(t,16.5,16.95);$('calR').style.opacity=cu;$('calR').style.transform=`translateY(${(1-ez(cu))*120}px)`;
+  const sr=L(.5,.12,ez(cl(t,11,17)));$('sR').style.width=(sr*100)+'%';$('eR').textContent=sr>.35?'😐':'😌';
+  // RESUMEN
+  for(const[id,a]of[['resL',19.2],['resR',19.9]]){const u=cl(t,a,a+.3);const r=$(id);r.style.opacity=u*(1-cl(t,22.5,22.9));r.style.transform=`translateY(${(1-ez(u))*60}px)`}
+  // CTA
+  const c=cl(t,22.8,23.3);$('cta').style.opacity=c;$('cta').style.transform=`scale(${L(.92,1,ez(c))})`;
+};
+pintar(0);
+</script></body></html>

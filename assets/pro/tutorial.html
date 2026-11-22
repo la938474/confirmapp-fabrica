@@ -1,0 +1,159 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1080px;height:1920px;overflow:hidden;font-family:Inter,system-ui,sans-serif;background:radial-gradient(ellipse at 50% 25%,#135a49 0%,#0b3a30 55%,#08291f 100%);color:#fff;position:relative}
+#tit{position:absolute;left:50px;right:50px;top:150px;text-align:center;font-weight:800;font-size:84px;line-height:1.06;letter-spacing:-1px}
+#tit em,.cta em{font-family:'Noto Serif','DejaVu Serif',Georgia,serif;font-style:italic;font-weight:700;color:#e9c46a}
+#paso{position:absolute;left:50%;top:70px;transform:translateX(-50%);background:#e9c46a;color:#1b1b1b;font-weight:900;font-size:34px;letter-spacing:3px;padding:10px 28px;border-radius:40px;white-space:nowrap}
+#ph{position:absolute;left:250px;top:440px;width:580px;height:1200px;border-radius:72px;background:#0d0d0d;padding:16px;box-shadow:0 30px 80px #0008}
+.scr{width:100%;height:100%;border-radius:58px;overflow:hidden;position:relative;background:#f6f4ee}
+.notch{position:absolute;top:18px;left:50%;width:150px;height:40px;margin-left:-75px;background:#000;border-radius:24px;z-index:20}
+.v{position:absolute;inset:0}
+/* app */
+#app{background:#f6f4ee;color:#1f2a24}
+.ap{padding:80px 26px 0}
+.logo{font-size:24px;font-weight:800;color:#0b5d4b;margin-bottom:18px}
+.ev{background:#fff;border-radius:22px;padding:22px;box-shadow:0 2px 8px #0001}
+.ev b.n{font-size:30px;display:block}.ev small{font-size:21px;color:#6b7a72}
+.kp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.k{border-radius:18px;padding:16px 18px;background:#f1f3f2;transition:none}
+.k b{font-size:54px;font-weight:800;line-height:1}.k small{font-size:20px;color:#55635b;display:block;margin-top:4px}
+.k.g{background:#d3f9d8}.k.r{background:#ffe3e3}.k.y{background:#fff3bf}
+.btn{margin-top:18px;background:#0b5d4b;color:#fff;border-radius:16px;text-align:center;font-size:25px;font-weight:700;padding:18px}
+.btn.o{background:#fff;color:#0b5d4b;border:3px solid #0b5d4b}
+.inv{margin-top:16px;background:#fff;border-radius:18px;padding:6px 18px}
+.inv p{display:flex;justify-content:space-between;font-size:23px;padding:11px 0;border-bottom:1px solid #eee;opacity:0}
+.inv p span{color:#6b7a72}
+.rec{margin-top:18px;display:none}
+.rec h4{font-size:24px;color:#55635b;margin-bottom:12px}
+.chip{display:inline-block;background:#d3f9d8;color:#0b5d4b;font-weight:800;font-size:26px;border-radius:30px;padding:12px 20px;margin:0 8px 10px 0;opacity:0}
+#toast{position:absolute;left:30px;right:30px;bottom:40px;background:#1f2a24;color:#fff;border-radius:20px;padding:22px;font-size:25px;font-weight:600;opacity:0;display:flex;gap:16px;align-items:center}
+#toast i{background:#1d6f42;color:#fff;font-style:normal;font-weight:900;font-size:22px;border-radius:8px;padding:10px 12px}
+/* formulario */
+#form{background:#f6f4ee;color:#1f2a24;transform:translateX(100%)}
+.url{margin:74px 24px 0;background:#e7e5df;border-radius:18px;padding:14px 20px;font-size:23px;color:#4b5650;text-align:center}
+.fh{padding:30px 28px 10px;font-size:40px;font-weight:800}
+.fh small{display:block;font-size:22px;color:#6b7a72;font-weight:500;margin-top:6px}
+.f{margin:16px 28px 0}
+.f label{font-size:21px;color:#55635b;font-weight:700;display:block;margin-bottom:8px}
+.f div{background:#fff;border:2px solid #dfe3e0;border-radius:16px;padding:18px;font-size:27px;min-height:70px}
+.f div.act{border-color:#0b5d4b;box-shadow:0 0 0 4px #0b5d4b22}
+.f div::after{content:'';}
+#crear{margin:34px 28px 0}
+/* WhatsApp */
+#wa{background:#efeae2;transform:translateX(100%)}
+.wh{height:150px;background:#075e54;color:#fff;display:flex;align-items:flex-end;gap:18px;padding:0 26px 20px;position:relative;z-index:5}
+.av{width:70px;height:70px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:36px;flex:none}
+.wh b{font-size:29px;display:block}.wh small{font-size:21px;opacity:.8}
+#chat{padding:24px 22px;display:flex;flex-direction:column;gap:16px}
+.card{background:#fff;border-radius:4px 22px 22px 22px;overflow:hidden;max-width:480px;box-shadow:0 2px 3px #0001;flex:none}
+.card .img{height:190px;background:linear-gradient(135deg,#f3e3c3,#e6c99a);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#5c4b2b}
+.card .img b{font-family:'Noto Serif',Georgia,serif;font-style:italic;font-size:46px}
+.card .img small{font-size:18px;letter-spacing:4px}
+.card p{font-size:25px;line-height:1.35;padding:16px 20px;color:#111b21}
+.bt{border-top:1px solid #e9edef;text-align:center;color:#027eb5;font-size:26px;font-weight:700;padding:15px;background:#fff}
+.yo{align-self:flex-end;background:#d9fdd3;border-radius:22px 4px 22px 22px;padding:14px 22px;font-size:26px;color:#111b21;opacity:0;flex:none}
+.op{opacity:0}
+#dedo{position:absolute;width:100px;height:100px;border-radius:50%;background:#ffffff66;border:6px solid #fff;box-shadow:0 6px 20px #0005;opacity:0;z-index:30;margin:-50px 0 0 -50px}
+/* excel */
+#xl{position:absolute;left:120px;top:760px;width:840px;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 30px 70px #000a;opacity:0;z-index:40;color:#1f2a24;transform-origin:50% 50%}
+#xl .h{background:#1d6f42;color:#fff;font-weight:800;font-size:30px;padding:18px 24px}
+#xl table{width:100%;border-collapse:collapse;font-size:28px}
+#xl td,#xl th{border:1px solid #dfe3e0;padding:14px 18px;text-align:left}
+#xl th{background:#e9f3ec;color:#1d6f42}
+.cta{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;opacity:0;text-align:center}
+.cta .ring{font-size:170px;line-height:1}
+.cta h1{font-size:110px;font-weight:800;letter-spacing:-2px;line-height:1}
+.cta h1 em{display:block;font-size:120px}
+.cta p{font-size:46px;font-weight:600;line-height:1.3}
+.pill{background:#e9c46a;color:#1b1b1b;font-weight:800;font-size:52px;padding:22px 46px;border-radius:60px}
+.u{font-size:58px;font-weight:800}
+</style></head><body>
+<div id="paso"></div><div id="tit"></div>
+<div id="ph"><div class="scr" id="scr"><div class="notch"></div>
+ <div class="v" id="app"><div class="ap">
+  <div class="logo">✓ Confirmapp · Bodas</div>
+  <div class="ev"><b class="n">💍 Boda de Natalia y Luis</b><small>Sáb 14 de marzo · 6:00 pm · Jardín Las Palmas</small>
+   <div class="kp"><div class="k"><b id="kInv">180</b><small>invitaciones</small></div><div class="k g"><b id="kVan">312</b><small>✅ personas que van</small></div>
+   <div class="k r"><b id="kNo">14</b><small>❎ no van</small></div><div class="k y"><b id="kSin">22</b><small>⏳ sin respuesta</small></div></div>
+   <div class="btn" id="subir">📄 Subir mi lista de invitados</div></div>
+  <div class="inv" id="inv"><p>Mariana López <span>3 pases</span></p><p>Familia Treviño <span>5 pases</span></p><p>Jorge Ramírez <span>2 pases</span></p><p>Tía Lupe <span>4 pases</span></p><p>Sofía García <span>1 pase</span></p></div>
+  <div class="rec" id="rec"><h4>Les recordamos solos:</h4><span class="chip" id="c1">✓ 1 mes antes</span><span class="chip" id="c2">✓ 1 semana antes</span><span class="chip" id="c3">✓ 1 día antes</span>
+   <div class="btn o" id="desc">⬇ Descargar confirmaciones (Excel)</div></div>
+ </div><div id="toast"><i>XLS</i>confirmaciones-boda.xlsx · descargado ✓</div></div>
+ <div class="v" id="form"><div class="url">🔒 confirmapp.com.mx</div>
+  <div class="fh">Crea tu boda 💍<small>Nombres, fecha y lugar</small></div>
+  <div class="f"><label>Nombres</label><div id="f1"></div></div>
+  <div class="f"><label>Fecha y hora</label><div id="f2"></div></div>
+  <div class="f"><label>Lugar</label><div id="f3"></div></div>
+  <div class="btn" id="crear">Crear mi boda</div></div>
+ <div class="v" id="wa"><div class="wh"><div class="av">💍</div><div><b>Boda de Natalia y Luis</b><small>mensaje automático</small></div></div>
+  <div id="chat"><div class="card"><div class="img"><b>Natalia &amp; Luis</b><small>NOS CASAMOS</small></div>
+   <p>¡Hola, <b>Mariana</b>! 💌 Natalia y Luis te invitan a su boda el <b>sábado 14 de marzo, 6:00 pm</b> en Jardín Las Palmas. ¿Nos acompañas?</p>
+   <div class="bt" id="si">✅ Sí asistiré</div><div class="bt">No podré</div></div>
+   <div class="yo" id="y1">✅ Sí asistiré</div>
+   <div class="card op" id="m2"><p>¡Qué gusto, Mariana! 🥂 Tu invitación es para <b>3 personas</b>. ¿Cuántos asistirán?</p>
+    <div class="bt">1 persona</div><div class="bt">2 personas</div><div class="bt" id="tres">3 personas</div></div>
+   <div class="yo" id="y2">3 personas</div>
+   <div class="card op" id="m3"><p>¡Listo, Mariana! 🎉 Confirmamos <b>3 personas</b> para la boda de Natalia y Luis. ¡Gracias!</p></div>
+  </div></div>
+ <div id="dedo"></div>
+</div></div>
+<div id="xl"><div class="h">📗 invitados.xlsx</div><table><tr><th>Nombre</th><th>WhatsApp</th><th>Pases</th></tr>
+ <tr><td>Mariana López</td><td>844 123 4567</td><td>3</td></tr><tr><td>Familia Treviño</td><td>844 887 6543</td><td>5</td></tr>
+ <tr><td>Jorge Ramírez</td><td>811 555 0192</td><td>2</td></tr><tr><td>Tía Lupe</td><td>844 765 4321</td><td>4</td></tr><tr><td>…</td><td>…</td><td>…</td></tr></table></div>
+<div class="cta" id="cta"><div class="ring">💍</div><h1>Confirmapp<em>Bodas</em></h1>
+ <p>Tus invitados confirman por WhatsApp.<br>Tú, <em>solo disfrutas</em>.</p>
+ <div class="pill">30 invitaciones GRATIS</div><div class="u">confirmapp.com.mx</div></div>
+<script>
+const $=id=>document.getElementById(id), cl=(x,a,b)=>Math.max(0,Math.min(1,(x-a)/(b-a)));
+const ez=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2, L=(a,b,u)=>a+(b-a)*u;
+const pop=(id,t,a)=>{const u=cl(t,a,a+.25);const e=$(id);e.style.opacity=u;e.style.transform=`scale(${u<1?L(.6,1.08,u):1})`};
+const TIT=[[0,'Así se usa<br><em>Confirmapp Bodas</em>',''],[4.7,'Crea <em>tu boda</em>','PASO 1'],[11.3,'Sube tu lista <em>en Excel</em>','PASO 2'],
+ [16.9,'Les llega su <em>invitación</em>','PASO 3'],[24.1,'Ves quién va, <em>al momento</em>','PASO 4'],[28.6,'Te ayudamos <em>a recordar</em>','Y LISTO ✨'],[36.3,'','']];
+// toques: [aparece, toca, se va, id]
+const TAP=[[10.5,10.95,11.3,'crear'],[13.6,14.1,14.4,'subir'],[20.7,21.25,21.6,'si'],[22.1,22.6,22.9,'tres'],[33.6,34.1,34.5,'desc']];
+let tAnt=null;
+function tipo(id,txt,t,a,b){const n=Math.round(txt.length*cl(t,a,b));const e=$(id);e.textContent=txt.slice(0,n);e.className=(t>a-.2&&t<b+.25)?'act':''}
+window.pintar=function(t){
+  let k=0;for(let i=0;i<TIT.length;i++)if(t>=TIT[i][0])k=i;
+  if(tAnt!==k){$('tit').innerHTML=TIT[k][1];$('paso').textContent=TIT[k][2];tAnt=k}
+  const fu=k==0?1:cl(t,TIT[k][0],TIT[k][0]+.3);$('tit').style.opacity=fu;$('paso').style.opacity=TIT[k][2]?fu:0;
+  // capas: form 4.6-11.3, wa 16.9-24.2
+  const fo=ez(cl(t,4.7,5.2))*(1-ez(cl(t,11.2,11.7)));$('form').style.transform=`translateX(${(1-fo)*100}%)`;
+  const wo=ez(cl(t,16.9,17.4))*(1-ez(cl(t,24.0,24.5)));$('wa').style.transform=`translateX(${(1-wo)*100}%)`;
+  $('app').style.transform=`translateX(${-(fo+wo)*30}%)`;
+  // form
+  tipo('f1','Natalia y Luis',t,8.7,9.3);tipo('f2','Sáb 14 de marzo · 6:00 pm',t,9.4,10.0);tipo('f3','Jardín Las Palmas',t,10.0,10.5);
+  $('crear').style.background=t>10.95&&t<11.3?'#12b886':'#0b5d4b';
+  // app: estado según fase
+  const enLista=t>=11.3&&t<24.1;
+  let inv,van,no,sin;
+  if(t<11.3){inv=180;van=312;no=14;sin=22}
+  else if(t<24.1){const u=ez(cl(t,14.4,15.6));inv=Math.round(180*u);van=0;no=0;sin=inv}
+  else{const u=ez(cl(t,24.6,27.6));inv=180;van=Math.round(312*u);no=Math.round(14*u);sin=Math.round(L(180,22,u))}
+  $('kInv').textContent=inv;$('kVan').textContent=van;$('kNo').textContent=no;$('kSin').textContent=sin;
+  $('subir').style.background=t>14.1&&t<14.5?'#12b886':'#0b5d4b';
+  const ps=document.querySelectorAll('#inv p');ps.forEach((p,i)=>p.style.opacity=t<11.3?1:cl(t,14.6+i*.18,14.9+i*.18));
+  const rv=t>=28.6;$('inv').style.display=rv?'none':'block';$('rec').style.display=rv?'block':'none';
+  [['c1',31.0],['c2',31.7],['c3',32.4]].forEach(([id,a])=>pop(id,t,a));
+  $('desc').style.background=t>34.1&&t<34.5?'#d3f9d8':'#fff';
+  const tu=cl(t,34.5,34.8)*(1-cl(t,36.0,36.3));$('toast').style.opacity=tu;$('toast').style.transform=`translateY(${(1-tu)*40}px)`;
+  // excel flotante
+  const xi=ez(cl(t,11.9,12.4)),xo=ez(cl(t,13.3,13.9));const x=$('xl');
+  x.style.opacity=xi*(1-xo);x.style.transform=`translate(${xo*-60}px,${(1-xi)*80+xo*-120}px) rotate(${-2+xo*6}deg) scale(${L(1,.25,xo)})`;
+  // chat
+  $('y1').style.opacity=cl(t,21.35,21.55);$('m2').style.opacity=cl(t,21.7,21.95);$('y2').style.opacity=cl(t,22.7,22.9);$('m3').style.opacity=cl(t,23.1,23.35);
+  $('chat').style.transform=`translateY(${-ez(cl(t,21.65,22.05))*520-ez(cl(t,22.85,23.2))*230}px)`;
+  // dedo
+  const d=$('dedo');let on=false;
+  for(const[a,b,c,id]of TAP){if(t>=a&&t<=c){on=true;const sr=$('scr').getBoundingClientRect(),r=$(id).getBoundingClientRect();
+    const tx=r.left-sr.left+r.width/2,ty=r.top-sr.top+r.height/2,u=ez(cl(t,a,b));
+    d.style.left=L(tx+130,tx,u)+'px';d.style.top=L(ty+260,ty,u)+'px';d.style.opacity=Math.min(cl(t,a,a+.15),1-cl(t,c-.15,c));
+    d.style.transform=`scale(${t>b&&t<b+.25?.8:1})`;}}
+  if(!on)d.style.opacity=0;
+  // final
+  const ph=$('ph');const po=1-cl(t,36.1,36.5);ph.style.opacity=po;
+  const c=cl(t,36.3,36.8);$('cta').style.opacity=c;$('cta').style.transform=`scale(${L(.92,1,ez(c))})`;
+};
+pintar(0);
+</script></body></html>

@@ -1,0 +1,171 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1080px;height:1920px;overflow:hidden;font-family:Inter,system-ui,sans-serif;background:radial-gradient(ellipse at 50% 25%,#135a49 0%,#0b3a30 55%,#08291f 100%);color:#fff;position:relative}
+.abs{position:absolute}
+#tit{left:50px;right:50px;top:110px;text-align:center;font-weight:800;font-size:76px;line-height:1.08;letter-spacing:-1px}
+#tit em,.cta em{font-family:'Noto Serif','DejaVu Serif',Georgia,serif;font-style:italic;font-weight:700;color:#e9c46a}
+.ph{width:560px;height:1140px;top:400px;border-radius:70px;background:#0d0d0d;padding:16px;box-shadow:0 30px 80px #0008;transform-origin:50% 0}
+.scr{width:100%;height:100%;border-radius:56px;overflow:hidden;position:relative}
+.notch{position:absolute;top:18px;left:50%;width:150px;height:40px;margin-left:-75px;background:#000;border-radius:24px;z-index:9}
+.tag{position:absolute;top:-120px;left:50%;transform:translateX(-50%);white-space:nowrap;font-weight:800;font-size:44px;padding:14px 30px;border-radius:20px;box-shadow:0 8px 20px #0005;background:#fff}
+.tag.r{color:#c92a2a}.tag.g{color:#087f5b}
+.tag b{display:inline-block;width:52px;height:52px;border-radius:50%;color:#fff;text-align:center;line-height:52px;font-size:32px;margin-right:12px;vertical-align:middle}
+.tag.r b{background:#e03131}.tag.g b{background:#12b886}
+.v{position:absolute;inset:0}
+/* ---- SIN: lista de chats ---- */
+#L .scr{background:#0b141a;color:#e9edef}
+.lh{padding:80px 28px 14px;font-size:40px;font-weight:800;display:flex;justify-content:space-between;align-items:center;background:#0b141a;position:relative;z-index:3}
+.lh span{font-size:22px;background:#e03131;color:#fff;border-radius:20px;padding:6px 14px;font-weight:700}
+.bus{margin:0 22px 10px;background:#1f2c34;border-radius:22px;padding:14px 22px;font-size:24px;color:#8696a0;position:relative;z-index:3}
+#lista{position:absolute;left:0;right:0;top:230px}
+.row{display:flex;gap:18px;align-items:center;padding:16px 24px;border-bottom:1px solid #1f2c34}
+.row .a{width:68px;height:68px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:800;font-size:28px;color:#fff}
+.row .x{flex:1;min-width:0}.row b{font-size:27px;display:block}
+.row small{font-size:23px;color:#8696a0;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .n{text-align:right;font-size:19px;color:#25d366;flex:none}
+.row .n i{display:block;margin:8px 0 0 auto;width:38px;height:38px;border-radius:50%;background:#25d366;color:#0b141a;font-style:normal;font-weight:800;font-size:21px;line-height:38px;text-align:center}
+#papel{position:absolute;left:24px;right:24px;top:150px;background:#fffdf4;color:#2b2b2b;border-radius:22px;padding:30px 28px;box-shadow:0 16px 40px #000a;opacity:0;z-index:5;transform:rotate(-2deg)}
+#papel h3{font-family:'Noto Serif',Georgia,serif;font-style:italic;font-size:32px;margin-bottom:14px;color:#5c4b2b}
+#papel p{font-size:27px;border-bottom:2px dashed #e5dcc3;padding:10px 0}
+#papel s{color:#999}
+#papel em{color:#c92a2a;font-style:normal;font-weight:700}
+.badge{border-radius:24px;padding:22px 34px;font-weight:800;font-size:40px;text-align:center;box-shadow:0 10px 30px #0006;color:#fff}
+.badge small{display:block;font-size:26px;font-weight:600;opacity:.9}
+#cuantos{position:absolute;left:50%;top:820px;transform:translateX(-50%);background:#e03131;white-space:nowrap;opacity:0;z-index:6}
+/* ---- CON ---- */
+#R .scr{background:#f6f4ee;color:#1f2a24}
+.ap{padding:78px 26px 0}
+.ap .logo{font-size:24px;font-weight:800;color:#0b5d4b;margin-bottom:18px}
+.ev{background:#fff;border-radius:22px;padding:22px;box-shadow:0 2px 8px #0001}
+.ev b{font-size:29px;display:block}.ev small{font-size:21px;color:#6b7a72}
+.kp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.k{border-radius:18px;padding:16px 18px;background:#f1f3f2}
+.k b{font-size:50px;font-weight:800;line-height:1}.k small{font-size:19px;color:#55635b;display:block;margin-top:4px}
+.k.g{background:#d3f9d8}.k.r{background:#ffe3e3}.k.y{background:#fff3bf}
+.subir{margin-top:18px;background:#0b5d4b;color:#fff;border-radius:16px;text-align:center;font-size:25px;font-weight:700;padding:18px}
+.inv{margin-top:16px;background:#fff;border-radius:18px;padding:6px 18px;opacity:0}
+.inv p{display:flex;justify-content:space-between;font-size:22px;padding:11px 0;border-bottom:1px solid #eee}
+.inv p span{color:#6b7a72}
+#xls{position:absolute;width:110px;height:130px;border-radius:14px;background:#1d6f42;color:#fff;font-weight:900;font-size:34px;display:grid;place-items:center;box-shadow:0 10px 24px #0005;opacity:0;z-index:6}
+.rec{margin-top:18px;opacity:0}
+.rec h4{font-size:24px;color:#55635b;margin-bottom:12px}
+.chip{display:inline-block;background:#d3f9d8;color:#0b5d4b;font-weight:800;font-size:26px;border-radius:30px;padding:12px 20px;margin:0 8px 10px 0;opacity:0}
+/* whatsapp invitación */
+#wa{background:#efeae2;transform:translateX(100%)}
+.wh{height:150px;background:#075e54;color:#fff;display:flex;align-items:flex-end;gap:18px;padding:0 26px 20px}
+.av{width:70px;height:70px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:36px;flex:none}
+.wh b{font-size:29px;display:block}.wh small{font-size:21px;opacity:.8}
+.chat{padding:24px 22px;display:flex;flex-direction:column;gap:16px}
+.card{background:#fff;border-radius:4px 22px 22px 22px;overflow:hidden;max-width:470px;box-shadow:0 2px 3px #0001}
+.card .img{height:200px;background:linear-gradient(135deg,#f3e3c3,#e6c99a);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#5c4b2b}
+.card .img b{font-family:'Noto Serif',Georgia,serif;font-style:italic;font-size:46px}
+.card .img small{font-size:18px;letter-spacing:4px}
+.card p{font-size:25px;line-height:1.35;padding:16px 20px;color:#111b21}
+.bt{border-top:1px solid #e9edef;text-align:center;color:#027eb5;font-size:27px;font-weight:700;padding:16px;background:#fff}
+.yo{align-self:flex-end;background:#d9fdd3;border-radius:22px 4px 22px 22px;padding:16px 22px;font-size:27px;color:#111b21;opacity:0}
+#dedo{position:absolute;width:100px;height:100px;border-radius:50%;background:#ffffff66;border:6px solid #fff;box-shadow:0 6px 20px #0005;opacity:0;z-index:8}
+#conf{position:absolute;left:50%;top:760px;transform:translateX(-50%);background:#12b886;white-space:nowrap;opacity:0;z-index:7}
+/* estrés */
+.st{position:absolute;left:40px;right:40px;top:1170px}
+.st span{font-size:30px;font-weight:700;display:flex;justify-content:space-between}
+.bar{height:26px;border-radius:13px;background:#ffffff26;margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:13px}
+#L .bar i{background:linear-gradient(90deg,#f59f00,#e03131)}#R .bar i{background:#12b886}
+.res{position:absolute;top:1060px;width:480px;border-radius:30px;padding:26px 28px;opacity:0;box-shadow:0 14px 40px #0007;background:#fff}
+.res div{font-size:31px;font-weight:700;margin:12px 0;line-height:1.2}
+#resL{left:30px;color:#c92a2a}#resR{left:570px;color:#087f5b}
+.cta{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;opacity:0;text-align:center}
+.cta .ring{font-size:170px;line-height:1}
+.cta h1{font-size:110px;font-weight:800;letter-spacing:-2px;line-height:1}
+.cta h1 em{display:block;font-size:120px}
+.cta p{font-size:46px;font-weight:600;line-height:1.3}
+.pill{background:#e9c46a;color:#1b1b1b;font-weight:800;font-size:52px;padding:22px 46px;border-radius:60px}
+.url{font-size:58px;font-weight:800}
+</style></head><body>
+<div id="tit" class="abs"></div>
+
+<div class="ph abs" id="L"><div class="tag r"><b>✕</b>Sin Confirmapp</div><div class="scr"><div class="notch"></div>
+ <div class="lh">Chats <span id="sinleer">48 sin leer</span></div>
+ <div class="bus">🔍 Buscar invitado…</div>
+ <div id="lista"></div>
+ <div id="papel"><h3>Lista de invitados (versión final 3)</h3>
+  <p>Tía Lupe — <em>¿2 o 4?</em></p><p>Primo Jorge — <em>no contestó</em></p><p><s>Fam. Treviño</s> — <em>¿siempre sí?</em></p>
+  <p>Sofía + ¿novio? — <em>¿?</em></p><p>Compañeros de la ofi — <em>¿cuántos?</em></p><p>… y 130 más <em>sin respuesta</em></p></div>
+ <div class="badge" id="cuantos">¿Cuántos van? 🤯<small>y la boda es en 7 días</small></div>
+</div><div class="st"><span>Estrés <em id="eL">😐</em></span><div class="bar"><i id="sL"></i></div></div></div>
+
+<div class="ph abs" id="R"><div class="tag g"><b>✓</b>Con Confirmapp</div><div class="scr"><div class="notch"></div>
+ <div class="v" id="app"><div class="ap">
+  <div class="logo">✓ Confirmapp · Bodas</div>
+  <div class="ev"><b>💍 Boda de Natalia y Luis</b><small>Sáb 14 de marzo · 6:00 pm · Jardín Las Palmas</small>
+   <div class="kp"><div class="k"><b id="kInv">0</b><small>invitaciones</small></div><div class="k g"><b id="kVan">0</b><small>✅ personas que van</small></div>
+   <div class="k r"><b id="kNo">0</b><small>❎ no van</small></div><div class="k y"><b id="kSin">0</b><small>⏳ sin respuesta</small></div></div>
+   <div class="subir" id="subir">📄 Subir mi lista de invitados</div></div>
+  <div class="inv" id="inv"><p>Mariana López <span>3 pases</span></p><p>Familia Treviño <span>5 pases</span></p><p>Jorge Ramírez <span>2 pases</span></p><p>Tía Lupe <span>4 pases</span></p><p>Sofía García <span>1 pase</span></p></div>
+  <div class="rec" id="rec"><h4>Les recordamos solos:</h4><span class="chip" id="c1">✓ 1 mes antes</span><span class="chip" id="c2">✓ 1 semana antes</span><span class="chip" id="c3">✓ 1 día antes</span></div>
+ </div></div>
+ <div class="v" id="wa"><div class="wh"><div class="av">💍</div><div><b>Boda de Natalia y Luis</b><small>mensaje automático</small></div></div>
+  <div class="chat"><div class="card"><div class="img"><b>Natalia &amp; Luis</b><small>NOS CASAMOS</small></div>
+   <p>¡Hola, <b>Mariana</b>! 💌 Natalia y Luis te invitan a su boda el <b>sábado 14 de marzo, 6:00 pm</b>. ¿Nos acompañas?</p>
+   <div class="bt" id="b1">✅ Sí asistiré</div><div class="bt">No podré</div></div>
+   <div class="yo" id="yo">✅ Sí asistiré</div></div></div>
+ <div id="xls">XLS</div><div id="dedo"></div>
+ <div class="badge" id="conf">¡Confirmó! ✅<small>con un toque</small></div>
+</div><div class="st"><span>Estrés <em id="eR">😐</em></span><div class="bar"><i id="sR"></i></div></div></div>
+
+<div class="res" id="resL"><div>✕ Cientos de chats</div><div>✕ Listas que no cuadran</div><div>✕ Nadie te confirma</div></div>
+<div class="res" id="resR"><div>✓ Solo subes tu lista</div><div>✓ Ves cuántos van</div><div>✓ Recordatorios: 1 mes, 1 semana y 1 día antes</div></div>
+
+<div class="cta" id="cta"><div class="ring">💍</div><h1>Confirmapp<em>Bodas</em></h1>
+ <p>Tus invitados confirman por WhatsApp.<br>Tú, <em>solo disfrutas</em>.</p>
+ <div class="pill">30 invitaciones GRATIS</div><div class="url">confirmapp.com.mx</div></div>
+<script>
+const $=id=>document.getElementById(id), cl=(x,a,b)=>Math.max(0,Math.min(1,(x-a)/(b-a)));
+const ez=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2, L=(a,b,u)=>a+(b-a)*u;
+// lista de chats
+const C=[['Tía Lupe','¿Siempre sí es el 14? 🙏',3,'#e8590c'],['Primo Jorge','¿Puedo llevar a alguien?',2,'#1971c2'],['Mariana López','Te confirmo luego 😅',1,'#c2255c'],
+['Fam. Treviño','¿Cuántos pases nos tocan?',4,'#2f9e44'],['Sofía García','¿A qué hora es la misa?',2,'#7048e8'],['Tío Beto','Audio 🎤 0:48',5,'#f08c00'],
+['Compañeros ofi 👔','¿Hay que llevar algo?',12,'#0c8599'],['Diego y Carla','Ya vimos, luego te decimos',1,'#e64980'],['Abuela Chela','¿Quién me lleva? 🥺',3,'#5c940d'],
+['Laura (prepa)','¿Es formal?',2,'#1864ab'],['Familia Garza','¿Van niños?',6,'#a61e4d'],['Andrés','👍',1,'#495057'],['Paty','¿Me mandas la ubicación?',2,'#d9480f'],
+['Grupo Boda 💍','Rubén: ¿y la lista? 😂',27,'#087f5b'],['Ximena','Ay no sé si pueda 😬',1,'#6741d9'],['Prima Vale','¿Puedo llevar a mi novio?',3,'#c92a2a']];
+$('lista').innerHTML=C.map((c,i)=>`<div class="row"><div class="a" style="background:${c[3]}">${c[0].replace(/[^A-ZÁÉÍÓÚ]/g,'').slice(0,2)||c[0][0]}</div><div class="x"><b>${c[0]}</b><small>${c[1]}</small></div><div class="n">${['10:4'+(i%10),'9:5'+(i%10),'ayer'][i%3]}<i>${c[2]}</i></div></div>`).join('');
+const S={A:{L:[285,.78,1],R:[795,.78,1]},B:{L:[540,1,1],R:[1230,.78,.35]},C:{L:[-150,.78,.35],R:[540,1,1]},D:{L:[275,.74,1],R:[805,.74,1]},E:{L:[275,.74,0],R:[805,.74,0]}};
+const K=[[0,'A'],[3.6,'A'],[4.2,'B'],[12.0,'B'],[12.6,'C'],[24.8,'C'],[25.4,'D'],[27.7,'D'],[28.2,'E']];
+function estado(t){for(let i=0;i<K.length-1;i++){const[a,sa]=K[i],[b,sb]=K[i+1];if(t<=b){const u=ez(cl(t,a,b));const r={};for(const p of['L','R'])r[p]=S[sa][p].map((v,j)=>L(v,S[sb][p][j],u));return r}}return S.E}
+const fade=(id,t,a,d=.3)=>{const u=cl(t,a,a+d);$(id).style.opacity=u;return u};
+const pop=(id,t,a,base='')=>{const u=cl(t,a,a+.25);const e=$(id);e.style.opacity=u;e.style.transform=base+` scale(${u<1?L(.6,1.08,u):1})`};
+const TIT=[[0,'Misma boda.<br><em>Mismos invitados.</em>'],[3.9,'Perseguir a <em>cada invitado</em>'],[12.3,'Solo subes <em>tu lista</em>'],[17.2,'Ves quién va, <em>al momento</em>'],[20.9,'Les recordamos <em>solos</em>'],[25.1,'Menos <em>estrés</em>,<br>más <em>disfrutar</em>'],[28.0,'']];
+let tAnt=null;
+window.pintar=function(t){
+  const e=estado(t);
+  for(const p of['L','R']){const[cx,s,o]=e[p];const el=$(p);el.style.left=(cx-280)+'px';el.style.transform=`scale(${s})`;el.style.opacity=o;el.style.filter=o<.9?`blur(${(1-o)*6}px)`:'none'}
+  let k=0;for(let i=0;i<TIT.length;i++)if(t>=TIT[i][0])k=i;
+  const ti=$('tit');if(tAnt!==k){ti.innerHTML=TIT[k][1];tAnt=k} ti.style.opacity=k==0?1:cl(t,TIT[k][0],TIT[k][0]+.3);
+  // SIN
+  const sc=ez(cl(t,4.3,8.4));$('lista').style.transform=`translateY(${-sc*760}px)`;
+  $('sinleer').textContent=Math.round(L(48,163,cl(t,4.3,8.4)))+' sin leer';
+  const pu=cl(t,8.6,8.95);$('papel').style.opacity=pu;$('papel').style.transform=`rotate(-2deg) translateY(${(1-ez(pu))*80}px)`;
+  pop('cuantos',t,9.9,'translateX(-50%)');
+  const sl=L(.15,.95,ez(cl(t,4.3,11)));$('sL').style.width=(sl*100)+'%';$('eL').textContent=sl<.4?'😐':sl<.7?'😟':'😩';
+  // CON: subir lista
+  const xu=cl(t,13.6,14.3),x=$('xls');x.style.opacity=t<13.4?0:t<14.3?cl(t,13.4,13.6):1-cl(t,14.3,14.5);
+  x.style.left=L(400,210,ez(xu))+'px';x.style.top=L(1000,520,ez(xu))+'px';
+  $('subir').style.background=t>14.2&&t<14.6?'#12b886':'#0b5d4b';
+  const iu=cl(t,14.4,15.2);$('kInv').textContent=Math.round(180*ez(iu));
+  if(t<18.4){$('kSin').textContent=Math.round(180*ez(iu));$('kVan').textContent=0;$('kNo').textContent=0}
+  else{const u=ez(cl(t,18.6,20.4));$('kVan').textContent=Math.round(312*u);$('kNo').textContent=Math.round(14*u);$('kSin').textContent=Math.round(L(180,22,u))}
+  fade('inv',t,14.6,.4); $('inv').style.display=t>20.6?'none':'block';
+  // invitación por WhatsApp
+  const wu=ez(cl(t,15.6,16.1))*(1-ez(cl(t,18.3,18.8)));$('wa').style.transform=`translateX(${(1-wu)*100}%)`;$('app').style.transform=`translateX(${-wu*30}%)`;
+  const dd=$('dedo'),du=cl(t,17.0,17.5);dd.style.opacity=t<16.7?0:t<17.0?cl(t,16.7,16.9):t<17.9?1:1-cl(t,17.9,18.1);
+  dd.style.left=L(390,214,ez(du))+'px';dd.style.top=L(850,487,ez(du))+'px';dd.style.transform=`scale(${t>17.5&&t<17.75?.8:1})`;
+  $('b1').style.background=t>17.55&&t<18?'#d0ebff':'#fff';
+  fade('yo',t,17.7,.25); pop('conf',t,17.9,'translateX(-50%)'); if(t>18.4)$('conf').style.opacity=1-cl(t,18.4,18.6);
+  // recordatorios
+  fade('rec',t,20.9,.3); [['c1',22.2],['c2',22.9],['c3',23.6]].forEach(([id,a])=>pop(id,t,a));
+  const sr=L(.5,.1,ez(cl(t,12.6,20)));$('sR').style.width=(sr*100)+'%';$('eR').textContent=sr>.35?'😐':'😌';
+  for(const[id,a]of[['resL',25.4],['resR',26.0]]){const u=cl(t,a,a+.3);const r=$(id);r.style.opacity=u*(1-cl(t,27.8,28.1));r.style.transform=`translateY(${(1-ez(u))*60}px)`}
+  const c=cl(t,28.0,28.5);$('cta').style.opacity=c;$('cta').style.transform=`scale(${L(.92,1,ez(c))})`;
+};
+pintar(0);
+</script></body></html>

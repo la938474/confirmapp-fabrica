@@ -81,39 +81,159 @@ await b.close();}})();"""
             raw = f'{d}/audio/raw{i}.wav'
             kok.guardar(kok.decir(e['v'], voz, vel), raw)
             sh('ffmpeg', '-y', '-v', 'error', '-i', raw, '-af', FILTRO_VOZ, '-ar', '44100', '-ac', '1', f'{d}/audio/{i}.wav')
-        render(d, len(E), f'{R}/salida/{v["id"]}.mp4', float(v.get('zoom', 0.09)))
+        render(d, len(E), f'{R}/salida/{v["id"]}.mp4', float(v.get('zoom', 0.09)), [e['v'] for e in E])
         json.dump({k: v[k] for k in ('id', 'giro', 'gancho', 'texto')} | {'formato': v.get('formato', ''), 'voz': voz},
                   open(f'{R}/salida/{v["id"]}.json', 'w'), ensure_ascii=False)
         print('✓', v['id'], round(dur(f'{R}/salida/{v["id"]}.mp4'), 1), 's', flush=True)
 
 
-def render(d, n, salida, zoom):
-    vs, aus = [], []
+def render(d, n, salida, zoom, voces=None):
+    vs, aus, ini = [], [], []
     for i in range(n):
         a = dur(f'{d}/audio/{i}.wav')
         ex = 1.6 if i == n - 1 else 0.3
         N = int(round((a + ex) * 30)); D = N / 30
         tmp = f'{d}/esc/tmp_{i}.mp4'
         sh('ffmpeg', '-y', '-v', 'error', '-i', f'{d}/img/{i}.jpg', '-vf',
-           f"zoompan=z='1+{zoom}*on/{N}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={N}:s=1080x1920:fps=30,format=yuv420p,"
+           f"zoompan=z='1+{zoom}*on/{N}+0.06*max(0,1-on/7)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={N}:s=1080x1920:fps=30,format=yuv420p,"
            + (f"fade=in:st=0:d=0.15," if i else "") + f"fade=out:st={round(D - 0.15, 3)}:d=0.15",  # escena 0 sin fundido: el primer cuadro es la portada
            '-frames:v', str(N), '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '23', '-pix_fmt', 'yuv420p', tmp)
         os.rename(tmp, f'{d}/esc/{i}.mp4')
         sh('ffmpeg', '-y', '-v', 'error', '-i', f'{d}/audio/{i}.wav', '-af', f'adelay=200|200,apad=whole_dur={D}', '-ar', '44100', '-ac', '2', f'{d}/esc/{i}.wav')
+        ini.append((sum(x[1] for x in ini), D, a))  # (inicio, duración escena, duración voz)
         vs.append(f"file '{i}.mp4'"); aus.append(f"file '{i}.wav'")
     open(f'{d}/esc/v.txt', 'w').write('\n'.join(vs)); open(f'{d}/esc/a.txt', 'w').write('\n'.join(aus))
     sh('ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', f'{d}/esc/v.txt', '-c', 'copy', f'{d}/esc/v.mp4')
     sh('ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', f'{d}/esc/a.txt', '-c:a', 'pcm_s16le', f'{d}/esc/voz.wav')
     D = dur(f'{d}/esc/v.mp4')
-    sh('ffmpeg', '-y', '-v', 'error', '-i', f'{d}/esc/voz.wav', '-i', f'{A}/musica.wav', '-filter_complex',
+    # ---- Estilo PRO: subtítulos palabra por palabra + brillo que cruza + efectos de sonido ----
+    video = f'{d}/esc/v.mp4'
+    if voces:
+        subtitulos(d, ini, voces, f'{d}/esc/subs.ass')
+        luz = brillo(f'{d}/esc/luz.png')
+        tmpv = f'{d}/esc/vpro.tmp.mp4'
+        sh('ffmpeg', '-y', '-v', 'error', '-i', video, '-loop', '1', '-i', luz, '-filter_complex',
+           f"[1:v]format=rgba[l];[0:v][l]overlay=x='mod(t*320,2300)-700':y=-300:shortest=1,ass={d}/esc/subs.ass,format=yuv420p[o]",
+           '-map', '[o]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '21', '-pix_fmt', 'yuv420p', tmpv)
+        os.rename(tmpv, f'{d}/esc/vpro.mp4'); video = f'{d}/esc/vpro.mp4'
+        efectos(ini, D, f'{d}/esc/sfx.wav')
+        entradas = ['-i', f'{d}/esc/voz.wav', '-i', f'{A}/musica.wav', '-i', f'{d}/esc/sfx.wav']
+        mezcla = "[md][v2][2:a]amix=inputs=3:normalize=0,alimiter=limit=0.95[o]"
+    else:
+        entradas = ['-i', f'{d}/esc/voz.wav', '-i', f'{A}/musica.wav']
+        mezcla = "[md][v2]amix=inputs=2:normalize=0,alimiter=limit=0.95[o]"
+    sh('ffmpeg', '-y', '-v', 'error', *entradas, '-filter_complex',
        f"[1:a]volume=0.3,atrim=0:{D},afade=t=in:d=0.5,afade=t=out:st={D - 1.5}:d=1.5,aformat=channel_layouts=stereo[m];[0:a]asplit[v1][v2];"
-       "[m][v1]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=300[md];[md][v2]amix=inputs=2:normalize=0,alimiter=limit=0.95[o]",
+       "[m][v1]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=300[md];" + mezcla,
        '-map', '[o]', '-ar', '44100', f'{d}/esc/mix.wav')
     tmp = salida[:-4] + '.tmp.mp4'
-    sh('ffmpeg', '-y', '-v', 'error', '-i', f'{d}/esc/v.mp4', '-i', f'{d}/esc/mix.wav', '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
+    sh('ffmpeg', '-y', '-v', 'error', '-i', video, '-i', f'{d}/esc/mix.wav', '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
        '-c:a', 'aac', '-b:a', '128k', '-shortest', '-movflags', '+faststart', tmp)
     os.rename(tmp, salida)
     shutil.copy(f'{d}/img/0.jpg', salida[:-4] + '.jpg')  # portada = primera escena
+
+
+# ---------------- Estilo PRO (subtítulos, brillo, efectos) ----------------
+MOSTRAR = [(r'confirm ap punto com punto eme equis', 'confirmapp.com.mx'), (r'confirchat i a', 'ConfirChat IA'), (r'confirm ap', 'Confirmapp'),
+           (r'guatsap', 'WhatsApp'), (r'gúgol', 'Google'), (r'áutluk', 'Outlook'), (r'máyic', 'Magic'), (r'\bsiete días', '7 días')]
+PESO = {'confirmapp.com.mx': 10, 'confirmapp': 3, 'whatsapp': 2, 'confirchat': 3, 'ia': 2, '7': 2}
+
+
+def mostrar(v):
+    """Texto de la voz (fonético) → texto para leer en pantalla."""
+    for a, b in MOSTRAR: v = re.sub(a, b, v, flags=re.I)
+    return v
+
+
+def silabas(w):
+    k = w.lower().strip('.,:;¿?¡!')
+    return PESO.get(k, max(1, len(re.findall(r'[aeiouáéíóúü]+', k))))
+
+
+def tramos_voz(wav, a):
+    """Tramos hablados (inicio, fin) dentro del audio ya recortado de silencios."""
+    r = subprocess.run(['ffmpeg', '-i', wav, '-af', 'silencedetect=n=-40dB:d=0.12', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    st = [float(x) for x in re.findall(r'silence_start: ([\d.]+)', r)]; en = [float(x) for x in re.findall(r'silence_end: ([\d.]+)', r)]
+    out, x = [], 0.0
+    for s0, s1 in zip(st, en):
+        if s0 > x + 0.05 and s1 < a - 0.05: out.append((x, s0)); x = s1
+    out.append((x, a)); return out
+
+
+def subtitulos(d, ini, voces, ass):
+    """ASS con 2-3 palabras a la vez; la palabra que se dice va en dorado y el grupo entra con un pequeño rebote."""
+    palabras = []  # (texto, t0, t1, grupo, fin_escena)
+    g = 0
+    for i, ((t_esc, D, a), v) in enumerate(zip(ini, voces)):
+        base = t_esc + 0.2
+        frases = [f.strip().replace('·', '.') for f in re.findall(r'[^,.:;?!]+[,.:;?!]*', mostrar(v).replace('confirmapp.com.mx', 'confirmapp·com·mx')) if f.strip()]
+        tr = tramos_voz(f'{d}/audio/{i}.wav', a)
+        if len(tr) != len(frases):  # si no cuadran las pausas, reparte por sílabas
+            tot = sum(silabas(w) for f in frases for w in f.split()); tr, x = [], 0.0
+            for f in frases:
+                dd = a * sum(silabas(w) for w in f.split()) / tot; tr.append((x, x + dd)); x += dd
+        for (x0, x1), f in zip(tr, frases):
+            ws = f.split(); pes = [silabas(w) for w in ws]; T = sum(pes); x = x0; n = 0
+            for w, p in zip(ws, pes):
+                dd = (x1 - x0) * p / T
+                palabras.append((w, base + x, base + x + dd, g, t_esc + D)); x += dd; n += 1
+                if n == 3: g += 1; n = 0
+            if n: g += 1
+    def ts(t):
+        t = max(0, t); return f'{int(t // 3600)}:{int(t % 3600 // 60):02d}:{t % 60:05.2f}'
+    ev = []
+    grupos = sorted({p[3] for p in palabras})
+    for gi in grupos:
+        ws = [p for p in palabras if p[3] == gi]
+        sig = next((p[1] for p in palabras if p[3] > gi), 1e9)
+        fin = min(ws[-1][2] + 0.3, sig - 0.07, ws[-1][4] - 0.05)
+        for k, w in enumerate(ws):
+            t0 = w[1] - (0.05 if k == 0 else 0); t1 = ws[k + 1][1] if k + 1 < len(ws) else fin
+            if t1 <= t0: continue
+            txt = ' '.join((r'{\c&H6AC4E9&\fscx112\fscy112}' + x[0].rstrip(',.:;') + r'{\c&HFFFFFF&\fscx100\fscy100}') if j == k
+                           else x[0].rstrip(',.:;') for j, x in enumerate(ws))
+            pop = r'{\fscx80\fscy80\t(0,130,\fscx100\fscy100)}' if k == 0 else ''
+            ev.append(f'Dialogue: 0,{ts(t0)},{ts(t1)},Cap,,0,0,0,,{pop}{txt}')
+    open(ass, 'w').write('[Script Info]\nScriptType: v4.00+\nPlayResX: 1080\nPlayResY: 1920\nWrapStyle: 0\n\n[V4+ Styles]\n'
+        'Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, '
+        'ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n'
+        f'Style: Cap,Inter,72,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,-1,0,0,0,100,100,0,0,1,7,4,2,60,60,{SUB_MARGEN},1\n\n'
+        '[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n' + '\n'.join(ev) + '\n')
+
+
+SUB_MARGEN = 300  # distancia del subtítulo al borde de abajo (fuera de la zona que tapa Instagram)
+
+
+def brillo(out):
+    """Franja de luz suave y diagonal que cruza la pantalla."""
+    if os.path.exists(out): return out
+    from PIL import Image
+    import math
+    w, h = 420, 2700
+    im = Image.new('RGBA', (w, h), (255, 255, 255, 0)); px = im.load()
+    for x in range(w):
+        al = int(24 * math.exp(-((x - w / 2) / (w / 5)) ** 2))
+        for y in range(h): px[x, y] = (255, 255, 255, al)
+    im.rotate(18, expand=True, resample=Image.BICUBIC).save(out); return out
+
+
+def efectos(ini, D, out):
+    """Whoosh en cada cambio de escena, pop al entrar y ding en el cierre."""
+    S = f'{A}/sfx'; os.makedirs(S, exist_ok=True)
+    base = {'whoosh': ['-f', 'lavfi', '-i', 'anoisesrc=d=0.55:c=pink:a=0.6', '-af', 'highpass=f=300,lowpass=f=4000,afade=t=in:d=0.3:curve=exp,afade=t=out:st=0.3:d=0.25,volume=0.5'],
+            'pop': ['-f', 'lavfi', '-i', 'sine=f=880:d=0.09', '-af', 'afade=t=out:d=0.09:curve=exp,volume=0.5'],
+            'ding': ['-f', 'lavfi', '-i', 'sine=f=1318:d=0.7', '-af', 'afade=t=out:d=0.7:curve=exp,volume=0.45']}
+    for k, a in base.items():
+        if not os.path.exists(f'{S}/{k}.wav'): sh('ffmpeg', '-y', '-v', 'error', *a, '-ar', '44100', '-ac', '2', f'{S}/{k}.wav')
+    E = []
+    for i, (t, _, _) in enumerate(ini):
+        if i: E += [('whoosh', max(0, t - 0.2)), ('pop', t + 0.05)]
+    E.append(('ding', ini[-1][0] + 0.1))
+    args, f = [], ''
+    for j, (k, t) in enumerate(E):
+        args += ['-i', f'{S}/{k}.wav']; ms = int(t * 1000); f += f'[{j}]adelay={ms}|{ms}[s{j}];'
+    f += ''.join(f'[s{j}]' for j in range(len(E))) + f'amix=inputs={len(E)}:normalize=0,volume=0.55,apad=whole_dur={D},atrim=0:{D}[o]'
+    sh('ffmpeg', '-y', '-v', 'error', *args, '-filter_complex', f, '-map', '[o]', '-ar', '44100', out)
 
 
 def telefono(cap, salida, ancho=360, giro=0):

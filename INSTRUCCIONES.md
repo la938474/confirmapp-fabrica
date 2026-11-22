@@ -79,6 +79,20 @@ Antes de escribir, lee los últimos ~10 ganchos del historial y del resumen. **P
 Varía cuáles usas; no pongas siempre los mismos. La primera línea del caption también lleva palabras que se buscan
 (ej. "agenda de citas por WhatsApp para dentistas"), porque Instagram también busca por texto.
 
+## Estilo PRO (Luis lo aprobó: todos los videos nuevos van así)
+`fabrica.py hacer` ya lo pone solo en los videos de plantilla: subtítulos grandes de 2–3 palabras con la palabra que se dice
+en dorado (para quien ve sin sonido; el texto sale de `v` con la pronunciación convertida a como se escribe:
+Confirm ap→Confirmapp, guatsap→WhatsApp…), golpe de zoom al entrar a cada escena, franja de luz que cruza la pantalla, whoosh
+en cada cambio de escena, pop al entrar y ding en el cierre. Al revisar las imágenes, mira también un cuadro del .mp4
+(`ffmpeg -ss 3 -i salida/<id>.mp4 -frames:v 1 x.jpg`) para confirmar que el subtítulo no tape nada importante.
+
+Videos especiales (comparativos "sin vs con", tutoriales, Bodas) se hacen como página animada con `pintar(t)` y se graban con
+`node assets/pro/grabar.js <pagina.html> <segundos> <salida.mp4>` (antes, cuadros sueltos con `--fotos`). Plantillas para copiar
+y cambiar textos: `assets/pro/comparativo.html` (con subtítulos palabra por palabra, fondo con luz en movimiento, rebote y
+desenfoque al moverse), `comparativo-bodas.html` y `tutorial.html` (a estos dos agrégales los subtítulos igual que en
+`comparativo.html`). Voz con `tts/kok.py`, música `assets/musica.wav` bajita, efectos de `assets/sfx/`, volumen final
+`loudnorm=I=-14`. Primer cuadro = portada: que se vea completo (nada en fundido).
+
 ## Formato del guion (`guiones/AAAA-MM-DD.json`)
 ```json
 [
