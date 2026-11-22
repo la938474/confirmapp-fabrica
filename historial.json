@@ -70,5 +70,21 @@
   "gancho": "¿Sigues persiguiendo a tus invitados para que confirmen?",
   "formato": "tutorial",
   "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-22-dental-sinvscon",
+  "fecha": "2026-11-22",
+  "giro": "dental",
+  "gancho": "Mismo paciente. Misma cita. Sin vs con Confirmapp",
+  "formato": "antes-despues",
+  "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-22-sinvscon-bodas",
+  "fecha": "2026-11-22",
+  "giro": "bodas",
+  "gancho": "Misma boda. Mismos invitados. Sin vs con Confirmapp",
+  "formato": "antes-despues",
+  "voz": "dora_brillante"
  }
 ]
