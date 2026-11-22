@@ -112,5 +112,71 @@
    "recordatorio",
    "cta"
   ]
+ },
+ {
+  "num": 10,
+  "id": "avatar-luis-agenda-inteligente",
+  "giro": "dental",
+  "gancho": "¿Ya usaste la agenda inteligente?",
+  "texto": "¡Hey! ¿Ya usaste la agenda inteligente? 📲\n✅ Tus pacientes confirman con un toque\n🔗 Agendan solos con tu link\n🎁 Tarjeta de lealtad en su celular\n🤖 Autochat WhatsApp IA agenda por ti 24/7\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#dentista #consultoriodental #agenda #confirmapp",
+  "personaje": "luis",
+  "voz": "alex_grave",
+  "foto_prompt": "Mexican man, 35 years old, friendly confident entrepreneur, short dark hair, light trimmed beard, casual white linen shirt, modern city rooftop at golden hour, warm cinematic lighting",
+  "frases": [
+   "¡Hey, hola! Soy Luis. ¿Ya usaste la agenda inteligente?",
+   "Mira: un día antes, a tu paciente le llega un guatsap, y confirma con un toque.",
+   "Le mandas tu link de Autoagenda,",
+   "él elige su horario libre,",
+   "y a ti te llega un guatsap con su cita.",
+   "Con la tarjeta de lealtad, tu paciente escanea tu código y junta sellos en su celular.",
+   "En cada visita, más un sello. Y al completar, su premio.",
+   "Y Autochat guatsap i a contesta tu guatsap y agenda citas por ti, a cualquier hora.",
+   "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
+  ],
+  "estilo": "grande",
+  "pantallas": [
+   null,
+   "recordatorio",
+   "autoagenda:link",
+   "autoagenda:elige",
+   "autoagenda:aviso",
+   "l_tarjeta",
+   "l_sello",
+   "k_chat",
+   "cta"
+  ]
+ },
+ {
+  "num": 11,
+  "id": "avatar-natalia-agenda-inteligente",
+  "giro": "salon",
+  "gancho": "¿Ya usaste la agenda inteligente?",
+  "texto": "¡Hola! ¿Ya usaste la agenda inteligente? 💇‍♀️📲\n✅ Tus clientas confirman con un toque\n🔗 Agendan solas con tu link\n🎁 Tarjeta de lealtad en su celular\n🤖 Autochat WhatsApp IA agenda por ti 24/7\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#salondebelleza #estilista #agenda #confirmapp",
+  "personaje": "natalia",
+  "voz": "dora_brillante",
+  "foto_prompt": "Mexican woman, 30 years old, confident beauty salon owner, long dark wavy hair, stylish casual blazer, modern city rooftop at golden hour, warm cinematic lighting",
+  "frases": [
+   "¡Hey, hola! Soy Natalia. ¿Ya usaste la agenda inteligente?",
+   "Mira: un día antes, a tu clienta le llega un guatsap, y confirma con un toque.",
+   "Le mandas tu link de Autoagenda,",
+   "ella elige su horario libre,",
+   "y a ti te llega un guatsap con su cita.",
+   "Con la tarjeta de lealtad, tu clienta escanea tu código y junta sellos en su celular.",
+   "En cada visita, más un sello. Y al completar, su premio.",
+   "Y Autochat guatsap i a contesta tu guatsap y agenda citas por ti, a cualquier hora.",
+   "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
+  ],
+  "estilo": "grande",
+  "pantallas": [
+   null,
+   "recordatorio",
+   "autoagenda:link",
+   "autoagenda:elige",
+   "autoagenda:aviso",
+   "l_tarjeta",
+   "l_sello",
+   "k_chat",
+   "cta"
+  ]
  }
 ]
