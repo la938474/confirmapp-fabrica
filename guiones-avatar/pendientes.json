@@ -310,5 +310,121 @@
    }
   ],
   "capturas_revisadas": true
+ },
+ {
+  "num": 12,
+  "id": "avatar-dental-recordatorio",
+  "giro": "dental",
+  "gancho": "Mira cómo confirma un paciente con un solo toque",
+  "texto": "Un día antes le llega un WhatsApp a tu paciente y confirma con un toque 🦷✅\n💬 Comenta PRUEBA y te mando el video y el link por mensaje 📩\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#dentista #consultoriodental #odontologia #salud #confirmapp",
+  "personaje": "recepcionista_dental",
+  "voz": "dora_brillante",
+  "foto_prompt": "Mexican woman, 32 years old, dental receptionist in light blue scrubs, dental clinic reception",
+  "frases": [
+   "Mira cómo confirma un paciente con un solo toque.",
+   "Un día antes le llega un guatsap con su cita, y toca confirmar.",
+   "Y en tu calendario ves quién viene, quién falta y quién canceló.",
+   "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
+  ],
+  "estilo": "grande",
+  "cara": [
+   552,
+   341,
+   305
+  ],
+  "pantallas": [
+   null,
+   "recordatorio",
+   "k_gcal",
+   "cta"
+  ]
+ },
+ {
+  "num": 13,
+  "id": "avatar-medico-autoagenda",
+  "giro": "medico",
+  "gancho": "Te enseño cómo tus pacientes agendan sin llamarte",
+  "texto": "Tu link de Autoagenda: el paciente elige su horario libre y a ti te avisa por WhatsApp 🩺📅\n💬 Comenta PRUEBA y te mando el video y el link por mensaje 📩\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#medico #consultorio #doctor #salud #confirmapp",
+  "personaje": "medico",
+  "voz": "alex_grave",
+  "foto_prompt": "Mexican man, 40 years old, doctor in white coat with stethoscope, bright medical office",
+  "frases": [
+   "Te enseño cómo tus pacientes agendan sin llamarte.",
+   "Les mandas tu link de Autoagenda.",
+   "El paciente escoge un horario libre.",
+   "Y a ti te llega un guatsap con quién agendó.",
+   "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
+  ],
+  "estilo": "grande",
+  "cara": [
+   540,
+   520,
+   250
+  ],
+  "pantallas": [
+   null,
+   "autoagenda:link",
+   "autoagenda:elige",
+   "autoagenda:aviso",
+   "cta"
+  ]
+ },
+ {
+  "num": 14,
+  "id": "avatar-psico-calendario",
+  "giro": "psicologia",
+  "gancho": "Así se ve una agenda de terapia que se confirma sola",
+  "texto": "Tus pacientes confirman su sesión por WhatsApp un día antes y tú solo revisas tu calendario 🧠✅\n💬 Comenta PRUEBA y te mando el video y el link por mensaje 📩\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#psicologia #psicologo #terapia #saludmental #confirmapp",
+  "personaje": "psicologa",
+  "voz": "dora_brillante",
+  "foto_prompt": "Mexican woman, 38 years old, psychologist in casual blazer, calm therapy office with plants",
+  "frases": [
+   "Así se ve una agenda de terapia que se confirma sola.",
+   "Un día antes, tu paciente recibe un guatsap y confirma con un toque.",
+   "En tu calendario ves quién confirmó, quién está pendiente y quién canceló.",
+   "Y funciona con tu Gúgol Calendar o Áutluk.",
+   "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
+  ],
+  "estilo": "grande",
+  "cara": [
+   558,
+   502,
+   273
+  ],
+  "pantallas": [
+   null,
+   "recordatorio",
+   "k_gcal",
+   "05_google",
+   "cta"
+  ]
+ },
+ {
+  "num": 15,
+  "id": "avatar-salon-magic",
+  "giro": "salon",
+  "gancho": "¿Apuntas tus citas a mano? Mira este truco",
+  "texto": "Con Magic escribes la cita con el dedo, como en tu libreta, y se agenda sola 💇‍♀️✍️\n💬 Comenta PRUEBA y te mando el video y el link por mensaje 📩\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#salondebelleza #estilista #belleza #uñas #confirmapp",
+  "personaje": "estilista",
+  "voz": "dora_brillante",
+  "foto_prompt": "Mexican woman, 28 years old, hair stylist with black apron, modern beauty salon",
+  "frases": [
+   "¿Apuntas tus citas a mano? Mira este truco.",
+   "Con Máyic escribes la cita con el dedo, como en tu libreta, y se agenda sola.",
+   "Y un día antes, tu clienta confirma con un toque por guatsap.",
+   "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
+  ],
+  "estilo": "grande",
+  "cara": [
+   540,
+   520,
+   250
+  ],
+  "pantallas": [
+   null,
+   "k_magic",
+   "recordatorio",
+   "cta"
+  ]
  }
 ]
