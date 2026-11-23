@@ -1,10 +1,21 @@
 {
- "leido": "2026-11-23T19:16:35+00:00",
+ "leido": "2026-11-23T20:17:07+00:00",
  "resumen": {
-  "pendientes_por_publicar": 17,
+  "pendientes_por_publicar": 19,
   "comentarios_7_dias": 1,
   "errores": [],
   "publicados": [
+   {
+    "id": "2026-11-17-avatar-barberia-barbero",
+    "giro": "barberia",
+    "gancho": "Imagina: estás en tu barbería haciendo un fade y no puedes contestar",
+    "fecha": "2026-11-23",
+    "vistas": 0,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "2026-11-16-avatar-medico-confirchat",
     "giro": "medico",
