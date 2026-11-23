@@ -102,5 +102,13 @@
   "gancho": "¿Cuál consultorio eres tú? Sin vs con Confirmapp",
   "formato": "antes-despues",
   "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-22-dental-sillon-vacio",
+  "fecha": "2026-11-22",
+  "giro": "dental",
+  "gancho": "Doctor, ¿sillón vacío otra vez? Sin vs con Confirmapp",
+  "formato": "antes-despues",
+  "voz": "alex_grave"
  }
 ]
