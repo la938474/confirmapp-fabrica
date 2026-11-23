@@ -1,16 +1,27 @@
 {
- "leido": "2026-11-23T13:38:49+00:00",
+ "leido": "2026-11-23T15:23:43+00:00",
  "resumen": {
-  "pendientes_por_publicar": 18,
+  "pendientes_por_publicar": 17,
   "comentarios_7_dias": 1,
   "errores": [],
   "publicados": [
+   {
+    "id": "2026-11-16-avatar-medico-confirchat",
+    "giro": "medico",
+    "gancho": "¿Quién contesta tu WhatsApp mientras consultas?",
+    "fecha": "2026-11-23",
+    "vistas": 0,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "2026-11-15-salon-pov",
     "giro": "salon",
     "gancho": "POV: tus clientas confirman solas",
     "fecha": "2026-11-23",
-    "vistas": 23,
+    "vistas": 25,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
@@ -142,7 +153,7 @@
     "giro": "unas",
     "gancho": "¿Tienes estudio de uñas? 💅 Tus clientas confirman por WhatsApp y llenas tu agenda ✅",
     "fecha": "2026-11-17",
-    "vistas": 10,
+    "vistas": 12,
     "likes": 1,
     "compartidos": 0,
     "guardados": 0,
@@ -164,7 +175,7 @@
     "giro": "barberia",
     "gancho": "¿Tienes barbería? 💈 Tus clientes agendan y confirman solos por WhatsApp ✅",
     "fecha": "2026-11-16",
-    "vistas": 117,
+    "vistas": 121,
     "likes": 2,
     "compartidos": 0,
     "guardados": 0,
