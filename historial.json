@@ -110,5 +110,29 @@
   "gancho": "Doctor, ¿sillón vacío otra vez? Sin vs con Confirmapp",
   "formato": "antes-despues",
   "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-23-barberia-antes-despues",
+  "fecha": "2026-11-23",
+  "giro": "barberia",
+  "gancho": "Antes: cortabas con una mano y contestabas WhatsApp con la otra",
+  "formato": "antes-despues",
+  "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-23-medico-tutorial",
+  "fecha": "2026-11-23",
+  "giro": "medico",
+  "gancho": "Doctor, así empiezas en 1 minuto (sin tarjeta)",
+  "formato": "tutorial",
+  "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-23-tatuaje-problema",
+  "fecha": "2026-11-23",
+  "giro": "tatuaje",
+  "gancho": "Sábado, 11 am. Sesión larga apartada. Nadie llega.",
+  "formato": "problema",
+  "voz": "dora_brillante"
  }
 ]

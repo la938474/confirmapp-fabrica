@@ -1,0 +1,32 @@
+[
+ {"id":"2026-11-23-barberia-antes-despues","giro":"barberia","formato":"antes-despues","voz":"alex_grave","velocidad":1.13,
+  "gancho":"Antes: cortabas con una mano y contestabas WhatsApp con la otra",
+  "texto":"Agenda de citas por WhatsApp para barberías 💈\nAntes: cortar y contestar \"¿hay chance hoy?\" al mismo tiempo. Ahora: tus clientes eligen su horario solos con tu link de Autoagenda.\n📲 Mándaselo a tu compa barbero que sigue agendando a mano.\n💬 Comenta PRUEBA y te mando el video y el link por mensaje 📩\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n#emprendedores #barberia #barbershop #monterrey #confirmapp",
+  "escenas":[
+   {"img":"FRASE","t":"Antes: cortabas y <mark>contestabas WhatsApp</mark> a la vez 💈","v":"Antes: cortabas con una mano, y contestabas guatsap con la otra."},
+   {"img":"FRASE","t":"Ahora: tu link <mark>agenda por ti</mark>","s":"Tú sigue con el fade ✂️","v":"Ahora: mandas tu link, y tú sigues con el corte."},
+   {"img":"m_pAutoMenu","t":"Eligen su horario <mark>solos</mark>","s":"Y te llega un WhatsApp con quién agendó","v":"Con Autoagenda tus clientes eligen su horario libre, y a ti te llega un guatsap con quién agendó."},
+   {"img":"k_gcal","t":"Y un día antes <mark>confirman</mark> ✅","s":"✅ confirmó · 🟡 esperando · ❎ canceló","v":"Un día antes confirman con un toque. Mándaselo a tu compa que sigue agendando a mano."},
+   {"img":"CTA","v":"Pruébalo siete días gratis, en confirm ap punto com punto eme equis."}
+  ]},
+ {"id":"2026-11-23-tatuaje-problema","giro":"tatuaje","formato":"problema","voz":"dora_brillante","velocidad":1.12,
+  "gancho":"Sábado, 11 am. Sesión larga apartada. Nadie llega.",
+  "texto":"Recordatorio de citas por WhatsApp para estudios de tatuaje ✒️\nApartaste la sesión, preparaste el diseño… y nadie llegó. Con Confirmapp tu cliente confirma o cancela un día antes, y si cancela te enteras a tiempo.\n💬 Comenta PRUEBA y te mando el video y el link por mensaje 📩\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n#tipsdenegocio #tatuajes #tattooartist #cdmx #confirmapp",
+  "escenas":[
+   {"img":"FRASE","t":"Sábado, 11 am. Sesión larga apartada. <mark>Nadie llega.</mark>","v":"Sábado, once de la mañana. Sesión larga apartada. Diseño listo. Y nadie llega."},
+   {"img":"k_gcal","t":"Que confirmen <mark>un día antes</mark> ✅","s":"Por WhatsApp, con un toque","v":"Con Confirm ap, tu cliente recibe un guatsap un día antes, y confirma o cancela con un toque."},
+   {"img":"FRASE","t":"¿Cancela? <mark>Te enteras a tiempo</mark>","s":"Y le das ese espacio a alguien más","v":"Si cancela, te enteras a tiempo, y le das ese espacio a alguien más."},
+   {"img":"LISTA","t":"¿Y tú cómo confirmas hoy?","s":"Mensaje por mensaje|Llamada|No confirmo","v":"¿Y tú cómo confirmas tus sesiones hoy? Te leo en los comentarios."},
+   {"img":"CTA","v":"Pruébalo siete días gratis, en confirm ap punto com punto eme equis."}
+  ]},
+ {"id":"2026-11-23-medico-tutorial","giro":"medico","formato":"tutorial","voz":"alex_grave","velocidad":1.12,
+  "gancho":"Doctor, así empiezas en 1 minuto (sin tarjeta)",
+  "texto":"Agenda médica con recordatorios por WhatsApp, lista en un minuto 🩺\nEntras, eliges tu especialidad y conectas tu Google Calendar u Outlook. Tus pacientes confirman solos un día antes.\n🔖 Guárdalo para cuando lo vayas a hacer.\n💬 Comenta PRUEBA y te mando el video y el link por mensaje 📩\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n#pymesmexico #medico #consultorio #agendadigital #confirmapp",
+  "escenas":[
+   {"img":"HOOK","e":"⏱️","t":"Así empiezas en <mark>1 minuto</mark>","s":"Doctor, sin tarjeta 👇","v":"Doctor, así empiezas en un minuto, y sin tarjeta."},
+   {"img":"01_login","n":"PASO 1","t":"Entra a <mark>confirmapp.com.mx</mark>","s":"7 días gratis","v":"Uno: entras a confirm ap punto com punto eme equis."},
+   {"img":"02_giro","n":"PASO 2","t":"Elige tu <mark>giro</mark>","s":"Consultorio médico","v":"Dos: eliges tu giro, consultorio médico."},
+   {"img":"05_google","n":"PASO 3","t":"Conecta <mark>tu calendario</mark>","s":"Google Calendar u Outlook","v":"Tres: conectas tu Gúgol Calendar o Áutluk. Y listo, tus pacientes confirman por guatsap un día antes."},
+   {"img":"CTA","s":"Guárdalo para después 🔖","v":"Guárdalo, y pruébalo siete días gratis."}
+  ]}
+]
