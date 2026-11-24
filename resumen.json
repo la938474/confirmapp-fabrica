@@ -1,8 +1,8 @@
 {
- "leido": "2026-11-24T03:06:59+00:00",
+ "leido": "2026-11-24T04:17:02+00:00",
  "resumen": {
   "pendientes_por_publicar": 18,
-  "comentarios_7_dias": 1,
+  "comentarios_7_dias": 0,
   "errores": [],
   "publicados": [
    {
@@ -10,7 +10,7 @@
     "giro": "dental",
     "gancho": "¿Todavía confirmas las citas de mañana una por una?",
     "fecha": "2026-11-24",
-    "vistas": 0,
+    "vistas": 1,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
