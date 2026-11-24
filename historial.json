@@ -142,5 +142,13 @@
   "gancho": "¿Quieres Confirmapp como app en tu iPhone? Te enseño.",
   "formato": "tutorial",
   "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-24-tutorial-android-inicio",
+  "fecha": "2026-11-24",
+  "giro": "otro",
+  "gancho": "¿Tienes Android? Así pones Confirmapp como app en tu celular.",
+  "formato": "tutorial",
+  "voz": "alex_grave"
  }
 ]
