@@ -134,5 +134,13 @@
   "gancho": "Sábado, 11 am. Sesión larga apartada. Nadie llega.",
   "formato": "problema",
   "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-24-tutorial-iphone-inicio",
+  "fecha": "2026-11-24",
+  "giro": "otro",
+  "gancho": "¿Quieres Confirmapp como app en tu iPhone? Te enseño.",
+  "formato": "tutorial",
+  "voz": "dora_brillante"
  }
 ]
