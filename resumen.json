@@ -1,16 +1,27 @@
 {
- "leido": "2026-11-24T19:17:20+00:00",
+ "leido": "2026-11-24T21:08:41+00:00",
  "resumen": {
   "pendientes_por_publicar": 17,
   "comentarios_7_dias": 0,
   "errores": [],
   "publicados": [
    {
+    "id": "2026-11-17-avatar-salon-estilista",
+    "giro": "salon",
+    "gancho": "POV: estás pintando un cabello y no puedes contestar",
+    "fecha": "2026-11-24",
+    "vistas": 7,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
+   {
     "id": "2026-11-17-avatar-psico-terapeuta",
     "giro": "psicologia",
     "gancho": "Si das terapia, sabes lo incómodo que es confirmar",
     "fecha": "2026-11-24",
-    "vistas": 1,
+    "vistas": 3,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
@@ -21,7 +32,7 @@
     "giro": "dental",
     "gancho": "¿Todavía confirmas las citas de mañana una por una?",
     "fecha": "2026-11-24",
-    "vistas": 3,
+    "vistas": 4,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
