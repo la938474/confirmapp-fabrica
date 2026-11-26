@@ -97,7 +97,7 @@ jobs:
           SADTALKER: /home/runner/SadTalker
           SADTALKER_PY: /home/runner/st-venv/bin/python
           AVATAR_CORTA: ${{ inputs.corta && '1' || '0' }}
-          AVATAR_LIMITE: ${{ inputs.corta && '20m' || '150m' }}
+          AVATAR_LIMITE: ${{ inputs.corta && '20m' || '280m' }}
         run: |
           ARGS="--max 2"
           if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.kit }}" = "true" ]; then

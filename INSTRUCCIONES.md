@@ -142,7 +142,7 @@ Luis prefiere la calidad de HeyGen (plan gratis, a mano). El flujo:
 2. Luis hace el video en HeyGen con esa foto y ese audio, y lo sube a `avatar/<num>.mp4`.
 3. La fábrica (`python3 fabrica.py avatares`) le pone celular con capturas reales, leyenda IA, portada y caption,
    lo manda a la fila y borra su kit.
-SadTalker (gratis pero de menor calidad) quedó apagado; solo si Luis lo pide.
+SadTalker (gratis, sin HeyGen) se corre a mano: Actions → Avatares IA → num, kit = false (y prueba = true para revisarlo antes). Anima solo un recorte de la cabeza en alta resolución con GFPGAN y lo pega sobre la foto completa, para que se vea nítido.
 **Subtítulos en los de avatar:** `avatares` les pone solos subtítulos palabra por palabra (de `frases`, repartidos en los tramos
 hablados del video): en el gancho van abajo; mientras sale el celular, en estilo "grande" van arriba a la derecha junto a la
 carita y en estilo "mano" arriba del celular. Revisa la portada y un cuadro con celular para confirmar que no tapen la app.

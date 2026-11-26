@@ -96,19 +96,33 @@ def voz(g, ruta):
     return marcas, round(t, 2)
 
 
-def video(img, wav, salida, tmp):
+def video(img, wav, salida, tmp, cara=None):
+    """Avatar gratis (SadTalker en CPU, sin HeyGen). Para que se vea nítido: anima solo un recorte cuadrado de la
+    cabeza en alta resolución (con GFPGAN que afina la cara) y lo vuelve a pegar, con bordes suaves, sobre la foto
+    original 1080x1920. Así el fondo y el cuerpo quedan en calidad completa y la cara se ve bien en el círculo."""
     os.makedirs(tmp, exist_ok=True)
     from PIL import Image
-    chica = f'{tmp}/foto.jpg'  # 576x1024 basta para el celular y acelera mucho en CPU
-    Image.open(img).convert('RGB').resize((576, 1024), Image.LANCZOS).save(chica, quality=95)
-    mejora = ['--enhancer', 'gfpgan'] if os.environ.get('AVATAR_MEJORA') == '1' else []
+    foto = Image.open(img).convert('RGB').resize((1080, 1920), Image.LANCZOS); foto.save(f'{tmp}/full.jpg', quality=95)
+    cx, cy, r = cara or [540, 520, 250]
+    L = min(1080, int(r * 2.9)) // 2 * 2                  # cuadro con cabeza, cuello y un poco de hombros
+    x0 = max(0, min(1080 - L, cx - L // 2)); y0 = max(0, min(1920 - L, int(cy - L * .42)))
+    foto.crop((x0, y0, x0 + L, y0 + L)).resize((512, 512), Image.LANCZOS).save(f'{tmp}/cabeza.png')
+    mejora = [] if os.environ.get('AVATAR_MEJORA') == '0' else ['--enhancer', 'gfpgan']
     lim = os.environ.get('AVATAR_LIMITE', '150m')  # para que nunca se quede colgado sin dejar registro
-    sh('timeout', lim, PY_ST, '-u', 'inference.py', '--driven_audio', wav, '--source_image', chica, '--result_dir', tmp,
+    sh('timeout', lim, PY_ST, '-u', 'inference.py', '--driven_audio', wav, '--source_image', f'{tmp}/cabeza.png', '--result_dir', tmp,
        '--still', '--preprocess', 'full', *mejora, '--cpu', '--batch_size', '8', cwd=ST)
     mp4 = sorted((os.path.join(dp, f) for dp, _, fs in os.walk(tmp) for f in fs if f.endswith('.mp4')), key=os.path.getmtime)[-1]
-    # SadTalker devuelve audio en 16 kHz; lo volvemos a pegar en buena calidad
-    sh('ffmpeg', '-y', '-v', 'error', '-i', mp4, '-c:v', 'libx264', '-crf', '20', '-pix_fmt', 'yuv420p',
-       '-c:a', 'aac', '-b:a', '128k', '-ar', '44100', '-movflags', '+faststart', salida)
+    # máscara de bordes suaves para pegar la cabeza animada sobre la foto
+    from PIL import ImageDraw, ImageFilter
+    m = Image.new('L', (L, L), 0); f = int(L * .09)
+    ImageDraw.Draw(m).rounded_rectangle((f, f, L - f, L - f), int(L * .2), fill=255)
+    m.filter(ImageFilter.GaussianBlur(f * .7)).save(f'{tmp}/mascara.png')
+    # SadTalker devuelve audio en 16 kHz; lo volvemos a pegar en buena calidad (wav original)
+    sh('ffmpeg', '-y', '-v', 'error', '-loop', '1', '-i', f'{tmp}/full.jpg', '-i', mp4, '-loop', '1', '-i', f'{tmp}/mascara.png', '-i', wav,
+       '-filter_complex', f"[1:v]scale={L}:{L}:flags=lanczos,fps=30,format=rgba[c];[2:v]format=gray[m];[c][m]alphamerge[cm];"
+       f"[0:v]fps=30,format=rgba[f];[f][cm]overlay={x0}:{y0}:shortest=1,format=yuv420p[v]",
+       '-map', '[v]', '-map', '3:a', '-shortest', '-c:v', 'libx264', '-crf', '18', '-preset', 'medium',
+       '-c:a', 'aac', '-b:a', '160k', '-ar', '44100', '-movflags', '+faststart', salida)
 
 
 # ---------- HeyGen (API, pago por uso) ----------
@@ -289,7 +303,7 @@ def main():
         elif a.heygen:
             pass
         else:
-            video(img, f'{tmp}/voz.wav', f'{a.salida}/{g["num"]}.mp4', f'{tmp}/st')
+            video(img, f'{tmp}/voz.wav', f'{a.salida}/{g["num"]}.mp4', f'{tmp}/st', g.get('cara'))
         # capturas: cada una arranca con la frase que indica "frase" y dura hasta la siguiente indicada (o el CTA)
         if g.get('pantallas'):
             g['capturas'] = pantallas_a_capturas(g['pantallas'], marcas, total, g['giro']); g['capturas_revisadas'] = True; cambio = True
