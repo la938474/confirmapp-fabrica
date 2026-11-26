@@ -208,7 +208,12 @@ def pantallas_a_capturas(pantallas, marcas, total, giro):
             caps.append({'anim': 'autoagenda', 'desde': round(a, 2), 'hasta': round(fin[j + 1], 2), 'q': q}); i = j + 1; continue
         j = i
         while j + 1 < len(pantallas) and pantallas[j + 1] == p: j += 1  # frases seguidas con la misma pantalla
-        if p == 'recordatorio':
+        if p in ('autochat', 'lealtad'):  # animaciones "en vivo"; p1 = cuándo empieza la 2a frase (ahí cambia la escena)
+            q = {'cliente': nombres[0]}
+            if j > i: q['p1'] = round(fin[i + 1] - fin[i], 2)
+            if p == 'lealtad': q['premio'] = G.get('premio', 'Un corte gratis' if giro == 'barberia' else 'tu premio')
+            caps.append({'anim': p, 'desde': round(fin[i], 2), 'hasta': round(fin[j + 1], 2), 'q': q})
+        elif p == 'recordatorio':
             caps.append({'anim': 'recordatorio', 'desde': round(fin[i], 2), 'hasta': round(fin[j + 1], 2), 'q': {'clientes': '|'.join(nombres), 'rcliente': nombres[1]}})
         elif p == 'cta':
             caps.append({'img': '01_login', 'desde': round(fin[i], 2), 'hasta': round(fin[j + 1], 2)})

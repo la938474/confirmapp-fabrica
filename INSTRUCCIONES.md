@@ -182,6 +182,9 @@ y agrégalos a `pendientes.json` con números nuevos (mayores que cualquiera usa
 - `pantallas`: una por frase, lo que se ve en el celular grande mientras dice esa frase (lo que dice = lo que se ve):
   `null` (gancho, sin celular), `"autoagenda:link"` (mandas tu link), `"autoagenda:elige"` (el cliente escoge horario),
   `"autoagenda:aviso"` (te llega el WhatsApp de quién agendó), `"recordatorio"` (recordatorio → Confirmar → 🟡 pasa a ✅),
+  `"autochat"` (Autochat WhatsApp IA "en vivo": el cliente escribe de madrugada → la IA escribe… → horarios → toca uno → cita
+  agendada → aviso al negocio; pon 2 frases seguidas: la 2a es cuando contesta la IA), `"lealtad"` (tarjeta de lealtad en vivo:
+  escanea el código → su tarjeta → +1 sello → completa → premio; 2 frases seguidas: la 2a es cuando cae el sello),
   `"cta"` (prueba gratis 7 días; siempre la última), o una captura real: `k_gcal` (calendario), `k_chat` (ConfirChat IA),
   `k_magic` (Magic), `m_pSusc` (planes / invita a un colega), `05_google` (conectar Google/Outlook).
   Divide las frases para que cada una hable de UNA sola cosa (así cambia la pantalla justo a tiempo).

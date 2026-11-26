@@ -1,0 +1,78 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+/* Autochat WhatsApp IA "en vivo": el cliente escribe de madrugada → la IA escribe… → horarios → el cliente toca uno → cita agendada → aviso al negocio.
+   q: negocio, servicio, cliente, hora (2:14 am), p1 = segundo en que la IA empieza a contestar (opcional; si no, 32% del tramo) */
+*{box-sizing:border-box;margin:0}
+body{width:780px;height:1688px;overflow:hidden;font-family:Inter,system-ui,sans-serif;background:#0b1226}
+.wh{position:absolute;left:0;right:0;top:0;height:250px;background:#2f6fe4;color:#fff;display:flex;align-items:center;gap:26px;padding:70px 34px 0;z-index:3}
+.av{width:104px;height:104px;border-radius:50%;background:#ffffff2e;display:grid;place-items:center;font-size:58px;position:relative;flex:none}
+.av:after{content:'';position:absolute;right:-2px;bottom:2px;width:28px;height:28px;border-radius:50%;background:#51cf66;border:4px solid #2f6fe4}
+.wh b{font-size:38px;line-height:1.15;display:block}.wh small{font-size:27px;opacity:.9;display:block;margin-top:6px}
+.fondo{position:absolute;left:0;right:0;top:250px;bottom:0;background:#efeae2}
+.noche{position:absolute;top:290px;left:50%;transform:translateX(-50%);background:#0d1733;color:#fff;border-radius:999px;padding:14px 34px;font-size:32px;font-weight:800;white-space:nowrap;z-index:2;box-shadow:0 6px 16px #0003}
+.chat{position:absolute;left:24px;right:24px;top:390px;display:flex;flex-direction:column;gap:22px}
+.msg{background:#fff;border-radius:6px 28px 28px 28px;padding:24px 28px 14px;max-width:600px;font-size:34px;line-height:1.35;color:#111b21;box-shadow:0 2px 4px #0002;transform-origin:top left}
+.yo{align-self:flex-end;background:#d9fdd3;border-radius:28px 6px 28px 28px;transform-origin:top right}
+.h{font-size:22px;color:#667781;text-align:right;margin-top:6px}.h i{color:#34b7f1;font-style:normal}
+.op{border-top:2px solid #e6e6e6;margin-top:16px;text-align:center;font-size:38px;font-weight:800;color:#2f6fe4;padding:16px 0}
+.op.sel{background:#2f6fe4;color:#fff;border-radius:16px}
+.dots{display:flex;gap:10px;padding:26px 30px}.dots span{width:16px;height:16px;border-radius:50%;background:#8696a0}
+.oculto{display:none}
+.toast{position:absolute;left:40px;right:40px;top:40px;background:#18213b;color:#fff;border-radius:30px;padding:28px 30px;display:flex;align-items:center;gap:24px;box-shadow:0 20px 40px #0007;z-index:8;opacity:0}
+.toast .c{width:84px;height:84px;border-radius:50%;background:#e8835a;display:grid;place-items:center;font-size:32px;font-weight:800;flex:none}
+.toast b{font-size:32px;display:block}.toast small{font-size:26px;color:#c5cbe0}
+.toast .ok{margin-left:auto;width:66px;height:66px;border-radius:50%;background:#40c057;display:grid;place-items:center;font-size:38px;flex:none}
+.dedo{position:absolute;width:110px;height:110px;border-radius:50%;background:#ffffff66;border:6px solid #fff;box-shadow:0 6px 20px #0005;opacity:0;z-index:9}
+.pill{position:absolute;bottom:70px;z-index:5;font-size:34px;padding:16px 32px;left:50%;transform:translateX(-50%);background:#000c;color:#fff;border-radius:999px;white-space:nowrap}
+</style></head><body>
+<div class="wh"><div class="av">🤖</div><div><b>Autochat WhatsApp IA ·<br>NEGOCIO</b><small id="est">en línea · responde al instante</small></div></div>
+<div class="fondo"></div>
+<div class="noche">🌙 HORA · tú estás dormido 😴</div>
+<div class="chat">
+ <div class="msg yo" id="m1">Hola, ¿tienes lugar mañana para SERVICIO? 🙏<div class="h">HORA <i>✓✓</i></div></div>
+ <div class="msg dots" id="d1"><span></span><span></span><span></span></div>
+ <div class="msg" id="m2">¡Hola! 😊 Mañana tengo estos horarios:
+  <div class="op">10:00 am</div><div class="op">12:30 pm</div><div class="op" id="op3">5:00 pm</div><div class="h">HORA</div></div>
+ <div class="msg yo" id="m3">5:00 pm 👍<div class="h">HORA <i>✓✓</i></div></div>
+ <div class="msg dots" id="d2"><span></span><span></span><span></span></div>
+ <div class="msg" id="m4">¡Listo, NOMBRE1! ✅ Te agendé mañana a las <b>5:00 pm</b>.<br>Un día antes te llega tu recordatorio.<div class="h">HORA</div></div>
+</div>
+<div class="toast" id="toast"><div class="c">INI</div><div><b>Nueva cita · CLIENTE</b><small>Mañana 5:00 pm · por Autochat IA</small></div><div class="ok">✓</div></div>
+<div class="pill" id="pill">Tu cliente escribe a cualquier hora</div>
+<div class="dedo" id="dedo"></div>
+<script>
+const q=new URLSearchParams(location.search), cli=q.get('cliente')||'Carlos Méndez';
+const R={NEGOCIO:q.get('negocio')||'Tu negocio',SERVICIO:(q.get('servicio')||'una cita').toLowerCase(),CLIENTE:cli,NOMBRE1:cli.split(' ')[0],
+ INI:cli.split(' ').map(x=>x[0]).join('').slice(0,2),HORA:q.get('hora')||'2:14 am'};
+for(const k in R) document.body.innerHTML=document.body.innerHTML.replaceAll(k,R[k]);
+const $=id=>document.getElementById(id), cl=(x,a,b)=>Math.max(0,Math.min(1,(x-a)/(b-a)));
+const pop=(el,a)=>{const e=$(el),o=cl(a,0,1);e.classList.toggle('oculto',a<=0);e.style.opacity=o;e.style.transform=`scale(${.7+.3*Math.min(1,o*1.15)}) translateY(${(1-o)*20}px)`;};
+function dots(el,t){$(el).querySelectorAll('span').forEach((s,i)=>s.style.transform=`translateY(${-10*Math.max(0,Math.sin(t*9-i*.9))}px)`);}
+function dedo(el,t,t0,t1){const r=$(el).getBoundingClientRect(),d=$('dedo'),ap=cl(t,t0,t0+.3),sal=cl(t,t1,t1+.25),tap=cl(t,t0+.35,t0+.55);
+ d.style.opacity=ap*(1-sal);d.style.left=(r.left+r.width/2-55+(1-ap)*120)+'px';d.style.top=(r.top+r.height/2-55+(1-ap)*220)+'px';
+ d.style.transform=`scale(${1-.25*Math.sin(Math.PI*tap)})`;return tap;}
+window.pintar=function(t,D){
+  const P1=q.get('p1')?parseFloat(q.get('p1')):D*.32, L=Math.max(.5,D-P1);   // P1: la IA empieza a contestar
+  // el cliente escribe
+  pop('m1',cl(t,.35,.6));
+  // la IA "escribe…" y contesta con horarios
+  const td1=P1-.1, tm2=P1+L*.14;
+  pop('d1',t>=td1&&t<tm2?cl(t,td1,td1+.2):0); dots('d1',t);
+  pop('m2',cl(t,tm2,tm2+.25));
+  // el cliente toca 5:00 pm
+  const tt=P1+L*.3, tap=t>tt?dedo('op3',t,tt,tt+.75):0; if(t<=tt) $('dedo').style.opacity=0;
+  $('op3').classList.toggle('sel',t>tt+.45);
+  const tm3=tt+.6; pop('m3',cl(t,tm3,tm3+.2));
+  // la IA confirma
+  const td2=tm3+.25, tm4=P1+L*.62;
+  pop('d2',t>=td2&&t<tm4?cl(t,td2,td2+.2):0); dots('d2',t);
+  pop('m4',cl(t,tm4,tm4+.25));
+  $('est').textContent=(t>=td1&&t<tm2)||(t>=td2&&t<tm4)?'escribiendo…':'en línea · responde al instante';
+  // aviso al negocio
+  const tn=P1+L*.8, n=cl(t,tn,tn+.3); $('toast').style.opacity=n; $('toast').style.transform=`translateY(${(1-n)*-60}px)`;
+  // el chat sube para que siempre se vea lo último
+  const ch=document.querySelector('.chat'), alto=ch.scrollHeight, max=1688-160-390;
+  ch.style.transform=`translateY(${-Math.max(0,alto-max)}px)`;
+  $('pill').textContent=t<td1?'Tu cliente escribe a cualquier hora':t<tm4?'La IA contesta y le da tus horarios':'Y la cita queda agendada ✅';
+};
+pintar(0,6);
+</script></body></html>

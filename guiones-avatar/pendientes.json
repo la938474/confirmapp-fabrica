@@ -426,5 +426,93 @@
    "recordatorio",
    "cta"
   ]
+ },
+ {
+  "num": 16,
+  "id": "avatar-barbero-agenda-inteligente",
+  "giro": "barberia",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp?",
+  "texto": "Agenda de citas por WhatsApp para barberías 💈📲 ¿Ya probaste la agenda inteligente de Confirmapp?\n🤖 Autochat WhatsApp IA contesta y agenda por ti, hasta a las 2 am\n🔗 Tu cliente elige su horario con tu link de Autoagenda\n✅ Un día antes confirma con un toque\n🎁 Tarjeta de lealtad: junta sellos en su celular\nMándaselo a tu compa barbero que sigue agendando a mano 👊\n💬 Comenta PRUEBA y te mando el video y el link por mensaje 📩\nPruébalo 7 días gratis 👉 confirmapp.com.mx\n\n🤖 Escena recreada con IA\n#emprendedores #barberia #barbershop #citasporwhatsapp #confirmapp",
+  "personaje": "barbero",
+  "voz": "alex_grave",
+  "foto_prompt": "Mexican man, 30 years old, barber with trimmed beard, black t-shirt and black apron, modern barbershop",
+  "frases": [
+   "¿Ya probaste la agenda inteligente de Confirm ap? Mira.",
+   "Son las dos de la mañana y un cliente te escribe.",
+   "Autochat guatsap i a le contesta al instante, le da tus horarios y le agenda su cita.",
+   "O le mandas tu link de Autoagenda,",
+   "él escoge su horario libre,",
+   "y a ti te llega un guatsap con su cita.",
+   "Un día antes, le llega un recordatorio y confirma con un toque.",
+   "Con la tarjeta de lealtad, escanea tu código y junta sellos en su celular.",
+   "Cada corte, un sello. Y al completar, su premio.",
+   "Pruébalo siete días gratis, en confirm ap punto com punto eme equis."
+  ],
+  "estilo": "grande",
+  "cara": [
+   545,
+   330,
+   235
+  ],
+  "pantallas": [
+   null,
+   "autochat",
+   "autochat",
+   "autoagenda:link",
+   "autoagenda:elige",
+   "autoagenda:aviso",
+   "recordatorio",
+   "lealtad",
+   "lealtad",
+   "cta"
+  ],
+  "capturas": [
+   {
+    "anim": "autochat",
+    "desde": 3.45,
+    "hasta": 11.59,
+    "q": {
+     "cliente": "Carlos Méndez",
+     "p1": 2.86
+    }
+   },
+   {
+    "anim": "autoagenda",
+    "desde": 11.59,
+    "hasta": 18.52,
+    "q": {
+     "p1": 2.41,
+     "p2": 4.33,
+     "cliente": "Andrés Ruiz",
+     "pill2": "Tu cliente elige su horario libre",
+     "emoji": "💈"
+    }
+   },
+   {
+    "anim": "recordatorio",
+    "desde": 18.52,
+    "hasta": 22.25,
+    "q": {
+     "clientes": "Carlos Méndez|Jorge Ríos|Luis Paz|Andrés Ruiz",
+     "rcliente": "Jorge Ríos"
+    }
+   },
+   {
+    "anim": "lealtad",
+    "desde": 22.25,
+    "hasta": 30.0,
+    "q": {
+     "cliente": "Carlos Méndez",
+     "p1": 4.62,
+     "premio": "Un corte gratis"
+    }
+   },
+   {
+    "img": "01_login",
+    "desde": 30.0,
+    "hasta": 34.39
+   }
+  ],
+  "capturas_revisadas": true
  }
 ]
