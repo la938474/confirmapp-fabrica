@@ -1,10 +1,21 @@
 {
- "leido": "2026-11-27T19:15:09+00:00",
+ "leido": "2026-11-27T20:15:22+00:00",
  "resumen": {
-  "pendientes_por_publicar": 26,
+  "pendientes_por_publicar": 25,
   "comentarios_7_dias": 1,
   "errores": [],
   "publicados": [
+   {
+    "id": "2026-11-22-dental-sinvscon",
+    "giro": "dental",
+    "gancho": "Mismo paciente. Misma cita. Sin vs con Confirmapp",
+    "fecha": "2026-11-27",
+    "vistas": 0,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "2026-11-22-bodas-pasos",
     "giro": "bodas",
