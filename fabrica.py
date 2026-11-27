@@ -382,7 +382,7 @@ def solo_app(g, wav, out, tmp):
     D = dur(wav); caps = g.get('capturas', []); giro = GIROS[g['giro']]
     SW, SH, PX, PY = 600, 1298, 220, 520
     H0 = caps[0]['desde'] if caps else D
-    q = urllib.parse.urlencode({'gancho': g.get('gancho_pantalla', g['gancho']), 'emoji': giro.get('emoji', '📲'),
+    q = urllib.parse.urlencode({'gancho': g.get('gancho_pantalla', g['gancho']), 'emoji': g.get('emoji') or giro.get('emoji', '📲'),
                                 'sub': g.get('sub', 'Mira 👇'), 'hasta': H0})
     sh('node', f'{A}/anim/grabar.js', f'{A}/anim/fondo.html', q, str(round(D, 2)), f'{tmp}/fondo.mp4',
        env={**os.environ, 'ANCHO': '1080', 'ALTO': '1920'})
