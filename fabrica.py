@@ -418,6 +418,51 @@ def solo_app(g, wav, out, tmp):
        '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-c:a', 'aac', '-b:a', '160k', '-ar', '44100', '-movflags', '+faststart', out)
 
 
+def hacer_app(ruta):
+    """Videos "app en vivo" (sin avatar): `python3 fabrica.py app guiones/<archivo>.json`.
+    Cada guion: id, giro, voz, gancho, gancho_pantalla, sub, emoji, texto, frases, pantallas (como los de avatar) y opcionales
+    negocio, servicio (lo que pide el cliente en el chat), situaciones ("emoji|hora|texto;…" una por frase de autochat
+    antes de la última), premio (tarjeta de lealtad). Deja salida/<fecha>-<id>.mp4 + .json + .jpg para `publicar`."""
+    sys.path[:0] = [R, f'{R}/tts']
+    import kok, avatar_ia
+    hoy = datetime.date.today().isoformat(); os.makedirs(f'{R}/salida', exist_ok=True)
+    for g in json.load(open(ruta)):
+        vid = g['id'] if g['id'][:4].isdigit() else f"{hoy}-{g['id']}"
+        T = f'{R}/trabajo/app/{vid}'; os.makedirs(T, exist_ok=True); partes, marcas, t = [], [], 0.0
+        for i, x in enumerate(g['frases']):
+            raw, o = f'{T}/{i}.raw.wav', f'{T}/{i}.wav'
+            kok.guardar(kok.decir(x, g.get('voz', 'alex_grave'), float(g.get('velocidad', 1.08))), raw)
+            sh('ffmpeg', '-y', '-v', 'error', '-i', raw, '-af', FILTRO_VOZ + ',apad=pad_dur=0.35', '-ar', '44100', '-ac', '1', o)
+            partes.append(o); marcas.append(round(t, 2)); t += dur(o)
+        open(f'{T}/l.txt', 'w').write('\n'.join(f"file '{x}'" for x in partes))
+        sh('ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', f'{T}/l.txt', f'{T}/voz.wav')
+        caps = avatar_ia.pantallas_a_capturas(g['pantallas'], marcas, round(t, 2), g['giro'])
+        for c in caps:
+            if g.get('negocio'): c['negocio'] = g['negocio']
+            q = c.setdefault('q', {}) if c.get('anim') else {}
+            if c.get('anim') == 'autochat':
+                if g.get('servicio'): q['servicio'] = g['servicio']
+                if g.get('situaciones') and q.get('cortes'):
+                    cs = [float(x) for x in q['cortes'].split(',')]; q['situaciones'] = g['situaciones']
+                    q['msg'] = round(cs[-1] + .55 * (q['p1'] - cs[-1]), 2)
+            if c.get('anim') == 'lealtad' and g.get('premio'): q['premio'] = g['premio']
+            if c.get('anim') == 'autoagenda':
+                if g.get('pill2'): q['pill2'] = g['pill2']
+                if g.get('emoji_servicio'): q['emoji'] = g['emoji_servicio']
+        g['capturas'] = caps
+        out = f'{R}/salida/{vid}.mp4'
+        solo_app(g, f'{T}/voz.wav', out, f'{T}/r')
+        ven = [(c['desde'], c['hasta']) for c in caps]; H0 = ven[0][0] if ven else 99
+        pos = lambda x: (540, -600, 64) if x < H0 - .05 else ((540, 300, 64) if any(a <= x + .05 < b for a, b in ven) else None)
+        ass = f'{T}/sub.ass'; subtitulos_avatar(g, f'{T}/voz.wav', ass, pos)   # tiempos de la voz limpia (sin música)
+        sh('ffmpeg', '-y', '-v', 'error', '-i', out, '-vf', f'ass={ass}', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20',
+           '-c:a', 'copy', '-movflags', '+faststart', f'{T}/s.mp4'); os.replace(f'{T}/s.mp4', out)
+        sh('ffmpeg', '-y', '-v', 'error', '-i', out, '-frames:v', '1', '-q:v', '3', out[:-4] + '.jpg')  # portada = primer cuadro
+        json.dump({'giro': g['giro'], 'gancho': g['gancho'], 'texto': g['texto'], 'formato': g.get('formato', 'app-en-vivo'),
+                   'voz': g.get('voz', '')}, open(f'{R}/salida/{vid}.json', 'w'), ensure_ascii=False)
+        print('✓', vid, round(dur(out), 1), 's', flush=True)
+
+
 def avatar_mano(g, src, out):
     """Estilo normal: avatar completo y el celular con capturas aparece en sus manos."""
     caps = g.get('capturas', [])
@@ -525,4 +570,5 @@ if __name__ == '__main__':
     if len(sys.argv) >= 3 and sys.argv[1] == 'hacer': hacer(sys.argv[2])
     elif len(sys.argv) >= 2 and sys.argv[1] == 'publicar': publicar()
     elif len(sys.argv) >= 2 and sys.argv[1] == 'avatares': avatares()
+    elif len(sys.argv) >= 3 and sys.argv[1] == 'app': hacer_app(sys.argv[2])
     else: print(__doc__)

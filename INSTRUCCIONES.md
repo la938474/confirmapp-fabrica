@@ -135,6 +135,13 @@ desenfoque al moverse), `comparativo-bodas.html` y `tutorial.html` (a estos dos 
 7. Los **lunes**: mandar a Luis un resumen corto en español: top 3 videos de la semana (vistas, compartidos),
    qué estilo pegó más, cuántos videos hay en fila y cualquier error de publicación.
 
+## Videos "app en vivo" (sin avatar; Luis los aprobó el 26-nov)
+`python3 fabrica.py app guiones/<archivo>.json`: portada con el gancho (primer cuadro) → celular grande con la app en vivo
+(autochat con situaciones, autoagenda, recordatorio, lealtad, CTA) sobre fondo animado, voz + música bajita + whoosh, subtítulos
+arriba del celular. Mismo formato de `frases`/`pantallas` que los de avatar, más `gancho_pantalla`, `sub`, `emoji`, `servicio`
+(lo que pide el cliente en el chat), `situaciones` ("emoji|hora|texto;…", una por frase de autochat antes de la última) y `premio`.
+Ejemplo completo: `guiones/2026-11-26-app-en-vivo.json` (uno por giro). Deja todo en salida/ listo para `publicar`.
+
 ## Videos con avatar IA (HeyGen a mano + todo lo demás automático)
 Luis prefiere la calidad de HeyGen (plan gratis, a mano). El flujo:
 1. Cada lunes GitHub (`avatar-ia.yml` → `avatar_ia.py --kit`) prepara en `kit-heygen/<num>-<personaje>/` la foto

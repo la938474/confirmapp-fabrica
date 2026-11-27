@@ -46,7 +46,7 @@ body{width:780px;height:1688px;overflow:hidden;font-family:Inter,system-ui,sans-
 <div class="dedo" id="dedo"></div>
 <script>
 const q=new URLSearchParams(location.search), cli=q.get('cliente')||'Carlos Méndez';
-const R={NEGOCIO:q.get('negocio')||'Tu negocio',SERVICIO:(q.get('servicio')||'una cita').toLowerCase(),CLIENTE:cli,NOMBRE1:cli.split(' ')[0],
+const R={NEGOCIO:q.get('negocio')||'Tu negocio',SERVICIO:(s=>s.charAt(0).toLowerCase()+s.slice(1))(q.get('servicio')||'una cita'),CLIENTE:cli,NOMBRE1:cli.split(' ')[0],
  INI:cli.split(' ').map(x=>x[0]).join('').slice(0,2),HORA:q.get('hora')||'2:14 am'};
 for(const k in R) document.body.innerHTML=document.body.innerHTML.replaceAll(k,R[k]);
 const $=id=>document.getElementById(id), cl=(x,a,b)=>Math.max(0,Math.min(1,(x-a)/(b-a)));
