@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+/* Fondo animado 1080x1920 para videos "solo app" (sin avatar): portada con el gancho y luego fondo con luz en movimiento.
+   q: gancho (puede llevar <mark>), emoji, sub, hasta = segundo en que se va el gancho y entra el celular */
+*{box-sizing:border-box;margin:0}
+body{width:1080px;height:1920px;overflow:hidden;font-family:Inter,system-ui,sans-serif;background:#0b1226;color:#fff}
+.luz{position:absolute;border-radius:50%;filter:blur(120px);opacity:.55}
+#l1{width:900px;height:900px;background:#1d5fd6}#l2{width:800px;height:800px;background:#7b2ff7}#l3{width:700px;height:700px;background:#0ca678}
+.puntos{position:absolute;inset:0;background-image:radial-gradient(#ffffff22 2px,transparent 2px);background-size:60px 60px;opacity:.5}
+#hook{position:absolute;left:80px;right:80px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.e{font-size:240px;line-height:1}
+h1{font-size:104px;line-height:1.08;font-weight:900;margin-top:50px;letter-spacing:-1px}
+mark{background:none;color:#ffd43b}
+.sub{font-size:48px;color:#c5cbe0;margin-top:40px;font-weight:600}
+.marca{position:absolute;left:0;right:0;bottom:90px;text-align:center;font-size:40px;font-weight:800;opacity:.85}
+.marca i{font-style:normal;display:inline-grid;place-items:center;width:58px;height:58px;border-radius:16px;background:#1971c2;margin-right:14px;vertical-align:middle}
+</style></head><body>
+<div class="luz" id="l1"></div><div class="luz" id="l2"></div><div class="luz" id="l3"></div><div class="puntos"></div>
+<div id="hook"><div class="e" id="e"></div><h1 id="t"></h1><div class="sub" id="s"></div></div>
+<div class="marca" id="m"><i>✓</i>confirmapp.com.mx</div>
+<script>
+const q=new URLSearchParams(location.search), $=id=>document.getElementById(id), cl=(x,a,b)=>Math.max(0,Math.min(1,(x-a)/(b-a)));
+$('e').textContent=q.get('emoji')||'📲'; $('t').innerHTML=q.get('gancho')||''; $('s').textContent=q.get('sub')||'';
+const H=parseFloat(q.get('hasta')||3);
+window.pintar=function(t,D){
+  [['l1',-200,200,.31],['l2',500,900,.23],['l3',100,1400,.19]].forEach(([id,x,y,v],i)=>{const e=$(id);
+    e.style.left=(x+180*Math.sin(t*v*2+i))+'px';e.style.top=(y+220*Math.cos(t*v*1.6+i*2))+'px';});
+  // el primer cuadro es la portada: todo completo desde t=0 (sin fundido de entrada)
+  const sal=cl(t,H-.25,H+.15);
+  $('hook').style.opacity=1-sal; $('hook').style.transform=`scale(${1-.12*sal}) translateY(${-sal*200}px)`;
+  $('e').style.transform=`translateY(${-18*Math.abs(Math.sin(t*3))}px) rotate(${4*Math.sin(t*2.2)}deg)`;
+  $('m').style.opacity=.85*(1-sal);
+};
+pintar(0,6);
+</script></body></html>

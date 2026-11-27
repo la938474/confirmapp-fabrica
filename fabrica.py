@@ -375,6 +375,49 @@ def avatar_grande(g, src, out, tmp):
        '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-c:a', 'aac', '-b:a', '128k', '-ar', '44100', '-movflags', '+faststart', out)
 
 
+def solo_app(g, wav, out, tmp):
+    """Como el estilo "grande" pero SIN avatar: portada con el gancho y luego el celular grande con la app en vivo,
+    sobre un fondo animado; voz + música bajita + whoosh en cada cambio. Usa los mismos `capturas` del guion."""
+    os.makedirs(tmp, exist_ok=True)
+    D = dur(wav); caps = g.get('capturas', []); giro = GIROS[g['giro']]
+    SW, SH, PX, PY = 600, 1298, 220, 520
+    H0 = caps[0]['desde'] if caps else D
+    q = urllib.parse.urlencode({'gancho': g.get('gancho_pantalla', g['gancho']), 'emoji': giro.get('emoji', '📲'),
+                                'sub': g.get('sub', 'Mira 👇'), 'hasta': H0})
+    sh('node', f'{A}/anim/grabar.js', f'{A}/anim/fondo.html', q, str(round(D, 2)), f'{tmp}/fondo.mp4',
+       env={**os.environ, 'ANCHO': '1080', 'ALTO': '1920'})
+    marco_telefono(f'{tmp}/marco.png', SW + 40, SH + 40)
+    ent = ['-i', f'{tmp}/fondo.mp4', '-loop', '1', '-t', str(D), '-i', f'{tmp}/marco.png']
+    fg = '[0:v]fps=30,format=yuv420p[s0]'
+    for k, c in enumerate(caps):
+        a, z = c['desde'], c['hasta']; i = 2 + k
+        if c.get('anim'):
+            mp4 = f'{tmp}/anim{k}.mp4'
+            qq = urllib.parse.urlencode({'negocio': c.get('negocio', giro.get('negocio', 'Tu negocio')),
+                                         'servicio': giro['servicios'][0], 'servicios': '|'.join(giro['servicios']), **c.get('q', {})})
+            sh('node', f'{A}/anim/grabar.js', f'{A}/anim/{c["anim"]}.html', qq, str(round(z - a, 2)), mp4)
+            ent += ['-i', mp4]; fg += f";[{i}:v]scale={SW}:{SH},setpts=PTS-STARTPTS+{a}/TB[p{k}]"
+        else:
+            ent += ['-loop', '1', '-t', str(D), '-i', f'{A}/giros/{giro["capturas"]}/{c["img"]}.jpg']
+            fg += f";[{i}:v]scale={SW}:-1,crop={SW}:'min(ih,{SH})':0:0,pad={SW}:{SH}:0:0:white[p{k}]"
+        fg += f";[s{k}][p{k}]overlay={PX + 20}:{PY + 20}:enable='between(t,{a},{z})'[s{k + 1}]"
+    n = len(caps); ven = '+'.join(f"between(t,{c['desde']},{c['hasta']})" for c in caps) or '0'
+    # el celular entra deslizándose desde abajo al terminar el gancho
+    y = f"if(lt(t,{H0}+0.35),{PY}+(H-{PY})*(1-(t-{H0})/0.35),{PY})"
+    fg += f";[s{n}][1:v]overlay={PX}:{PY}:enable='{ven}'[v]"
+    if caps:  # deslizar: pantalla y marco juntos durante la entrada
+        fg = fg.replace(f"overlay={PX + 20}:{PY + 20}:enable='between(t,{caps[0]['desde']},", f"overlay={PX + 20}:'{y}+20':enable='between(t,{caps[0]['desde']},", 1)
+        fg = fg.replace(f"[s{n}][1:v]overlay={PX}:{PY}:", f"[s{n}][1:v]overlay={PX}:'{y}':")
+    # audio: voz + música bajita + whoosh/pop en cada cambio + ding al final
+    efectos([(0, 0, 0)] + [(c['desde'], 0, 0) for c in caps], D, f'{tmp}/sfx.wav')
+    ent += ['-i', wav, '-stream_loop', '-1', '-i', f'{A}/musica.wav', '-i', f'{tmp}/sfx.wav']
+    v, m, s = 2 + n, 3 + n, 4 + n
+    fg += (f";[{v}:a]aresample=44100,volume=1.0[va];[{m}:a]aresample=44100,volume=0.10,atrim=0:{D},afade=t=out:st={max(0, D - 1.5)}:d=1.5[ma];"
+           f"[{s}:a]aresample=44100[sa];[va][ma][sa]amix=inputs=3:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5[a]")
+    sh('ffmpeg', '-y', '-v', 'error', *ent, '-filter_complex', fg, '-map', '[v]', '-map', '[a]', '-t', str(D),
+       '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-c:a', 'aac', '-b:a', '160k', '-ar', '44100', '-movflags', '+faststart', out)
+
+
 def avatar_mano(g, src, out):
     """Estilo normal: avatar completo y el celular con capturas aparece en sus manos."""
     caps = g.get('capturas', [])
