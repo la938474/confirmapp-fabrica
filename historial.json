@@ -150,5 +150,133 @@
   "gancho": "¿Tienes Android? Así pones Confirmapp como app en tu celular.",
   "formato": "tutorial",
   "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-26-barberia-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "barberia",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para tu barbería",
+  "formato": "app-en-vivo",
+  "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-26-canina-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "canina",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para tu estética canina",
+  "formato": "app-en-vivo",
+  "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-26-consultor-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "consultor",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para consultores, abogados y contadores",
+  "formato": "app-en-vivo",
+  "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-26-dental-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "dental",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para tu consultorio dental",
+  "formato": "app-en-vivo",
+  "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-26-entrenador-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "entrenador",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para entrenadores",
+  "formato": "app-en-vivo",
+  "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-26-especialista-dental-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "especialista_dental",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para ortodoncistas y especialistas",
+  "formato": "app-en-vivo",
+  "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-26-general-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "otro",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para cualquier negocio con citas",
+  "formato": "app-en-vivo",
+  "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-26-medico-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "medico",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para tu consultorio médico",
+  "formato": "app-en-vivo",
+  "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-26-nutricion-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "nutricion",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para nutriólogos",
+  "formato": "app-en-vivo",
+  "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-26-psicologia-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "psicologia",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para psicólogos",
+  "formato": "app-en-vivo",
+  "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-26-salon-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "salon",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para tu salón de belleza",
+  "formato": "app-en-vivo",
+  "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-26-spa-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "spa",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para tu spa",
+  "formato": "app-en-vivo",
+  "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-26-tatuaje-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "tatuaje",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para tu estudio de tatuaje",
+  "formato": "app-en-vivo",
+  "voz": "alex_grave"
+ },
+ {
+  "id": "2026-11-26-tutor-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "tutor",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para maestros y tutores",
+  "formato": "app-en-vivo",
+  "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-26-unas-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "unas",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para tu estudio de uñas",
+  "formato": "app-en-vivo",
+  "voz": "dora_brillante"
+ },
+ {
+  "id": "2026-11-26-veterinaria-app-en-vivo",
+  "fecha": "2026-11-26",
+  "giro": "veterinaria",
+  "gancho": "¿Ya probaste la agenda inteligente de Confirmapp? · Para tu veterinaria",
+  "formato": "app-en-vivo",
+  "voz": "alex_grave"
  }
 ]
