@@ -1,5 +1,7 @@
 <!doctype html><html><head><meta charset="utf-8"><style>
-/* Autochat WhatsApp IA "en vivo": el cliente escribe de madrugada → la IA escribe… → horarios → el cliente toca uno → cita agendada → aviso al negocio.
+/* situaciones = "emoji|hora|texto;…" y cortes = "0,1.4,…" (s): el globito de arriba cambia de situación en cada corte
+   (las horas del chat siguen a la última); msg = segundo en que llega el mensaje del cliente.
+   Autochat WhatsApp IA "en vivo": el cliente escribe de madrugada → la IA escribe… → horarios → el cliente toca uno → cita agendada → aviso al negocio.
    q: negocio, servicio, cliente, hora (2:14 am), p1 = segundo en que la IA empieza a contestar (opcional; si no, 32% del tramo) */
 *{box-sizing:border-box;margin:0}
 body{width:780px;height:1688px;overflow:hidden;font-family:Inter,system-ui,sans-serif;background:#0b1226}
@@ -17,6 +19,8 @@ body{width:780px;height:1688px;overflow:hidden;font-family:Inter,system-ui,sans-
 .op.sel{background:#2f6fe4;color:#fff;border-radius:16px}
 .dots{display:flex;gap:10px;padding:26px 30px}.dots span{width:16px;height:16px;border-radius:50%;background:#8696a0}
 .oculto{display:none}
+.sit{position:absolute;left:70px;right:70px;top:560px;background:#0d1733;color:#fff;border-radius:40px;padding:60px 30px;text-align:center;z-index:4;box-shadow:0 30px 60px #0004}
+.sit .e{font-size:190px;line-height:1}.sit .h2{font-size:76px;font-weight:900;margin-top:24px}.sit .x{font-size:48px;color:#c5cbe0;margin-top:10px;font-weight:700}
 .toast{position:absolute;left:40px;right:40px;top:40px;background:#18213b;color:#fff;border-radius:30px;padding:28px 30px;display:flex;align-items:center;gap:24px;box-shadow:0 20px 40px #0007;z-index:8;opacity:0}
 .toast .c{width:84px;height:84px;border-radius:50%;background:#e8835a;display:grid;place-items:center;font-size:32px;font-weight:800;flex:none}
 .toast b{font-size:32px;display:block}.toast small{font-size:26px;color:#c5cbe0}
@@ -26,15 +30,16 @@ body{width:780px;height:1688px;overflow:hidden;font-family:Inter,system-ui,sans-
 </style></head><body>
 <div class="wh"><div class="av">🤖</div><div><b>Autochat WhatsApp IA ·<br>NEGOCIO</b><small id="est">en línea · responde al instante</small></div></div>
 <div class="fondo"></div>
-<div class="noche">🌙 HORA · tú estás dormido 😴</div>
+<div class="noche" id="noche">🌙 <span class="hr">HORA</span> · tú estás dormido 😴</div>
+<div class="sit" id="sit"><div class="e" id="se"></div><div class="h2" id="sh"></div><div class="x" id="sx"></div></div>
 <div class="chat">
- <div class="msg yo" id="m1">Hola, ¿tienes lugar mañana para SERVICIO? 🙏<div class="h">HORA <i>✓✓</i></div></div>
+ <div class="msg yo" id="m1">Hola, ¿tienes lugar mañana para SERVICIO? 🙏<div class="h"><span class="hr">HORA</span> <i>✓✓</i></div></div>
  <div class="msg dots" id="d1"><span></span><span></span><span></span></div>
  <div class="msg" id="m2">¡Hola! 😊 Mañana tengo estos horarios:
-  <div class="op">10:00 am</div><div class="op">12:30 pm</div><div class="op" id="op3">5:00 pm</div><div class="h">HORA</div></div>
- <div class="msg yo" id="m3">5:00 pm 👍<div class="h">HORA <i>✓✓</i></div></div>
+  <div class="op">10:00 am</div><div class="op">12:30 pm</div><div class="op" id="op3">5:00 pm</div><div class="h"><span class="hr">HORA</span></div></div>
+ <div class="msg yo" id="m3">5:00 pm 👍<div class="h"><span class="hr">HORA</span> <i>✓✓</i></div></div>
  <div class="msg dots" id="d2"><span></span><span></span><span></span></div>
- <div class="msg" id="m4">¡Listo, NOMBRE1! ✅ Te agendé mañana a las <b>5:00 pm</b>.<br>Un día antes te llega tu recordatorio.<div class="h">HORA</div></div>
+ <div class="msg" id="m4">¡Listo, NOMBRE1! ✅ Te agendé mañana a las <b>5:00 pm</b>.<br>Un día antes te llega tu recordatorio.<div class="h"><span class="hr">HORA</span></div></div>
 </div>
 <div class="toast" id="toast"><div class="c">INI</div><div><b>Nueva cita · CLIENTE</b><small>Mañana 5:00 pm · por Autochat IA</small></div><div class="ok">✓</div></div>
 <div class="pill" id="pill">Tu cliente escribe a cualquier hora</div>
@@ -50,10 +55,17 @@ function dots(el,t){$(el).querySelectorAll('span').forEach((s,i)=>s.style.transf
 function dedo(el,t,t0,t1){const r=$(el).getBoundingClientRect(),d=$('dedo'),ap=cl(t,t0,t0+.3),sal=cl(t,t1,t1+.25),tap=cl(t,t0+.35,t0+.55);
  d.style.opacity=ap*(1-sal);d.style.left=(r.left+r.width/2-55+(1-ap)*120)+'px';d.style.top=(r.top+r.height/2-55+(1-ap)*220)+'px';
  d.style.transform=`scale(${1-.25*Math.sin(Math.PI*tap)})`;return tap;}
+const SIT=(q.get('situaciones')||'').split(';').filter(Boolean).map(x=>x.split('|')), CORTES=(q.get('cortes')||'').split(',').filter(Boolean).map(Number);
 window.pintar=function(t,D){
+  if(SIT.length){let k=0;CORTES.forEach((c,i)=>{if(t>=c)k=i;});k=Math.min(k,SIT.length-1);const [e,h,x]=SIT[k],b=cl(t,CORTES[k]||0,(CORTES[k]||0)+.25);
+    $('noche').innerHTML=`${e} <span class="hr">${h}</span> · ${x}`;$('noche').style.transform=`translateX(-50%) scale(${1+.18*Math.sin(Math.PI*b)})`;
+    $('se').textContent=e;$('sh').textContent=h;$('sx').textContent=x.replace(/ 😴$/,'');
+    const TM0=parseFloat(q.get('msg')||.35), so=1-cl(t,TM0-.3,TM0);$('sit').style.opacity=so;
+    $('sit').style.transform=`scale(${(.92+.08*cl(t,0,.25))*(1+.1*Math.sin(Math.PI*b))})`;$('sit').style.display=so>0?'block':'none';
+    document.querySelectorAll('.hr').forEach(z=>z.textContent=SIT[SIT.length-1][1]);$('noche').querySelector('.hr').textContent=h;}
   const P1=q.get('p1')?parseFloat(q.get('p1')):D*.32, L=Math.max(.5,D-P1);   // P1: la IA empieza a contestar
   // el cliente escribe
-  pop('m1',cl(t,.35,.6));
+  const TM=parseFloat(q.get('msg')||.35); pop('m1',cl(t,TM,TM+.25));
   // la IA "escribe…" y contesta con horarios
   const td1=P1-.1, tm2=P1+L*.14;
   pop('d1',t>=td1&&t<tm2?cl(t,td1,td1+.2):0); dots('d1',t);
