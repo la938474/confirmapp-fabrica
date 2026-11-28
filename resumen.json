@@ -1,10 +1,21 @@
 {
- "leido": "2026-11-28T15:01:42+00:00",
+ "leido": "2026-11-28T16:01:50+00:00",
  "resumen": {
-  "pendientes_por_publicar": 24,
+  "pendientes_por_publicar": 23,
   "comentarios_7_dias": 1,
   "errores": [],
   "publicados": [
+   {
+    "id": "2026-11-22-tutorial-bodas",
+    "giro": "bodas",
+    "gancho": "¿Te casas? Así se usa Confirmapp Bodas en 4 pasos",
+    "fecha": "2026-11-28",
+    "vistas": 0,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "2026-11-22-sinvscon-bodas",
     "giro": "bodas",
@@ -21,7 +32,7 @@
     "giro": "dental",
     "gancho": "Mismo paciente. Misma cita. Sin vs con Confirmapp",
     "fecha": "2026-11-27",
-    "vistas": 3,
+    "vistas": 4,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
@@ -120,7 +131,7 @@
     "giro": "salon",
     "gancho": "POV: estás pintando un cabello y no puedes contestar",
     "fecha": "2026-11-24",
-    "vistas": 10,
+    "vistas": 11,
     "likes": 1,
     "compartidos": 0,
     "guardados": 0,
@@ -219,7 +230,7 @@
     "giro": "consultor",
     "gancho": "¿Eres consultor, abogado o contador? 💼 Tus clientes confirman su reunión solos ✅",
     "fecha": "2026-11-21",
-    "vistas": 2,
+    "vistas": 3,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
