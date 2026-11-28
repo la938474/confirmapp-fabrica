@@ -1,10 +1,21 @@
 {
- "leido": "2026-11-28T01:33:40+00:00",
+ "leido": "2026-11-28T03:09:16+00:00",
  "resumen": {
-  "pendientes_por_publicar": 25,
+  "pendientes_por_publicar": 24,
   "comentarios_7_dias": 1,
   "errores": [],
   "publicados": [
+   {
+    "id": "2026-11-22-sinvscon-bodas",
+    "giro": "bodas",
+    "gancho": "Misma boda. Mismos invitados. Sin vs con Confirmapp",
+    "fecha": "2026-11-28",
+    "vistas": 0,
+    "likes": 0,
+    "compartidos": 0,
+    "guardados": 0,
+    "comentarios": 0
+   },
    {
     "id": "2026-11-22-dental-sinvscon",
     "giro": "dental",
@@ -21,7 +32,7 @@
     "giro": "bodas",
     "gancho": "¿Sigues persiguiendo a tus invitados para que confirmen?",
     "fecha": "2026-11-27",
-    "vistas": 3,
+    "vistas": 4,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
@@ -54,7 +65,7 @@
     "giro": "otro",
     "gancho": "¿Ya tienes la agenda inteligente de Confirmapp?",
     "fecha": "2026-11-26",
-    "vistas": 1,
+    "vistas": 3,
     "likes": 0,
     "compartidos": 0,
     "guardados": 0,
